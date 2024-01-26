@@ -13,7 +13,7 @@ public class SushiController : MonoBehaviour
     public Vector3 iniPos;
 
     public GameObject tableObj;
-    private GameObject frontObj;
+    private GameObject frontObj; //手前のオブジェクトを取得
 
     [SerializeField] private bool onSushi = false; //カーソルと寿司が重なってるときtrue
     [SerializeField]private bool sushiRay = false; //寿司ドラッグ時マウスからrayを飛ばすか否か
@@ -47,8 +47,8 @@ public class SushiController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector2.zero);
-
+        RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector3.forward);
+        Debug.Log(GetMousePos().x);
         #region 寿司ドラッグ時の処理
         if (sushiRay)
         {
@@ -121,11 +121,12 @@ public class SushiController : MonoBehaviour
             if (!sushiRay) sushiRay = true;
             offset = transform.position - GetMousePos();
             renderer.sortingOrder = 300;
+            gameObject.transform.parent = null;
         }
 
         if (sushiRay && Input.GetMouseButton(0))
         {
-            transform.position = GetMousePos() + offset;
+            transform.position = new Vector3(GetMousePos().x, GetMousePos().y, 0); //+ offset;
         }
 
         if (sushiRay && Input.GetMouseButtonUp(0))
@@ -133,7 +134,7 @@ public class SushiController : MonoBehaviour
             if (order)
             {
                 order = false;
-                Destroy(gameObject);
+                Destroy(gameObject.transform.root.gameObject);
             }
             else
             {
