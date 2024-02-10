@@ -7,9 +7,12 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] new Camera camera;
+    //[SerializeField] new Camera camera;
     private Vector3 offset;
     public Vector3 iniPos;
+
+    public GameObject getMousePosObj;
+    GetMousePosSc getMousePosSc;
 
     [SerializeField]private bool onItem = false; //カーソルとアイテムが重なってるときtrue
     [SerializeField]private bool itemRay = false; //アイテムドラッグ時マウスからrayを飛ばすか否か
@@ -20,12 +23,15 @@ public class ItemController : MonoBehaviour
 
     public GameObject regenerator;
     Regenerator regeneratorSc;
+
     new Renderer renderer;
 
     // Start is called before the first frame update
     void Start()
     {
         iniPos = transform.position;
+
+        getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
         regeneratorSc = regenerator.GetComponent<Regenerator>();
 
         renderer = gameObject.GetComponent<Renderer>();
@@ -39,7 +45,6 @@ public class ItemController : MonoBehaviour
         #region アイテムドラッグでの吹き出しに当たった時の処理
         if (itemRay)
         {
-            //RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector2.zero);
             Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
             if (hits != null)
@@ -89,7 +94,6 @@ public class ItemController : MonoBehaviour
         #region アイテムの上にカーソルを乗せた時とそこから離した時の処理
         else if (!itemRay)
         {
-            //RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector2.zero);
             Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
             if (hits != null)
@@ -159,12 +163,12 @@ public class ItemController : MonoBehaviour
         }
         #endregion
     }
-
+    
     private Vector3 GetMousePos()
     {
-        return camera.ScreenToWorldPoint(Input.mousePosition);
+        return getMousePosSc.GetMousePos();
     }
-
+    
     
 
     public void ResetPos()

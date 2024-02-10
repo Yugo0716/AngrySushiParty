@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de26089fdbbe724997c50704e63bc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 6741885368668505027, guid: 795647b23918a8646814052c06d7ffc7, type: 3}
   iniPos: {x: 0, y: 0, z: 0}
+  getMousePosObj: {fileID: 6323869568080263996, guid: d8de28907ddd32a49b9523c6ca783a25, type: 3}
   tableObj: {fileID: 5952423968796852739, guid: 14eb0f704fb8f52479661f1b613383ac, type: 3}
   onSushi: 0
   sushiRay: 0
@@ -152,4 +152,3 @@ MonoBehaviour:
   sushiPos: {fileID: 0}
   speed: 0
   toRight: 1
-  checker: {fileID: 8807097032255412666, guid: 570e90301695fd3448fba442d574074d, type: 3}
