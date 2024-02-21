@@ -11,7 +11,7 @@ public class ItemController : MonoBehaviour
     private Vector3 offset;
     public Vector3 iniPos;
 
-    public GameObject getMousePosObj;
+    public GameObject getMousePosObj; //マウス座標取得のオブジェクト
     GetMousePosSc getMousePosSc;
 
     [SerializeField]private bool onItem = false; //カーソルとアイテムが重なってるときtrue
@@ -26,15 +26,22 @@ public class ItemController : MonoBehaviour
 
     new Renderer renderer;
 
+    GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         iniPos = transform.position;
 
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
+
         regeneratorSc = regenerator.GetComponent<Regenerator>();
 
         renderer = gameObject.GetComponent<Renderer>();
+
+        //ScorePlusをするため
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        gameManager = canvas.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -147,9 +154,10 @@ public class ItemController : MonoBehaviour
 
         if (itemRay && Input.GetMouseButtonUp(0))
         {
-            if (order)
+            if (order) //吹き出しの注文に対応完了
             {
                 order = false;
+                gameManager.ScorePlus(GameManager.ScoreType.bubbleNormal);
                 Destroy(bubbleObj);
                 regeneratorSc.StartCoroutine("Regenerate", gameObject);
             }

@@ -19,9 +19,9 @@ public class Bubble_test : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (time > 2.7f && transform.localScale.x < 7)
+        if (time > 2.7f && transform.localScale.x < 8)
         {
-            transform.localScale *= 1.0003f;
+            transform.localScale *= 1.0006f;
         }
 
         if(time > 16.0f)

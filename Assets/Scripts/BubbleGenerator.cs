@@ -16,8 +16,8 @@ public class BubbleGenerator : MonoBehaviour
     public Transform pointC;
     
     private float time;
-    [SerializeField] float interval = 4.0f;
-    [SerializeField] private int counter = 8;
+    [SerializeField] float interval = 4.0f; //吹き出しを出す間隔
+    [SerializeField] private int counter = 8; //吹き出しを出すたびに増加(layerに使う)
     new Renderer renderer;
 
     // Start is called before the first frame update

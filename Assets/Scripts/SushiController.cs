@@ -33,6 +33,7 @@ public class SushiController : MonoBehaviour
     [SerializeField] private bool toRight = true; //‰E‚É—¬‚ê‚éŽõŽi‚È‚Ì‚©
     bool speedCheck = false;
 
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +45,11 @@ public class SushiController : MonoBehaviour
         rbody = sushiPos.GetComponent<Rigidbody2D>();
         speed = rbody.velocity.x;
 
-
-
         renderer = GetComponent<Renderer>();
+
+        //ScorePlus‚ð‚·‚é‚½‚ß
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        gameManager = canvas.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -135,9 +138,10 @@ public class SushiController : MonoBehaviour
 
         if (sushiRay && Input.GetMouseButtonUp(0))
         {
-            if (order)
+            if (order) //ŽõŽiƒQƒbƒg
             {
                 order = false;
+                gameManager.ScorePlus(GameManager.ScoreType.sushi);
                 Destroy(gameObject.transform.root.gameObject);
             }
             else
