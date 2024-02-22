@@ -6,6 +6,9 @@ using UnityEngine;
 public class SushiGenerator : MonoBehaviour
 {
     public GameObject sushiObj;
+    public GameObject timeManagerObj;
+    TimeManager timeManager;
+
     private float time;
     [SerializeField] private float interval = 3.0f;
 
@@ -13,17 +16,24 @@ public class SushiGenerator : MonoBehaviour
     void Start()
     {
         time = 0f;
+
+        //gameStateŽæ“¾‚Ì‚½‚ß
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        timeManager = canvas.GetComponent<TimeManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-
-        if (time >= interval)
+        if(timeManager.gameState == TimeManager.GameState.play)
         {
-            Generate(sushiObj);
-            time = 0;
+            time += Time.deltaTime;
+
+            if (time >= interval)
+            {
+                Generate(sushiObj);
+                time = 0;
+            }
         }
     }
 

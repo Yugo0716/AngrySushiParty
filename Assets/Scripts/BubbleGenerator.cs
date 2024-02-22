@@ -20,23 +20,31 @@ public class BubbleGenerator : MonoBehaviour
     [SerializeField] private int counter = 8; //吹き出しを出すたびに増加(layerに使う)
     new Renderer renderer;
 
+    TimeManager timeManager;
+
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        timeManager = canvas.GetComponent<TimeManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-
-        if (time >= interval)
+        if(timeManager.gameState == TimeManager.GameState.play)
         {
-            Generate("BubbleNormal");
-            counter++;
-            time = 0;
+            time += Time.deltaTime;
+
+            if (time >= interval)
+            {
+                Generate("BubbleNormal");
+                counter++;
+                time = 0;
+            }
         }
+        
     }
 
     //吹き出しを作る

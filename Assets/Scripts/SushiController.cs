@@ -34,6 +34,7 @@ public class SushiController : MonoBehaviour
     bool speedCheck = false;
 
     GameManager gameManager;
+    TimeManager timeManager;
 
     // Start is called before the first frame update
     void Start()
@@ -50,110 +51,120 @@ public class SushiController : MonoBehaviour
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         gameManager = canvas.GetComponent<GameManager>();
+
+        timeManager = canvas.GetComponent<TimeManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector3.forward);
- 
-        #region 寿司ドラッグ時の処理
-        if (sushiRay)
+        if(timeManager.gameState == TimeManager.GameState.play)
         {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector3.forward);
 
-            if (hits != null)
+            #region 寿司ドラッグ時の処理
+            if (sushiRay)
             {
-                //rayがあたったものの中にテーブルがあればorder=true(吹き出しと重なっててもいい)なければfalse
-                foreach (RaycastHit2D hit in hits)
-                {
-                    if (hit.collider.gameObject.tag == "Table")
-                    {
-                        if (!preorder) preorder = true;
-                    }
-                }
 
-                if (preorder)
+                if (hits != null)
                 {
-                    order = true;
-                    preorder = false;
+                    //rayがあたったものの中にテーブルがあればorder=true(吹き出しと重なっててもいい)なければfalse
+                    foreach (RaycastHit2D hit in hits)
+                    {
+                        if (hit.collider.gameObject.tag == "Table")
+                        {
+                            if (!preorder) preorder = true;
+                        }
+                    }
+
+                    if (preorder)
+                    {
+                        order = true;
+                        preorder = false;
+                    }
+                    else order = false;
                 }
-                else order = false;
             }
-        }
-        #endregion
+            #endregion
 
-        #region 寿司の上にカーソルを乗せた時とそこから離した時の処理
-        else if (!sushiRay)
-        {
-            Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
-
-            if (hits != null)
+            #region 寿司の上にカーソルを乗せた時とそこから離した時の処理
+            else if (!sushiRay)
             {
-                //rayがあたったもののうち、寿司と吹き出しのもののsortingLayerを調べる
-                foreach (RaycastHit2D hit in hits)
+                Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
+
+                if (hits != null)
                 {
-                    if (hit.collider.gameObject.tag == "BubbleNormal" || hit.collider.gameObject.tag == "Sushi")
+                    //rayがあたったもののうち、寿司と吹き出しのもののsortingLayerを調べる
+                    foreach (RaycastHit2D hit in hits)
                     {
-                        Renderer renderer = hit.collider.gameObject.GetComponent<Renderer>();
-                        keyValuePairs.Add(hit.collider.gameObject, renderer.sortingOrder);
+                        if (hit.collider.gameObject.tag == "BubbleNormal" || hit.collider.gameObject.tag == "Sushi")
+                        {
+                            Renderer renderer = hit.collider.gameObject.GetComponent<Renderer>();
+                            keyValuePairs.Add(hit.collider.gameObject, renderer.sortingOrder);
+                        }
+                    }
+
+                    //そもそも寿司と吹き出しに1個もヒットしないとき
+                    if (keyValuePairs.Count <= 0)
+                    {
+                        if (frontObj != null) frontObj = null;
+                    }
+
+                    //sortingOrderが最大のものが寿司ならsushiRay=true
+                    if (keyValuePairs.Count > 0)
+                    {
+                        frontObj = keyValuePairs.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+                    }
+
+                    if (frontObj == gameObject)
+                    {
+                        if (!onSushi) onSushi = true;
+                    }
+                    else
+                    {
+                        if (onSushi) onSushi = false;
                     }
                 }
+            }
+            #endregion
 
-                //そもそも寿司と吹き出しに1個もヒットしないとき
-                if (keyValuePairs.Count <= 0)
-                {
-                    if (frontObj != null) frontObj = null;
-                }
+            #region ドラッグで移動させる処理
+            if (onSushi && Input.GetMouseButtonDown(0))
+            {
+                if (!sushiRay) sushiRay = true;
+                offset = transform.position - GetMousePos();
+                renderer.sortingOrder = 300;
+            }
 
-                //sortingOrderが最大のものが寿司ならsushiRay=true
-                if (keyValuePairs.Count > 0)
-                {
-                    frontObj = keyValuePairs.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-                }
+            if (sushiRay && Input.GetMouseButton(0))
+            {
+                transform.position = new Vector3(GetMousePos().x, GetMousePos().y, 0) + offset;
+            }
 
-                if(frontObj == gameObject)
+            if (sushiRay && Input.GetMouseButtonUp(0))
+            {
+                if (order) //寿司ゲット
                 {
-                    if(!onSushi) onSushi = true;
+                    order = false;
+                    gameManager.ScorePlus(GameManager.ScoreType.sushi);
+                    Destroy(gameObject.transform.root.gameObject);
                 }
                 else
                 {
-                    if(onSushi) onSushi = false;
+                    ResetPos();
                 }
+
+                renderer.sortingOrder = 5;
+                sushiRay = false;
             }
+            #endregion
+
         }
-        #endregion
-        
-        #region ドラッグで移動させる処理
-        if (onSushi && Input.GetMouseButtonDown(0))
+        else
         {
-            if (!sushiRay) sushiRay = true;
-            offset = transform.position - GetMousePos();
-            renderer.sortingOrder = 300;
+            ResetPos() ;
         }
 
-        if (sushiRay && Input.GetMouseButton(0))
-        {
-            transform.position = new Vector3(GetMousePos().x, GetMousePos().y, 0) + offset;
-        }
-
-        if (sushiRay && Input.GetMouseButtonUp(0))
-        {
-            if (order) //寿司ゲット
-            {
-                order = false;
-                gameManager.ScorePlus(GameManager.ScoreType.sushi);
-                Destroy(gameObject.transform.root.gameObject);
-            }
-            else
-            {
-                ResetPos();
-            }
-
-            renderer.sortingOrder = 5;
-            sushiRay = false;
-        }
-        #endregion
-        
     }
 
     private void FixedUpdate()

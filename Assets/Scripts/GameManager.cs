@@ -9,14 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreText;
     public int score = 0;
 
-    public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
-    {
-        ready,
-        early, 
-        middle,
-        last,
-        end
-    }
+    
 
     public enum ScoreType //スコアを得るための種類
     {
