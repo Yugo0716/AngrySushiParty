@@ -8,9 +8,9 @@ using static UnityEditor.Progress;
 
 public class SushiController : MonoBehaviour
 {
+    //ドラッグ処理関連
     private Vector3 offset;
     public Vector3 iniPos;
-
     public GameObject getMousePosObj;
     GetMousePosSc getMousePosSc;
 
@@ -41,8 +41,10 @@ public class SushiController : MonoBehaviour
     {
         getMousePosObj = GameObject.FindWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
+
         iniPos = transform.position;
         sushiPos = transform.root.gameObject;
+
         rbody = sushiPos.GetComponent<Rigidbody2D>();
         speed = rbody.velocity.x;
 

@@ -47,7 +47,7 @@ public class TimeManager : MonoBehaviour
             }
         }
 
-        timeText.GetComponent<TextMeshProUGUI>().text = "time: " + ((int)displayTime).ToString();
+        timeText.GetComponent<TextMeshProUGUI>().text = "time: " + (Mathf.Ceil(displayTime)).ToString();
     }
 
     public void StartCountDown()
