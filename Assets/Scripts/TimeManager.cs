@@ -10,9 +10,9 @@ public class TimeManager : MonoBehaviour
     public GameObject timeText;
 
     public bool countDown = false;
-    public float maxTime = 60;
+    public int maxTime = 60;
     public float displayTime = 0;
-    float time = 0;
+    public float time = 0;
 
     public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
     {

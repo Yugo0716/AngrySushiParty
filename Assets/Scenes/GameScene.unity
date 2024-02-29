@@ -294,7 +294,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 253518745116361322, guid: f1dde677be90ead4c8183fcc4c46d916, type: 3}
       propertyPath: interval
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 253518745116361322, guid: f1dde677be90ead4c8183fcc4c46d916, type: 3}
       propertyPath: sushiObj
@@ -518,8 +518,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 559703382}
   countDown: 0
-  maxTime: 20
+  maxTime: 60
   displayTime: 0
+  time: 0
   gameState: 0
 --- !u!1 &559703382
 GameObject:

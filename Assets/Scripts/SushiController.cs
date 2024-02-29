@@ -173,11 +173,11 @@ public class SushiController : MonoBehaviour
     {
         if (toRight)
         {
-            if (speed != 2.0f) speed = 2.0f;
+            if (speed != 2.0f) speed = 3.0f;
         }
         else
         {
-            if (speed != -2.0f) speed = -2.0f;
+            if (speed != -2.0f) speed = -3.0f;
         }
 
         if (!speedCheck)
