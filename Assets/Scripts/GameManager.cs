@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour
     {
         if(type == ScoreType.sushi)
         {
-            score += 100;
+            score += 300;
         }
         else if(type == ScoreType.bubbleNormal)
         {
-            score += 300;
+            score += 100;
         }
         else if (type == ScoreType.bubbleOrder)
         {

@@ -68,6 +68,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8903476905382729332}
     m_Modifications:
+    - target: {fileID: 2234886496010866985, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7335177453886004562, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
       propertyPath: m_Name
       value: LSushiNormal
@@ -115,10 +119,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7335177453886004562, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5435071171904042452}
   m_SourcePrefab: {fileID: 100100000, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
 --- !u!4 &1467808125115788091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7617460678409043751, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
   m_PrefabInstance: {fileID: 9072531781552886812}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1739465404053621070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7335177453886004562, guid: 09be010c3f1a2324f82938e264febe36, type: 3}
+  m_PrefabInstance: {fileID: 9072531781552886812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5435071171904042452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739465404053621070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6b4cb8252f98e4cb8e1de857bc321e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iniPos: {x: 0, y: 0, z: 0}
+  getMousePosObj: {fileID: 6323869568080263996, guid: d8de28907ddd32a49b9523c6ca783a25, type: 3}
+  tableObj: {fileID: 5952423968796852739, guid: 14eb0f704fb8f52479661f1b613383ac, type: 3}
+  onSushi: 0
+  sushiRay: 0
+  order: 0
+  sushiPos: {fileID: 0}
+  speed: 0
+  toRight: 0

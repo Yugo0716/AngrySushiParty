@@ -25,19 +25,22 @@ public class SushiController : MonoBehaviour
 
     [SerializeField] private GameObject sushiPos;
 
-    Rigidbody2D rbody;
-    [SerializeField] private float speed = 0f;
+    protected Rigidbody2D rbody;
+
+    
+    //[SerializeField] private float speed = 0f;
 
     new Renderer renderer;
 
-    [SerializeField] private bool toRight = true; //右に流れる寿司なのか
-    bool speedCheck = false;
+    //[SerializeField] private bool toRight = true; //右に流れる寿司なのか
+    //bool speedCheck = false;
+    
 
-    GameManager gameManager;
+    protected GameManager gameManager;
     TimeManager timeManager;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         getMousePosObj = GameObject.FindWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
@@ -46,9 +49,12 @@ public class SushiController : MonoBehaviour
         sushiPos = transform.root.gameObject;
 
         rbody = sushiPos.GetComponent<Rigidbody2D>();
-        speed = rbody.velocity.x;
+
+        
+        //speed = rbody.velocity.x;
 
         renderer = GetComponent<Renderer>();
+        
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -58,7 +64,7 @@ public class SushiController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(timeManager.gameState == TimeManager.GameState.play)
         {
@@ -67,12 +73,11 @@ public class SushiController : MonoBehaviour
             #region 寿司ドラッグ時の処理
             if (sushiRay)
             {
-
                 if (hits != null)
                 {
                     //rayがあたったものの中にテーブルがあればorder=true(吹き出しと重なっててもいい)なければfalse
                     foreach (RaycastHit2D hit in hits)
-                    {
+                    {//ここいじる
                         if (hit.collider.gameObject.tag == "Table")
                         {
                             if (!preorder) preorder = true;
@@ -99,7 +104,7 @@ public class SushiController : MonoBehaviour
                     //rayがあたったもののうち、寿司と吹き出しのもののsortingLayerを調べる
                     foreach (RaycastHit2D hit in hits)
                     {
-                        if (hit.collider.gameObject.tag == "BubbleNormal" || hit.collider.gameObject.tag == "Sushi")
+                        if (ClickCheckTag(hit.collider.gameObject.tag))
                         {
                             Renderer renderer = hit.collider.gameObject.GetComponent<Renderer>();
                             keyValuePairs.Add(hit.collider.gameObject, renderer.sortingOrder);
@@ -148,7 +153,7 @@ public class SushiController : MonoBehaviour
                 if (order) //寿司ゲット
                 {
                     order = false;
-                    gameManager.ScorePlus(GameManager.ScoreType.sushi);
+                    GetScore();
                     Destroy(gameObject.transform.root.gameObject);
                 }
                 else
@@ -160,7 +165,6 @@ public class SushiController : MonoBehaviour
                 sushiRay = false;
             }
             #endregion
-
         }
         else
         {
@@ -169,29 +173,21 @@ public class SushiController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        if (toRight)
-        {
-            if (speed != 2.0f) speed = 3.0f;
-        }
-        else
-        {
-            if (speed != -2.0f) speed = -3.0f;
-        }
-
-        if (!speedCheck)
-        {
-            rbody.velocity = new Vector2(speed, 0f);
-            speedCheck = true;
-        }
-    }
-
     private Vector3 GetMousePos()
     {
         return getMousePosSc.GetMousePos();
     }
 
+    public virtual bool ClickCheckTag(string tag)
+    {
+        if (tag == "BubbleNormal" || tag == "Sushi" || tag == "BubbleOrder") return true;
+        else return false;
+    }
+
+    public virtual void GetScore()
+    {
+        gameManager.ScorePlus(GameManager.ScoreType.sushi);
+    }
     
     
     private void ResetPos()

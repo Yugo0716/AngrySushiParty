@@ -39,6 +39,7 @@ public class SushiGenerator : MonoBehaviour
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         timeManager = canvas.GetComponent<TimeManager>();
 
+        #region //流れる寿司の数や流れるタイミングを決める処理
         maxCount = timeManager.maxTime-3;
 
         /*//序盤、中盤、終盤に配置する寿司の数を確定
@@ -77,6 +78,7 @@ public class SushiGenerator : MonoBehaviour
         {
             goSushi[i] = true;
         }
+        #endregion
 
         time = 0f;
 
@@ -106,7 +108,6 @@ public class SushiGenerator : MonoBehaviour
                 if (goSushi[totalTime]) Generate(sushiObj);
                 time = 0;
                 totalTime++;
-                Debug.Log(totalTime);
             }            
         }
     }
@@ -144,6 +145,7 @@ public class SushiGenerator : MonoBehaviour
         return returnList;
     }
 
+    //3つのリストを連結
     public List<int> Unit3List(List<int> listA, List<int> listB, List<int> listC)
     {
         var list = (listA.Concat(listB).ToList()).Concat(listC).ToList();
@@ -151,6 +153,7 @@ public class SushiGenerator : MonoBehaviour
         return list;
     }
 
+    //重み付きで確率で選ぶ
     int Choose(float[] probs)
     {
 
