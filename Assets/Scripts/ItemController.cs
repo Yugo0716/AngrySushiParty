@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
+//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -16,7 +17,8 @@ public class ItemController : MonoBehaviour
 
     [SerializeField]private bool onItem = false; //カーソルとアイテムが重なってるときtrue
     [SerializeField]private bool itemRay = false; //アイテムドラッグ時マウスからrayを飛ばすか否か
-    private GameObject frontObj;
+    private GameObject frontObjA;
+    private GameObject frontObjB;
 
     private GameObject bubbleObj;
     [SerializeField] private bool order = false; //マウスから離したら注文対応できるという状況
@@ -53,7 +55,7 @@ public class ItemController : MonoBehaviour
     {
         if(timeManager.gameState == TimeManager.GameState.play)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(GetMousePos(), Vector2.zero);
+            RaycastHit2D[] hits = getMousePosSc.GetRaycastHit();
 
             #region アイテムドラッグでの吹き出しに当たった時の処理
             if (itemRay)
@@ -62,32 +64,13 @@ public class ItemController : MonoBehaviour
 
                 if (hits != null)
                 {
-                    //rayがあたったもののうち、吹き出しのもののsortingLayerを調べる
-                    foreach (RaycastHit2D hit in hits)
-                    {
-                        if (hit.collider.gameObject.tag == "BubbleNormal")
-                        {
-                            Renderer renderer = hit.collider.gameObject.GetComponent<Renderer>();
-                            keyValuePairs.Add(hit.collider.gameObject, renderer.sortingOrder);
-                        }
-                    }
-
-                    //そもそも吹き出しに1個もヒットしないとき
-                    if (keyValuePairs.Count <= 0)
-                    {
-                        if (order) order = false;
-                        if (bubbleObj != null) bubbleObj = null;
-                    }
-
-                    //sortingOrderが最大のものがbubbleObjとして選ばれる
-                    if (keyValuePairs.Count > 0)
-                    {
-                        bubbleObj = keyValuePairs.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-                    }
+                    string[] tagsA = { "BubbleNormal", "BubbleOrder" };
+                    frontObjA = getMousePosSc.GetFrontObj(hits, tagsA);
 
                     //bubbleObjとアイテムの種類が一致してるなら対応可能(order=true)
-                    if (bubbleObj != null)
+                    if (frontObjA != null && frontObjA.tag == "BubbleNormal")
                     {
+                        bubbleObj = frontObjA;
                         ItemTypeSc bubbleType = bubbleObj.GetComponent<ItemTypeSc>();
                         ItemTypeSc itemType = gameObject.GetComponent<ItemTypeSc>();
 
@@ -100,6 +83,10 @@ public class ItemController : MonoBehaviour
                             if (order) order = false;
                         }
                     }
+                    else
+                    {
+                        if(order) order = false;
+                    }
                 }
             }
             #endregion
@@ -108,39 +95,17 @@ public class ItemController : MonoBehaviour
             else if (!itemRay)
             {
                 Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
+                string[] tagsB = { "Item", "BubbleNormal", "BubbleOrder" };
 
-                if (hits != null)
+                frontObjB = getMousePosSc.GetFrontObj(hits, tagsB);
+
+                if (frontObjB == gameObject)
                 {
-                    //rayがあたったもののうち、寿司と吹き出しのもののsortingLayerを調べる
-                    foreach (RaycastHit2D hit in hits)
-                    {
-                        if (hit.collider.gameObject.tag == "BubbleNormal" || hit.collider.gameObject.tag == "Item")
-                        {
-                            Renderer renderer = hit.collider.gameObject.GetComponent<Renderer>();
-                            keyValuePairs.Add(hit.collider.gameObject, renderer.sortingOrder);
-                        }
-                    }
-
-                    //そもそも寿司と吹き出しに1個もヒットしないとき
-                    if (keyValuePairs.Count <= 0)
-                    {
-                        if (frontObj != null) frontObj = null;
-                    }
-
-                    //sortingOrderが最大のものが寿司ならitemRay=true
-                    if (keyValuePairs.Count > 0)
-                    {
-                        frontObj = keyValuePairs.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-                    }
-
-                    if (frontObj == gameObject)
-                    {
-                        onItem = true;
-                    }
-                    else
-                    {
-                        onItem = false;
-                    }
+                    onItem = true;
+                }
+                else
+                {
+                    onItem = false;
                 }
             }
             #endregion

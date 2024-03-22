@@ -28,6 +28,8 @@ public class TimeManager : MonoBehaviour
     {
         gameState = GameState.ready;
         displayTime = maxTime;
+
+        StartCountDown();
     }
 
     // Update is called once per frame

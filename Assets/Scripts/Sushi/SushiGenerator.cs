@@ -19,15 +19,12 @@ public class SushiGenerator : MonoBehaviour
     [SerializeField] public bool omomi = true;
 
     [SerializeField][Tooltip("寿司の枠数")]int maxCount;
-    [SerializeField][Tooltip("流れる寿司の数")]int sushiCount = 35;
+    [SerializeField][Tooltip("流れる寿司の数")]int sushiCount = 25;
 
     List<bool> goSushi = new List<bool>();
     
     List<int> indexList = new List<int>();
 
-    //[SerializeField] AnimationCurve curve;
-
-    //float[] probs = new float[] { 20f, 30f, 50f }; //序盤、中盤、終盤の確率の重み
     int[] nums = new int[] { 0, 0, 0 }; //序盤、中盤、終盤に配置する寿司の数
     int[] maxNums = new int[] { 19, 19, 19 }; //序盤、中盤、終盤に配置できる寿司の枠数(19×3)
 
@@ -42,13 +39,6 @@ public class SushiGenerator : MonoBehaviour
         #region //流れる寿司の数や流れるタイミングを決める処理
         maxCount = timeManager.maxTime-3;
 
-        /*//序盤、中盤、終盤に配置する寿司の数を確定
-        for (int i = 0; i < sushiCount; i++)
-        {
-            int sushiId = Choose(probs);
-            nums[sushiId] += 1;
-        }*/
-
         //一旦寿司を流すか否かをfalseで初期化 バグ対策でちょっと大きめにサイズを取る
         for (int i = 0; i < maxCount + 5; i++)
         {
@@ -57,9 +47,9 @@ public class SushiGenerator : MonoBehaviour
 
         if (omomi)
         {
-            nums[0] = 7;
-            nums[1] = 12;
-            nums[2] = 16;
+            nums[0] = 6;
+            nums[1] = 8;
+            nums[2] = 11;
 
             //序盤中盤終盤それぞれの寿司の配置場所を確定する
             List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
@@ -83,17 +73,7 @@ public class SushiGenerator : MonoBehaviour
         time = 0f;
 
         
-        
-        /*//animationcurveで重みづけするよう　多分無理
-        for(int i = 0; i < 30; i++)
-        {
-            tests[i] = (int)(CurveWeightedRandom(curve) * 56);
-        }
 
-        foreach(int i in tests) Debug.Log(tests[i]);
-        
-        test = (int)(CurveWeightedRandom(curve) * 56);
-        Debug.Log(test);*/
     }
 
     // Update is called once per frame
@@ -115,11 +95,6 @@ public class SushiGenerator : MonoBehaviour
     void Generate(GameObject generateObj)
     {
         Instantiate(generateObj, transform.position, generateObj.transform.rotation);
-    }
-
-    float CurveWeightedRandom(AnimationCurve curve)
-    {
-        return curve.Evaluate(UnityEngine.Random.value);
     }
 
  
@@ -151,32 +126,5 @@ public class SushiGenerator : MonoBehaviour
         var list = (listA.Concat(listB).ToList()).Concat(listC).ToList();
 
         return list;
-    }
-
-    //重み付きで確率で選ぶ
-    int Choose(float[] probs)
-    {
-
-        float total = 0;
-
-        foreach (float elem in probs)
-        {
-            total += elem;
-        }
-
-        float randomPoint = UnityEngine.Random.value * total;
-
-        for (int i = 0; i < probs.Length; i++)
-        {
-            if (randomPoint < probs[i])
-            {
-                return i;
-            }
-            else
-            {
-                randomPoint -= probs[i];
-            }
-        }
-        return probs.Length - 1;
     }
 }
