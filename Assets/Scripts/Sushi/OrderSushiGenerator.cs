@@ -40,16 +40,25 @@ public class OrderSushiGenerator : MonoBehaviour
         {
             time += Time.deltaTime;
 
-            //注文寿司を動かす，吹き出しを表示させる
+            //注文寿司を動かす，吹き出しを表示させる 前の注文寿司が残ってるなら無し
             if(orderCount < 3)
             {
                 if(time > orderIntervals[orderCount])
                 {
-                    StartCoroutine("StartOrder", orderCount);
-
-                    time = 0;
-                    orderCount++;
+                    if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount-1] == null))
+                    {
+                        StartCoroutine("StartOrder", orderCount);
+                        orderCount++;
+                    }                    
+                    time = 0;                    
                 }   
+            }
+        }
+        else
+        {
+            foreach (GameObject obj in sushiObjPoses)
+            {
+                if(obj != null && obj.activeSelf) obj.SetActive(false);
             }
         }
     }
