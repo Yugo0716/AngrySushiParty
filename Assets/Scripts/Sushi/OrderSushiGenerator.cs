@@ -54,7 +54,7 @@ public class OrderSushiGenerator : MonoBehaviour
                 }   
             }
         }
-        else
+        else if(timeManager.gameState == TimeManager.GameState.end)
         {
             foreach (GameObject obj in sushiObjPoses)
             {

@@ -51,6 +51,6 @@ public class OrderSushi : SushiController
     }
     public override void GetScore()
     {
-        gameManager.ScorePlus(GameManager.ScoreType.bubbleOrder);
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleOrder);
     }
 }

@@ -9,7 +9,7 @@ public class SushiController : MonoBehaviour
 {
     //ドラッグ処理関連
     private Vector3 offset;
-    public Vector3 iniPos;
+    [SerializeField]public Vector3 iniPos;
     public GameObject getMousePosObj;
     protected GetMousePosSc getMousePosSc;
 
@@ -30,7 +30,7 @@ public class SushiController : MonoBehaviour
 
     new Renderer renderer;
 
-    protected GameManager gameManager;
+    protected ScoreManager scoreManager;
     TimeManager timeManager;
 
     // Start is called before the first frame update
@@ -41,14 +41,14 @@ public class SushiController : MonoBehaviour
 
         iniPos = transform.localPosition;
         sushiPos = transform.root.gameObject;
-
+        
         rbody = sushiPos.GetComponent<Rigidbody2D>();
         renderer = GetComponent<Renderer>();
         
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
-        gameManager = canvas.GetComponent<GameManager>();
+        scoreManager = canvas.GetComponent<ScoreManager>();
 
         timeManager = canvas.GetComponent<TimeManager>();
     }
@@ -122,11 +122,6 @@ public class SushiController : MonoBehaviour
             }
             #endregion
         }
-        else
-        {
-            ResetPos() ;
-        }
-
     }
 
     private Vector3 GetMousePos()
@@ -158,7 +153,7 @@ public class SushiController : MonoBehaviour
 
     public virtual void GetScore()
     {
-        gameManager.ScorePlus(GameManager.ScoreType.sushi);
+        scoreManager.ScorePlus(ScoreManager.ScoreType.sushi);
     }
     
     

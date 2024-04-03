@@ -28,7 +28,7 @@ public class ItemController : MonoBehaviour
 
     new Renderer renderer;
 
-    GameManager gameManager;
+    ScoreManager scoreManager;
     TimeManager timeManager;
 
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class ItemController : MonoBehaviour
 
         //ScorePlus‚ğ‚·‚é‚½‚ß
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
-        gameManager = canvas.GetComponent<GameManager>();
+        scoreManager = canvas.GetComponent<ScoreManager>();
 
         //gameStateæ“¾‚Ì‚½‚ß
         timeManager = canvas.GetComponent<TimeManager>();
@@ -128,7 +128,7 @@ public class ItemController : MonoBehaviour
                 if (order) //‚«o‚µ‚Ì’•¶‚É‘Î‰Š®—¹
                 {
                     order = false;
-                    gameManager.ScorePlus(GameManager.ScoreType.bubbleNormal);
+                    scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
                 }
