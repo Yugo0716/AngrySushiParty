@@ -34,7 +34,7 @@ public class TimeManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (gameState)
         {
@@ -51,7 +51,7 @@ public class TimeManager : MonoBehaviour
                 break;
         }
 
-        timeText.GetComponent<TextMeshProUGUI>().text = "time: " + (Mathf.Ceil(displayTime)).ToString();
+        timeText.GetComponent<TextMeshProUGUI>().text = "time : " + (Mathf.Ceil(displayTime)).ToString();
     }
 
     void ReadyUpdate()
@@ -100,7 +100,7 @@ public class TimeManager : MonoBehaviour
         SceneManager.LoadScene("Result");
     }
 
-    public void GameSceneLoaded(Scene Result, LoadSceneMode mode)
+    public void GameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ResultManager resultManager = GameObject.FindGameObjectWithTag("canvas").GetComponent<ResultManager>();
         resultManager.score = scoreManager.score;

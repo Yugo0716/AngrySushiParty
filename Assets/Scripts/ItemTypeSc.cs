@@ -9,7 +9,7 @@ public class ItemTypeSc : MonoBehaviour
         shoyu,
         gari,
         wasabi,
-        pon
+        yunomi
     }
 
     public ItemType type;

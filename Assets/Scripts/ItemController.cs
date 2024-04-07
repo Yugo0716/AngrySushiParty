@@ -116,6 +116,7 @@ public class ItemController : MonoBehaviour
                 if (!itemRay) itemRay = true;
                 offset = transform.position - GetMousePos();
                 renderer.sortingOrder = 300;
+                renderer.sortingLayerName = "BubbleLayer";
             }
 
             if (itemRay && Input.GetMouseButton(0))
@@ -138,6 +139,7 @@ public class ItemController : MonoBehaviour
                 }
 
                 renderer.sortingOrder = 5;
+                renderer.sortingLayerName = "ItemLayer";
                 itemRay = false;
             }
             #endregion

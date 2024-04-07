@@ -12,6 +12,7 @@ TagManager:
   - canvas
   - OrderSushi
   - BubbleOrder
+  - Announce
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,31 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ThirdLane
+    uniqueID: 3141327581
+    locked: 0
+  - name: SecondLane
+    uniqueID: 3997518691
+    locked: 0
+  - name: SushiLayer
+    uniqueID: 729771649
+    locked: 0
+  - name: FirstLane
+    uniqueID: 3259040927
+    locked: 0
+  - name: OrderSushLayer
+    uniqueID: 724558953
+    locked: 0
+  - name: Table
+    uniqueID: 2147839657
+    locked: 0
+  - name: ItemLayer
+    uniqueID: 2934414087
+    locked: 0
+  - name: BubbleLayer
+    uniqueID: 422076083
+    locked: 0
+  - name: UILayer
+    uniqueID: 2440826511
     locked: 0

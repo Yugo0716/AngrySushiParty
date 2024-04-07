@@ -61,7 +61,17 @@ public class SushiGenerator : MonoBehaviour
 
         else
         {
-            indexList = GetRandom(maxCount, sushiCount, 0);
+            //indexList = GetRandom(maxCount, sushiCount, 0);
+            nums[0] = 8;
+            nums[1] = 9;
+            nums[2] = 8;
+
+            //序盤中盤終盤それぞれの寿司の配置場所を確定する
+            List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
+            List<int> middleIndexList = GetRandom(maxNums[1], nums[1], maxNums[0]);
+            List<int> lastIndexList = GetRandom(maxNums[2], nums[2], maxNums[0] + maxNums[1]);
+
+            indexList = Unit3List(earlyIndexList, middleIndexList, lastIndexList);
         }               
         
         foreach (int i in indexList)
@@ -77,7 +87,7 @@ public class SushiGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(timeManager.gameState == TimeManager.GameState.play)
         {           

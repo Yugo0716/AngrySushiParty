@@ -31,7 +31,7 @@ public class BubbleGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(timeManager.gameState == TimeManager.GameState.play)
         {

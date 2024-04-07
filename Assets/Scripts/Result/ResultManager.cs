@@ -10,7 +10,7 @@ public class ResultManager : MonoBehaviour
     public GameObject highScoreText;
     public GameObject congText;
 
-    public int score;
+    public int score = 3;
     int highScore = 0;
 
     bool isHighScore = false;

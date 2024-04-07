@@ -96,6 +96,7 @@ public class SushiController : MonoBehaviour
                 if (!sushiRay) sushiRay = true;
                 offset = transform.position - GetMousePos();
                 renderer.sortingOrder = 300;
+                renderer.sortingLayerName = "BubbleLayer";
             }
 
             if (sushiRay && Input.GetMouseButton(0))
@@ -118,6 +119,7 @@ public class SushiController : MonoBehaviour
                 }
 
                 renderer.sortingOrder = 5;
+                renderer.sortingLayerName = "Default";
                 sushiRay = false;
             }
             #endregion
