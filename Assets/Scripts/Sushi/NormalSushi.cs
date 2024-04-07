@@ -10,9 +10,9 @@ public class NormalSushi : SushiController
     [SerializeField] private bool toRight = true; //‰E‚É—¬‚ê‚éŽõŽi‚È‚Ì‚©
     bool speedCheck = false;
 
-    public Sprite[] sushiSprites;
-
     SpriteRenderer spriteRenderer;
+
+    public Sprite[] sushiSprites;
 
     // Start is called before the first frame update
     override public void Start()

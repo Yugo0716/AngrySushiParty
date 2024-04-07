@@ -61,7 +61,7 @@ public class SushiGenerator : MonoBehaviour
 
         else
         {
-            //indexList = GetRandom(maxCount, sushiCount, 0);
+            //indexList = GetRandom(maxCount, sushiCount, 0);©0‚©‚ç57‚ÅŠ®‘Sƒ‰ƒ“ƒ_ƒ€‚É‚µ‚½‚¢‚Æ‚«‚Í‚±‚Á‚¿
             nums[0] = 8;
             nums[1] = 9;
             nums[2] = 8;
@@ -81,9 +81,6 @@ public class SushiGenerator : MonoBehaviour
         #endregion
 
         time = 0f;
-
-        
-
     }
 
     // Update is called once per frame

@@ -6,17 +6,6 @@ using UnityEngine;
 public class GetMousePosSc : MonoBehaviour
 {
      [SerializeField] new Camera camera;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public Vector3 GetMousePos()
     {
@@ -63,18 +52,7 @@ public class GetMousePosSc : MonoBehaviour
             {
                 frontObj = keyValuePairs.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
             }            
-        }
-        
-        if(Input.GetKeyDown(KeyCode.Y))
-        {
-            /*
-            foreach (KeyValuePair<GameObject, int> item in keyValuePairs)
-            {
-                Debug.Log("キーは" + item.Key + "です。  バリューは" + item.Value + "です。");
-            }*/
-            //Debug.Log(frontObj);
-        }
-        
+        }       
         return frontObj;
     }
 }

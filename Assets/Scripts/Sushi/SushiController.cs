@@ -33,6 +33,8 @@ public class SushiController : MonoBehaviour
     protected ScoreManager scoreManager;
     TimeManager timeManager;
 
+    protected string defaultLayerName;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -40,11 +42,12 @@ public class SushiController : MonoBehaviour
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         iniPos = transform.localPosition;
-        sushiPos = transform.root.gameObject;
+        sushiPos = transform.parent.gameObject;
         
         rbody = sushiPos.GetComponent<Rigidbody2D>();
         renderer = GetComponent<Renderer>();
-        
+
+        defaultLayerName = renderer.sortingLayerName;
 
         //ScorePlus‚ð‚·‚é‚½‚ß
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -119,7 +122,7 @@ public class SushiController : MonoBehaviour
                 }
 
                 renderer.sortingOrder = 5;
-                renderer.sortingLayerName = "SushiLayer";
+                renderer.sortingLayerName = defaultLayerName;
                 sushiRay = false;
             }
             #endregion
