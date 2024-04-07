@@ -119,7 +119,7 @@ public class SushiController : MonoBehaviour
                 }
 
                 renderer.sortingOrder = 5;
-                renderer.sortingLayerName = "Default";
+                renderer.sortingLayerName = "SushiLayer";
                 sushiRay = false;
             }
             #endregion

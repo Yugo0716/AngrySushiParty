@@ -82,6 +82,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 598936861663971587}
     m_Modifications:
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -95,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -107,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -119,7 +131,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031001674854147224, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4772347103429416502, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       propertyPath: m_Enabled
@@ -129,13 +145,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: RSushiNormal
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 35258150954052842, guid: e729482bb3788d8488013cb25631d19b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6466006815484224910, guid: e729482bb3788d8488013cb25631d19b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8142223891615695870}
+    - targetCorrespondingSourceObject: {fileID: 6466006815484224910, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8743185038919499453}
   m_SourcePrefab: {fileID: 100100000, guid: e729482bb3788d8488013cb25631d19b, type: 3}
 --- !u!4 &4351575965379227794 stripped
 Transform:
@@ -166,6 +186,46 @@ MonoBehaviour:
   onSushi: 0
   sushiRay: 0
   order: 0
-  sushiPos: {fileID: 0}
+  sushiPos: {fileID: 5684069207117801162}
   speed: 0
   toRight: 1
+  sushiSprites:
+  - {fileID: 21300000, guid: c218dae1ad5a6964a80d10f362f031a3, type: 3}
+  - {fileID: 21300000, guid: 0860e3dd348addc448b6d72aa02a2e03, type: 3}
+  - {fileID: 21300000, guid: c25d3050e9530ac46b69965161601ad5, type: 3}
+  - {fileID: 21300000, guid: 8a2ac7915dcb19e4cbfe6599bf2f9c28, type: 3}
+--- !u!70 &8743185038919499453
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5920200593842958724}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 6.5, y: 3.3}
+  m_Direction: 1

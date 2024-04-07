@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NormalSushi : SushiController
 {
@@ -9,11 +10,18 @@ public class NormalSushi : SushiController
     [SerializeField] private bool toRight = true; //‰E‚É—¬‚ê‚éŽõŽi‚È‚Ì‚©
     bool speedCheck = false;
 
+    public Sprite[] sushiSprites;
+
+    SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     override public void Start()
     {
         base.Start();
         speed = rbody.velocity.x;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = GetSushiSprite(sushiSprites);
 
     }
 
@@ -39,5 +47,10 @@ public class NormalSushi : SushiController
             rbody.velocity = new Vector2(speed, 0f);
             speedCheck = true;
         }
+    }
+
+    Sprite GetSushiSprite(Sprite[] sprites)
+    {
+        return sprites[Random.Range(0, sprites.Length)];
     }
 }
