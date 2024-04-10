@@ -16,7 +16,7 @@ public class SushiController : MonoBehaviour
 
     public GameObject destroyObj;
 
-    public GameObject tableObj;
+    [SerializeField]GameObject tableObj;
     protected GameObject frontObj; //手前のオブジェクトを取得
 
     [SerializeField] private bool onSushi = false; //カーソルと寿司が重なってるときtrue
@@ -41,6 +41,8 @@ public class SushiController : MonoBehaviour
     {
         getMousePosObj = GameObject.FindWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
+
+        tableObj = GameObject.FindGameObjectWithTag("Table");
 
         iniPos = transform.localPosition;
         sushiPos = transform.parent.gameObject;
@@ -75,8 +77,6 @@ public class SushiController : MonoBehaviour
             #region 寿司の上にカーソルを乗せた時とそこから離した時の処理
             else if (!sushiRay)
             {
-                tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-
                 Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
                 if (hits != null)
@@ -127,12 +127,15 @@ public class SushiController : MonoBehaviour
                 renderer.sortingOrder = 5;
                 renderer.sortingLayerName = defaultLayerName;
                 sushiRay = false;
+                tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+
             }
             #endregion
         }
         else
         {
             ResetPos() ;
+            tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
@@ -150,10 +153,9 @@ public class SushiController : MonoBehaviour
             //rayがあたったものの中にテーブルがあればorder=true(吹き出しと重なっててもいい)なければfalse
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.gameObject.tag == "Table")
+                if (hit.collider.gameObject == tableObj)
                 {         
                     onTable = true;
-                    tableObj = hit.collider.gameObject;
                     break;                   
                 }               
             }
