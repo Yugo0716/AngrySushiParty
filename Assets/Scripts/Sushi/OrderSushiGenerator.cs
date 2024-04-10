@@ -23,9 +23,13 @@ public class OrderSushiGenerator : MonoBehaviour
     [SerializeField]int orderCount = 0;
     [SerializeField]int orderChance = 0;
 
-    public Image orderAnnounce;
+    public Image lampOn;
 
-    public Sprite[] sushiSprites;
+    public List<Sprite> sushiSprites = new List<Sprite>();
+
+    public List<Sprite> orderBubblesSprites = new List<Sprite>();
+    public List<Sprite> cOrderBubblesSprites = new List<Sprite>();
+
 
     Dictionary<int, SushiTypeSc.SushiType> numAndSushiType = new Dictionary<int, SushiTypeSc.SushiType>()
     {
@@ -47,7 +51,7 @@ public class OrderSushiGenerator : MonoBehaviour
         timeManager = canvas.GetComponent<TimeManager>();
 
         //注文が来ることを知らせる点滅
-        orderAnnounce = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
+        lampOn = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
         
 
         //注文の寿司と吹き出しの組が合っているかチェック
@@ -73,10 +77,10 @@ public class OrderSushiGenerator : MonoBehaviour
                 {
                     if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount-1] == null))
                     {
-                        orderAnnounce.DOFade(1f, 0.5f).SetEase(Ease.InCubic).SetLoops(6, LoopType.Yoyo);
+                        lampOn.DOFade(1f, 0.5f).SetEase(Ease.InCubic).SetLoops(6, LoopType.Yoyo);
 
                         StartCoroutine("StartOrder", orderCount);
-                        orderAnnounce.DOFade(0f, 0.5f).SetEase(Ease.InCubic).SetDelay(3.0f);
+                        lampOn.DOFade(0f, 0.5f).SetEase(Ease.InCubic).SetDelay(3.0f);
                         
                         orderCount++;
                     }                    
@@ -141,7 +145,7 @@ public class OrderSushiGenerator : MonoBehaviour
         }
 
         //0~3の中から注文寿司の数だけランダムに整数を得る
-        List<int> nums = GetRandom(4, childObj.Length, 0);
+        List<int> nums = GetRandom(numAndSushiName.Count, childObj.Length, 0);
 
         //上でえた数値に対応するスプライトにする　さらにsushitypeを指定
         for (int i = 0; i < childObj.Length; ++i)
@@ -179,10 +183,15 @@ public class OrderSushiGenerator : MonoBehaviour
             SushiTypeSc sushiTypeSc = childObj[i].GetComponent<SushiTypeSc>();
             sushiTypeSc.type = numAndSushiType[nums[i]];
 
-            GameObject obj = childObj[i].transform.GetChild(0).gameObject;
+            GameObject canvas = childObj[i].transform.GetChild(0).gameObject;
 
-            sushiText = obj.transform.GetChild(0).gameObject.gameObject;
-            sushiText.GetComponent<TextMeshProUGUI>().text = numAndSushiName[nums[i]] + "\n取って~";
+            canvas.GetComponent<Canvas>().sortingOrder = childObj[i].GetComponent<SpriteRenderer>().sortingOrder;
+
+            sushiText = canvas.transform.GetChild(0).gameObject;
+            //sushiText.transform.position = childObj[i].transform.position;
+            sushiText.GetComponent<TextMeshProUGUI>().text = numAndSushiName[nums[i]];
+
+            childObj[i].GetComponent<SpriteRenderer>().sprite = orderBubblesSprites[nums[i]];
         }
     }
 

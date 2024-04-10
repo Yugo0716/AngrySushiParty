@@ -107,6 +107,18 @@ MonoBehaviour:
   sushiRay: 0
   order: 0
   sushiPos: {fileID: 0}
+  defaultSprite: {fileID: 0}
+  bubbleSprite:
+  - {fileID: 21300000, guid: 18be8d974bf4232449e0b2ce20400c36, type: 3}
+  - {fileID: 21300000, guid: 63e794078c29d9a438c9ac46199983ad, type: 3}
+  - {fileID: 21300000, guid: 1f9b1a14d3d5d2f40bdc28b19477ce3e, type: 3}
+  - {fileID: 21300000, guid: 7239b437cd1be1c45a523f211dc3dfda, type: 3}
+  cBubbleSprite:
+  - {fileID: 21300000, guid: 5ea8828a56f321b46827a80bc64e54f1, type: 3}
+  - {fileID: 21300000, guid: 7f2baecee6153ec4784f08e5ab5358db, type: 3}
+  - {fileID: 21300000, guid: f3ce5890c16c6de40b3582be37e22c91, type: 3}
+  - {fileID: 21300000, guid: e966b5f90cbb5574db141b462f9aba91, type: 3}
+  preFrontObj: {fileID: 0}
 --- !u!114 &-8592897275488244888
 MonoBehaviour:
   m_ObjectHideFlags: 0

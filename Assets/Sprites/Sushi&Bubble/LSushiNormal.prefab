@@ -146,7 +146,7 @@ MonoBehaviour:
   iniPos: {x: 0, y: 0, z: 0}
   getMousePosObj: {fileID: 6323869568080263996, guid: d8de28907ddd32a49b9523c6ca783a25, type: 3}
   destroyObj: {fileID: 0}
-  tableObj: {fileID: 5952423968796852739, guid: 14eb0f704fb8f52479661f1b613383ac, type: 3}
+  tableObj: {fileID: 3952381994722997633, guid: 3fc17ee67aa9cfc4db350d36f9270e0e, type: 3}
   onSushi: 0
   sushiRay: 0
   order: 0

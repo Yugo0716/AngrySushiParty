@@ -28,6 +28,18 @@ public class YunomiController : MonoBehaviour
     ScoreManager scoreManager;
     TimeManager timeManager;
 
+    Dictionary<ItemTypeSc.ItemType, int> itemTypeAndNum = new Dictionary<ItemTypeSc.ItemType, int>()
+    {
+        {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
+    };
+
+    public Sprite defaultSprite;
+
+    public List<Sprite> bubbleSprite = new List<Sprite>();
+    public List<Sprite> cBubbleSprite = new List<Sprite>();
+
+    public GameObject preFrontObj = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,18 +83,28 @@ public class YunomiController : MonoBehaviour
                         ItemTypeSc bubbleType = bubbleObj.GetComponent<ItemTypeSc>();
                         ItemTypeSc itemType = gameObject.GetComponent<ItemTypeSc>();
 
+                        int itemNum = itemTypeAndNum[bubbleType.type];
+                        defaultSprite = bubbleSprite[itemNum];
+
                         if (bubbleType.type == itemType.type)
                         {
                             if (!order) order = true;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemNum];
                         }
                         else
                         {
                             if (order) order = false;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
                         }
+                        preFrontObj = bubbleObj;
                     }
                     else
                     {
                         if (order) order = false;
+                        if (preFrontObj != null && defaultSprite != null)
+                        {
+                            preFrontObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                        }
                     }
                 }
             }

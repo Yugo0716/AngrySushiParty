@@ -51,7 +51,7 @@ public class TimeManager : MonoBehaviour
                 break;
         }
 
-        timeText.GetComponent<TextMeshProUGUI>().text = "time : " + (Mathf.Ceil(displayTime)).ToString();
+        timeText.GetComponent<TextMeshProUGUI>().text = "タイム：" + (Mathf.Ceil(displayTime)).ToString();
     }
 
     void ReadyUpdate()
@@ -98,6 +98,12 @@ public class TimeManager : MonoBehaviour
 
         // シーン切り替え
         SceneManager.LoadScene("Result");
+        /*
+        var async = SceneManager.LoadSceneAsync("Result");
+
+        async.allowSceneActivation = false;
+        yield return new WaitForSeconds(1);
+        async.allowSceneActivation = true;*/
     }
 
     public void GameSceneLoaded(Scene scene, LoadSceneMode mode)

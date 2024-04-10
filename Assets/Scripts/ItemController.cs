@@ -20,8 +20,8 @@ public class ItemController : MonoBehaviour
     private GameObject frontObjA;
     private GameObject frontObjB;
 
-    private GameObject bubbleObj;
-    [SerializeField] private bool order = false; //マウスから離したら注文対応できるという状況
+    public GameObject bubbleObj;
+    [SerializeField] public bool order = false; //マウスから離したら注文対応できるという状況
 
     public GameObject regenerator;
     Regenerator regeneratorSc;
@@ -30,6 +30,19 @@ public class ItemController : MonoBehaviour
 
     ScoreManager scoreManager;
     TimeManager timeManager;
+
+    Dictionary<ItemTypeSc.ItemType, int> itemTypeAndNum = new Dictionary<ItemTypeSc.ItemType, int>()
+    {
+        {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
+    };
+
+    public Sprite defaultSprite;
+
+    public List<Sprite> bubbleSprite = new List<Sprite>();
+    public List<Sprite> cBubbleSprite = new List<Sprite>();
+
+    public GameObject preFrontObj = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +75,7 @@ public class ItemController : MonoBehaviour
             {
                 Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
+
                 if (hits != null)
                 {
                     string[] tagsA = { "BubbleNormal", "BubbleOrder" };
@@ -69,23 +83,36 @@ public class ItemController : MonoBehaviour
 
                     //bubbleObjとアイテムの種類が一致してるなら対応可能(order=true)
                     if (frontObjA != null && frontObjA.tag == "BubbleNormal")
-                    {
+                    {                        
                         bubbleObj = frontObjA;
+
+
                         ItemTypeSc bubbleType = bubbleObj.GetComponent<ItemTypeSc>();
                         ItemTypeSc itemType = gameObject.GetComponent<ItemTypeSc>();
+
+                        int itemNum = itemTypeAndNum[bubbleType.type];
+                        defaultSprite = bubbleSprite[itemNum];
 
                         if (bubbleType.type == itemType.type)
                         {
                             if (!order) order = true;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemNum];
                         }
                         else
                         {
                             if (order) order = false;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
                         }
+                        preFrontObj = bubbleObj;
                     }
                     else
                     {
                         if(order) order = false;
+                        if (preFrontObj != null && defaultSprite != null)
+                        {
+                            preFrontObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                        }
+                        
                     }
                 }
             }

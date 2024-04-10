@@ -9,6 +9,18 @@ public class OrderSushi : SushiController
 {
     GameObject bubbleObj;
 
+    Dictionary<SushiTypeSc.SushiType, int> sushiTypeAndNum = new Dictionary<SushiTypeSc.SushiType, int>()
+    {
+        {SushiTypeSc.SushiType.Tamago, 0 }, {SushiTypeSc.SushiType.Ebi, 1}, {SushiTypeSc.SushiType.Ika, 2}, {SushiTypeSc.SushiType.Maguro, 3}
+    };
+
+    public Sprite defaultSprite;
+
+    public List<Sprite> bubbleSprite = new List<Sprite>();
+    public List<Sprite> cBubbleSprite = new List<Sprite>();
+
+    public GameObject preFrontObj = null;
+
     // Start is called before the first frame update
     override public void Start()
     {
@@ -36,16 +48,31 @@ public class OrderSushi : SushiController
                 SushiTypeSc bubbleType = bubbleObj.GetComponent<SushiTypeSc>();
                 SushiTypeSc sushiType = gameObject.GetComponent<SushiTypeSc>();
 
+                int sushiNum = sushiTypeAndNum[bubbleType.type];
+                defaultSprite = bubbleSprite[sushiNum];
+
                 if (bubbleType.type == sushiType.type)
                 {
                     if (!order) order = true;
                     destroyObj = bubbleObj;
+                    bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[sushiNum];
                 }
                 else
                 {
                     if (order) order = false;
                     destroyObj = null;
+                    bubbleObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
                 }
+                preFrontObj = bubbleObj;
+            }
+            else
+            {
+                if (order) order = false;
+                if (preFrontObj != null && defaultSprite != null)
+                {
+                    preFrontObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                }
+
             }
         }
     }

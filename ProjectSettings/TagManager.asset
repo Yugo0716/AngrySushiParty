@@ -62,7 +62,7 @@ TagManager:
   - name: FirstLane
     uniqueID: 3259040927
     locked: 0
-  - name: OrderSushLayer
+  - name: OrderSushiLayer
     uniqueID: 724558953
     locked: 0
   - name: Table

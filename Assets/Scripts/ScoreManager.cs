@@ -50,6 +50,6 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateScore()
     {
-        scoreText.GetComponent<TextMeshProUGUI>().text = "score : " + score.ToString();
+        scoreText.GetComponent<TextMeshProUGUI>().text = "スコア：" + score.ToString();
     }
 }

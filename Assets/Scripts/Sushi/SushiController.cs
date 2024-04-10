@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class SushiController : MonoBehaviour
@@ -74,6 +75,8 @@ public class SushiController : MonoBehaviour
             #region 寿司の上にカーソルを乗せた時とそこから離した時の処理
             else if (!sushiRay)
             {
+                tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+
                 Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
                 if (hits != null)
@@ -127,6 +130,10 @@ public class SushiController : MonoBehaviour
             }
             #endregion
         }
+        else
+        {
+            ResetPos() ;
+        }
     }
 
     private Vector3 GetMousePos()
@@ -138,14 +145,31 @@ public class SushiController : MonoBehaviour
     {
         if (hits != null)
         {
+            bool onTable = false;
+
             //rayがあたったものの中にテーブルがあればorder=true(吹き出しと重なっててもいい)なければfalse
             foreach (RaycastHit2D hit in hits)
             {
                 if (hit.collider.gameObject.tag == "Table")
+                {         
+                    onTable = true;
+                    tableObj = hit.collider.gameObject;
+                    break;                   
+                }               
+            }
+            if (onTable)
+            {
+                if (!preorder) preorder = true;
+                tableObj.GetComponent<SpriteRenderer>().color = new Color(0.67f, 0.67f, 0.67f, 1f);
+            }
+            else
+            {
+                if (tableObj != null)
                 {
-                    if (!preorder) preorder = true;
+                    tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
                 }
             }
+    
 
             if (preorder)
             {
