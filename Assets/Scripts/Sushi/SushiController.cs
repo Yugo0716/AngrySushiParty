@@ -36,6 +36,8 @@ public class SushiController : MonoBehaviour
 
     protected string defaultLayerName;
 
+    AudioSource audioSource;
+    public AudioClip correctPutSound;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -58,6 +60,9 @@ public class SushiController : MonoBehaviour
         scoreManager = canvas.GetComponent<ScoreManager>();
 
         timeManager = canvas.GetComponent<TimeManager>();
+
+        //ƒTƒEƒ“ƒh
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -117,6 +122,7 @@ public class SushiController : MonoBehaviour
                 {
                     order = false;
                     GetScore();
+                    audioSource.PlayOneShot(correctPutSound);
                     //GetSushiCount getSushiCount = GameObject.FindGameObjectWithTag("SushiCount").GetComponent<GetSushiCount>();
                     GetSushiCount.count += 1;
                     Destroy(gameObject);

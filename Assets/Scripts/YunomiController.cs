@@ -40,6 +40,9 @@ public class YunomiController : MonoBehaviour
 
     public GameObject preFrontObj = null;
 
+    AudioSource audioSource;
+    public AudioClip correctPutSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,8 @@ public class YunomiController : MonoBehaviour
 
         //gameStateŽæ“¾‚Ì‚½‚ß
         timeManager = canvas.GetComponent<TimeManager>();
+
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -150,6 +155,7 @@ public class YunomiController : MonoBehaviour
                 {
                     order = false;
                     scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    audioSource.PlayOneShot(correctPutSound);
                     Destroy(bubbleObj);
                 }               
 

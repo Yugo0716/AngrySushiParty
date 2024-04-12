@@ -81,10 +81,10 @@ public class OrderSushiGenerator : MonoBehaviour
                 {
                     if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount-1] == null))
                     {
-                        lampOn.DOFade(1f, 0.5f).SetEase(Ease.InCubic).SetLoops(6, LoopType.Yoyo);
+                        lampOn.DOFade(1f, 0.5f).SetEase(Ease.InSine).SetLoops(6, LoopType.Yoyo);
 
                         StartCoroutine("StartOrder", orderCount);
-                        lampOn.DOFade(0f, 0.5f).SetEase(Ease.InCubic).SetDelay(3.0f);
+                        lampOn.DOFade(0f, 0.5f).SetEase(Ease.InSine).SetDelay(3.0f);
                         
                         orderCount++;
                     }                    

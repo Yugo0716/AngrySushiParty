@@ -47,7 +47,7 @@ public class SushiGenerator : MonoBehaviour
 
         if (omomi)
         {
-            nums[0] = 6;
+            nums[0] = 7;
             nums[1] = 8;
             nums[2] = 11;
 

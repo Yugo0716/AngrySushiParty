@@ -53,7 +53,7 @@ public class BubbleGenerator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(timeManager.gameState == TimeManager.GameState.play)
+        if(timeManager.gameState == TimeManager.GameState.play && timeManager.displayTime > 3)
         {
             time += Time.deltaTime;
 

@@ -43,6 +43,8 @@ public class ItemController : MonoBehaviour
 
     public GameObject preFrontObj = null;
 
+    AudioSource audioSource;
+    public AudioClip CorrectPutSound;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,8 @@ public class ItemController : MonoBehaviour
 
         //gameStateŽæ“¾‚Ì‚½‚ß
         timeManager = canvas.GetComponent<TimeManager>();
+
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -157,6 +161,7 @@ public class ItemController : MonoBehaviour
                 {
                     order = false;
                     scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    audioSource.PlayOneShot(CorrectPutSound);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
                 }
