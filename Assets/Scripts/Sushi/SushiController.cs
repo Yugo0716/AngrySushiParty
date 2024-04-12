@@ -36,6 +36,7 @@ public class SushiController : MonoBehaviour
 
     protected string defaultLayerName;
 
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -81,7 +82,7 @@ public class SushiController : MonoBehaviour
 
                 if (hits != null)
                 {
-                    string[] tags = { "Sushi", "BubbleNormal", "BubbleOrder", "OrderSushi" };
+                    string[] tags = { "Sushi", "BubbleNormal", "BubbleOrder", "OrderSushi", "Frame" };
                     frontObj = getMousePosSc.GetFrontObj(hits, tags);
 
                     if (frontObj == gameObject)
@@ -116,6 +117,8 @@ public class SushiController : MonoBehaviour
                 {
                     order = false;
                     GetScore();
+                    //GetSushiCount getSushiCount = GameObject.FindGameObjectWithTag("SushiCount").GetComponent<GetSushiCount>();
+                    GetSushiCount.count += 1;
                     Destroy(gameObject);
                     if(destroyObj != null) Destroy(destroyObj);
                 }

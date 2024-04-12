@@ -12,6 +12,7 @@ public class OrderSushi : SushiController
     Dictionary<SushiTypeSc.SushiType, int> sushiTypeAndNum = new Dictionary<SushiTypeSc.SushiType, int>()
     {
         {SushiTypeSc.SushiType.Tamago, 0 }, {SushiTypeSc.SushiType.Ebi, 1}, {SushiTypeSc.SushiType.Ika, 2}, {SushiTypeSc.SushiType.Maguro, 3}
+        , {SushiTypeSc.SushiType.Ikura, 4}
     };
 
     public Sprite defaultSprite;

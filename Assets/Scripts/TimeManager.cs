@@ -94,7 +94,7 @@ public class TimeManager : MonoBehaviour
         uiManager.HideFinish();
 
         // イベントに登録
-        SceneManager.sceneLoaded += GameSceneLoaded;
+        //SceneManager.sceneLoaded += GameSceneLoaded;
 
         // シーン切り替え
         SceneManager.LoadScene("Result");
@@ -106,11 +106,14 @@ public class TimeManager : MonoBehaviour
         async.allowSceneActivation = true;*/
     }
 
-    public void GameSceneLoaded(Scene scene, LoadSceneMode mode)
+    /*public void GameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ResultManager resultManager = GameObject.FindGameObjectWithTag("canvas").GetComponent<ResultManager>();
         resultManager.score = scoreManager.score;
 
+        GetSushiCount getSushiCount = new GetSushiCount();
+        resultManager.sushiCount = getSushiCount.countProperty;
+
         SceneManager.sceneLoaded -= GameSceneLoaded;
-    }
+    }*/
 }

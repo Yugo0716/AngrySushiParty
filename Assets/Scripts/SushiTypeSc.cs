@@ -9,7 +9,8 @@ public class SushiTypeSc : MonoBehaviour
         Tamago,
         Ebi,
         Ika,
-        Maguro
+        Maguro,
+        Ikura
     }
 
     public SushiType type;

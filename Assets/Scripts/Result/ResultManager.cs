@@ -8,16 +8,20 @@ public class ResultManager : MonoBehaviour
 {
     public GameObject scoreText;
     public GameObject highScoreText;
-    public GameObject congText;
+    public GameObject sushiCountText;
+    public GameObject congImg;
 
     public int score = 3;
     int highScore = 0;
+    public int sushiCount = 0;
 
     bool isHighScore = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        score = ScoreManager.score;
+        sushiCount = GetSushiCount.count;
         highScore = PlayerPrefs.GetInt("maxScore", 0);
 
         if (highScore < score)
@@ -28,16 +32,17 @@ public class ResultManager : MonoBehaviour
 
         if(isHighScore)
         {
-            congText.SetActive(true);
+            congImg.SetActive(true);
         }
         else
         {
-            congText.SetActive(false);
+            congImg.SetActive(false);
         }
 
 
-        scoreText.GetComponent<TextMeshProUGUI>().text = "score: " + score.ToString();
-        highScoreText.GetComponent<TextMeshProUGUI>().text = "highscore: " + highScore.ToString();
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+        highScoreText.GetComponent<TextMeshProUGUI>().text = highScore.ToString();
+        sushiCountText.GetComponent<TextMeshProUGUI>().text = sushiCount.ToString();
     }
 
     // Update is called once per frame

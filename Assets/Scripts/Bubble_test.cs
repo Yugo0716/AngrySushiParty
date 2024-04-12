@@ -29,7 +29,7 @@ public class Bubble_test : MonoBehaviour
         itemTypeSc = GetComponent<ItemTypeSc>();
 
         if(gameObject!=null)
-        transform.DOScale(new Vector3(1.5f, 1.5f, 1), 9.0f).SetEase(Ease.InSine).SetDelay(2.7f);
+        transform.DOScale(new Vector3(1.2f, 1.2f, 1), 9.0f).SetEase(Ease.InSine).SetDelay(2.7f);
     }
 
     // Update is called once per frame

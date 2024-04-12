@@ -34,14 +34,18 @@ public class OrderSushiGenerator : MonoBehaviour
     Dictionary<int, SushiTypeSc.SushiType> numAndSushiType = new Dictionary<int, SushiTypeSc.SushiType>()
     {
         {0, SushiTypeSc.SushiType.Tamago}, {1, SushiTypeSc.SushiType.Ebi}, {2, SushiTypeSc.SushiType.Ika}, {3, SushiTypeSc.SushiType.Maguro}
+        ,{4, SushiTypeSc.SushiType.Ikura}
     };
 
     Dictionary<int, string> numAndSushiName = new Dictionary<int, string>()
     {
-        {0, "たまご"}, {1, "エビ"}, {2, "イカ"}, {3, "マグロ"}
+        {0, "たまご"}, {1, "エビ"}, {2, "イカ"}, {3, "マグロ"}, {4, "イクラ"}
     };
 
     GameObject sushiText;
+    GameObject giveText;
+
+    List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい", "ほしいな~" };
 
     // Start is called before the first frame update
     void Start()
@@ -188,8 +192,10 @@ public class OrderSushiGenerator : MonoBehaviour
             canvas.GetComponent<Canvas>().sortingOrder = childObj[i].GetComponent<SpriteRenderer>().sortingOrder;
 
             sushiText = canvas.transform.GetChild(0).gameObject;
+            giveText = canvas.transform.GetChild(1).gameObject;
             //sushiText.transform.position = childObj[i].transform.position;
             sushiText.GetComponent<TextMeshProUGUI>().text = numAndSushiName[nums[i]];
+            giveText.GetComponent<TextMeshProUGUI>().text = giveTextList[UnityEngine.Random.Range(0, giveTextList.Count)];
 
             childObj[i].GetComponent<SpriteRenderer>().sprite = orderBubblesSprites[nums[i]];
         }
