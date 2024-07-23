@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public GameObject scoreText;
+    [SerializeField] GameObject scoreTextObj;
+    TextMeshProUGUI scoreText;
+
     public static int score = 0;
+
+    GameMode gameMode;
 
     
 
@@ -21,6 +25,11 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        gameMode = canvas.GetComponent<GameMode>();
+
+        scoreText = scoreTextObj.GetComponent<TextMeshProUGUI>();
+
         score = 0;
         UpdateScore();
     }
@@ -48,8 +57,22 @@ public class ScoreManager : MonoBehaviour
         UpdateScore();
     }
 
+    public void CountPlus()
+    {
+        GetSushiCount.count++;
+        UpdateScore();
+    }
+
     void UpdateScore()
     {
-        scoreText.GetComponent<TextMeshProUGUI>().text = "スコア：" + score.ToString();
+        if(gameMode.isScored)
+        {
+            scoreText.text = "スコア：" + score.ToString();
+        }
+
+        else
+        {
+            scoreText.text = "スコア：" + GetSushiCount.count.ToString();
+        }           
     }
 }

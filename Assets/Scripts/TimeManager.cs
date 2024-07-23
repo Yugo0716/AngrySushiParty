@@ -8,9 +8,13 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    public GameObject timeText;
-    public ScoreManager scoreManager;
-    public UIManager uiManager;
+    [SerializeField] GameObject timeTextObj;
+    TextMeshProUGUI timeText;
+    ScoreManager scoreManager;
+    UIManager uiManager;
+    GameMode gameMode;
+    LifeManager lifeManager = null;
+    
 
     public bool countDown = false;
     public int maxTime = 60;
@@ -29,8 +33,31 @@ public class TimeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        scoreManager = canvas.GetComponent<ScoreManager>();
+        uiManager = canvas.GetComponent<UIManager>();
+        gameMode = canvas.GetComponent<GameMode>();
+
+        timeText = timeTextObj.GetComponent<TextMeshProUGUI>();
+
+        //エンドレスモードの時のみ残機を考慮する
+        if (!gameMode.isScored)
+        {
+            lifeManager = canvas.GetComponent<LifeManager>();
+        }
+
         gameState = GameState.ready;
-        displayTime = maxTime;
+
+        //最初の表示タイム
+        if (gameMode.isScored)
+        {
+            displayTime = maxTime;
+        }
+        else
+        {
+            displayTime = 0;
+        }
+        
     }
 
     // Update is called once per frame
@@ -51,7 +78,7 @@ public class TimeManager : MonoBehaviour
                 break;
         }
 
-        timeText.GetComponent<TextMeshProUGUI>().text = "タイム：" + (Mathf.Ceil(displayTime)).ToString();
+        timeText.text = "タイム：" + (Mathf.Ceil(displayTime)).ToString();
     }
 
     void ReadyUpdate()
@@ -62,12 +89,27 @@ public class TimeManager : MonoBehaviour
     void PlayUpdate()
     {
         time += Time.deltaTime;
-        displayTime = maxTime - time;
 
-        if (displayTime <= 0)
+        if(gameMode.isScored)
         {
-            gameState = GameState.end;
+            displayTime = maxTime - time;
+
+            if (displayTime <= 0)
+            {
+                gameState = GameState.end;
+            }
         }
+        else
+        {
+            displayTime = time;
+            //残機が無くなったらgameStateをendにする
+            if(lifeManager.life <= 0)
+            {
+                gameState = GameState.end;
+            }
+        }
+
+        
     }
 
     void EndUpdate()
@@ -93,27 +135,7 @@ public class TimeManager : MonoBehaviour
 
         uiManager.HideFinish();
 
-        // イベントに登録
-        //SceneManager.sceneLoaded += GameSceneLoaded;
-
         // シーン切り替え
         SceneManager.LoadScene("Result");
-        /*
-        var async = SceneManager.LoadSceneAsync("Result");
-
-        async.allowSceneActivation = false;
-        yield return new WaitForSeconds(1);
-        async.allowSceneActivation = true;*/
     }
-
-    /*public void GameSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        ResultManager resultManager = GameObject.FindGameObjectWithTag("canvas").GetComponent<ResultManager>();
-        resultManager.score = scoreManager.score;
-
-        GetSushiCount getSushiCount = new GetSushiCount();
-        resultManager.sushiCount = getSushiCount.countProperty;
-
-        SceneManager.sceneLoaded -= GameSceneLoaded;
-    }*/
 }

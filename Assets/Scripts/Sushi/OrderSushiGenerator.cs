@@ -182,8 +182,6 @@ public class OrderSushiGenerator : MonoBehaviour
         //上でえた数値に対応するスプライトにする　さらにsushitypeを指定
         for (int i = 0; i < childObj.Length; ++i)
         {
-            //childObj[i].GetComponent<SpriteRenderer>().sprite = sushiSprites[nums[i]];
-
             SushiTypeSc sushiTypeSc = childObj[i].GetComponent<SushiTypeSc>();
             sushiTypeSc.type = numAndSushiType[nums[i]];
 
@@ -193,7 +191,7 @@ public class OrderSushiGenerator : MonoBehaviour
 
             sushiText = canvas.transform.GetChild(0).gameObject;
             giveText = canvas.transform.GetChild(1).gameObject;
-            //sushiText.transform.position = childObj[i].transform.position;
+            
             sushiText.GetComponent<TextMeshProUGUI>().text = numAndSushiName[nums[i]];
             giveText.GetComponent<TextMeshProUGUI>().text = giveTextList[UnityEngine.Random.Range(0, giveTextList.Count)];
 

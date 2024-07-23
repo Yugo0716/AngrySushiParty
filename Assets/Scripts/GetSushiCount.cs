@@ -15,4 +15,5 @@ public class GetSushiCount:MonoBehaviour
     {
         count = 0;
     }
+
 }

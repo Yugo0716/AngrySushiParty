@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.micomprocedure.procranking.unity": {
+      "version": "https://github.com/MicomProcedure/procranking-unity-sdk.git?path=Packages/com.micomprocedure.procranking.unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "70afd3f71fb10e58d87f91da98593b3a54879386"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 1,

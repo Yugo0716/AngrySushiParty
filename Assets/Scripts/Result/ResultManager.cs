@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using ProcRanking;
+using System;
 
 public class ResultManager : MonoBehaviour
 {
-    public GameObject scoreText;
-    public GameObject highScoreText;
-    public GameObject sushiCountText;
-    public GameObject congImg;
+    [SerializeField] GameObject scoreTextObj;
+    [SerializeField] GameObject highScoreTextObj;
+    [SerializeField] GameObject sushiCountTextObj;
+    TextMeshProUGUI scoreText;
+    TextMeshProUGUI highScoreText;
+    TextMeshProUGUI sushiCountText;
+
+    [SerializeField] GameObject congImg;
 
     public int score = 3;
     int highScore = 0;
-    public int sushiCount = 0;
+    int sushiCount = 0;
 
     bool isHighScore = false;
+
+    int[] highScores = new int[10];
+    [SerializeField] GameObject[] highScoreTexts = new GameObject[10];
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +32,39 @@ public class ResultManager : MonoBehaviour
         score = ScoreManager.score;
         sushiCount = GetSushiCount.count;
         highScore = PlayerPrefs.GetInt("maxScore", 0);
+
+        scoreText = scoreTextObj.GetComponent<TextMeshProUGUI>();
+        highScoreText = highScoreTextObj.GetComponent<TextMeshProUGUI>();
+        sushiCountText = sushiCountTextObj.GetComponent<TextMeshProUGUI>();
+        /*
+        score.SaveToProcRaAsync("SushiDataStore", "score");
+
+        var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
+            .SetLimit(10)
+            .SetDescSort("score");
+
+        query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
+        {
+            if (e != null)
+            {
+                // エラー発生時の処理
+            }
+            else
+            {
+                // 検索成功時の処理例
+                for (int i = 0; i < foundList.Count; i++)
+                {
+
+                    //32ビットintへキャスト
+                    highScores[i] = Convert.ToInt32(foundList[i]["score"]);
+
+                    //スコアをテキスト表示
+                    highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
+
+                }
+            }
+        });*/
+
 
         if (highScore < score)
         {
@@ -40,9 +82,9 @@ public class ResultManager : MonoBehaviour
         }
 
 
-        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
-        highScoreText.GetComponent<TextMeshProUGUI>().text = highScore.ToString();
-        sushiCountText.GetComponent<TextMeshProUGUI>().text = sushiCount.ToString();
+        scoreText.text = score.ToString();
+        highScoreText.text = highScore.ToString();
+        sushiCountText.text = sushiCount.ToString();
     }
 
     // Update is called once per frame

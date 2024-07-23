@@ -22,13 +22,24 @@ public class Bubble_test : MonoBehaviour
 
     ItemTypeSc itemTypeSc;
 
+    GameObject canvas;
+    //スコアを取るモードか取らないか
+    GameMode gameMode;
+    private bool isScored;
+
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
         itemTypeSc = GetComponent<ItemTypeSc>();
 
-        if(gameObject!=null)
+        canvas = GameObject.FindGameObjectWithTag("canvas");
+
+        //GameMode取得のため
+        gameMode = canvas.GetComponent<GameMode>();
+        isScored = gameMode.isScored;
+
+        if (gameObject!=null)
         transform.DOScale(new Vector3(1.2f, 1.2f, 1), 9.0f).SetEase(Ease.InSine).SetDelay(2.7f);
     }
 
@@ -39,35 +50,11 @@ public class Bubble_test : MonoBehaviour
 
         if (time > 16.0f)
         {
+            if (!isScored)
+            {
+                canvas.GetComponent<LifeManager>().LifeMinus();
+            }
             Destroy(gameObject);
         }
-        /*
-        if (order)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemTypeAndNum[itemTypeSc.type]];
-
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = bubbleSprite[itemTypeAndNum[itemTypeSc.type]];
-
-        }
-        
-        if (itemController.bubbleObj != null)
-        {
-            if (itemController.bubbleObj == gameObject)
-            {
-                if (itemController.order)
-                {
-                    gameObject.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemTypeAndNum[itemTypeSc.type]];
-                }
-                else
-                {
-                    gameObject.GetComponent<SpriteRenderer>().sprite = bubbleSprite[itemTypeAndNum[itemTypeSc.type]];
-                }
-            }
-        }*/
-        
-        
     }
 }

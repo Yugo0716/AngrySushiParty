@@ -20,7 +20,7 @@ public class SushiController : MonoBehaviour
     protected GameObject frontObj; //手前のオブジェクトを取得
 
     [SerializeField] private bool onSushi = false; //カーソルと寿司が重なってるときtrue
-    [SerializeField]private bool sushiRay = false; //寿司ドラッグ時マウスからrayを飛ばすか否か
+    public bool sushiRay = false; //寿司ドラッグ時マウスからrayを飛ばすか否か
 
     protected bool preorder = false; //orderのtrueorfalseを決めるのに使う
     [SerializeField] protected bool order = false;
@@ -38,6 +38,10 @@ public class SushiController : MonoBehaviour
 
     AudioSource audioSource;
     public AudioClip correctPutSound;
+
+    //スコアを取るモードか取らないか
+    GameMode gameMode;
+    private bool isScored;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -60,6 +64,10 @@ public class SushiController : MonoBehaviour
         scoreManager = canvas.GetComponent<ScoreManager>();
 
         timeManager = canvas.GetComponent<TimeManager>();
+
+        //GameMode取得のため
+        gameMode = canvas.GetComponent<GameMode>();
+        isScored = gameMode.isScored;
 
         //サウンド
         audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
@@ -121,10 +129,11 @@ public class SushiController : MonoBehaviour
                 if (order) //寿司ゲット
                 {
                     order = false;
-                    GetScore();
                     audioSource.PlayOneShot(correctPutSound);
-                    //GetSushiCount getSushiCount = GameObject.FindGameObjectWithTag("SushiCount").GetComponent<GetSushiCount>();
-                    GetSushiCount.count += 1;
+
+                    if (isScored) GetScore();
+                    scoreManager.CountPlus();
+
                     Destroy(gameObject);
                     if(destroyObj != null) Destroy(destroyObj);
                 }
@@ -145,6 +154,7 @@ public class SushiController : MonoBehaviour
         {
             ResetPos() ;
             tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            renderer.sortingLayerName = defaultLayerName;
         }
     }
 

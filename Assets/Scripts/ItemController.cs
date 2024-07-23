@@ -46,6 +46,10 @@ public class ItemController : MonoBehaviour
     AudioSource audioSource;
     public AudioClip CorrectPutSound;
 
+    //スコアを取るモードか取らないか
+    GameMode gameMode;
+    private bool isScored;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +67,10 @@ public class ItemController : MonoBehaviour
 
         //gameState取得のため
         timeManager = canvas.GetComponent<TimeManager>();
+
+        //GameMode取得のため
+        gameMode = canvas.GetComponent<GameMode>();
+        isScored = gameMode.isScored;
 
         audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
@@ -160,7 +168,7 @@ public class ItemController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
                     audioSource.PlayOneShot(CorrectPutSound);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
