@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using ProcRanking;
 using System;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
@@ -21,6 +23,12 @@ public class ResultManager : MonoBehaviour
     int highScore = 0;
     int sushiCount = 0;
 
+    bool isRanking = false;
+    [SerializeField] GameObject rankButtonObj;
+    Image rankButtonImage;
+    [SerializeField] Sprite rankButtonSprite;
+    [SerializeField] Sprite backButtonSprite;
+
     bool isHighScore = false;
 
     int[] highScores = new int[10];
@@ -36,34 +44,11 @@ public class ResultManager : MonoBehaviour
         scoreText = scoreTextObj.GetComponent<TextMeshProUGUI>();
         highScoreText = highScoreTextObj.GetComponent<TextMeshProUGUI>();
         sushiCountText = sushiCountTextObj.GetComponent<TextMeshProUGUI>();
-        /*
+
+        rankButtonImage = rankButtonObj.GetComponent<Image>();
+        
         score.SaveToProcRaAsync("SushiDataStore", "score");
-
-        var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
-            .SetLimit(10)
-            .SetDescSort("score");
-
-        query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
-        {
-            if (e != null)
-            {
-                // エラー発生時の処理
-            }
-            else
-            {
-                // 検索成功時の処理例
-                for (int i = 0; i < foundList.Count; i++)
-                {
-
-                    //32ビットintへキャスト
-                    highScores[i] = Convert.ToInt32(foundList[i]["score"]);
-
-                    //スコアをテキスト表示
-                    highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
-
-                }
-            }
-        });*/
+        
 
 
         if (highScore < score)
@@ -91,5 +76,53 @@ public class ResultManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void RankingButtonClicked()
+    {
+        if (!isRanking)
+        {
+            isRanking = true;
+
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+
+            rankButtonImage.sprite = backButtonSprite;
+
+            
+            var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
+                .SetLimit(10)
+                .SetDescSort("score");
+
+            query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
+            {
+                if (e != null)
+                {
+                    // エラー発生時の処理
+                }
+                else
+                {
+                    // 検索成功時の処理例
+                    for (int i = 0; i < foundList.Count; i++)
+                    {
+
+                        //32ビットintへキャスト
+                        highScores[i] = Convert.ToInt32(foundList[i]["score"]);
+
+                        //スコアをテキスト表示
+                        highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
+
+                    }
+                }
+            });
+
+        }
+        else
+        {
+            isRanking = false;
+
+            this.transform.DOLocalMove(new Vector3(-160f, 230f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+
+            rankButtonImage.sprite = rankButtonSprite;
+        }
     }
 }

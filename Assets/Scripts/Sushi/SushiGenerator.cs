@@ -11,6 +11,7 @@ public class SushiGenerator : MonoBehaviour
     public GameObject sushiObj;
     public GameObject timeManagerObj;
     TimeManager timeManager;
+    GameMode gameMode;
 
     [SerializeField]private float time;
     [SerializeField]int totalTime = 0;
@@ -36,49 +37,56 @@ public class SushiGenerator : MonoBehaviour
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         timeManager = canvas.GetComponent<TimeManager>();
 
-        #region //流れる寿司の数や流れるタイミングを決める処理
-        maxCount = timeManager.maxTime-3;
+        //エンドレスモードかどうか
+        gameMode = canvas.GetComponent<GameMode>();
 
-        //一旦寿司を流すか否かをfalseで初期化 バグ対策でちょっと大きめにサイズを取る
-        for (int i = 0; i < maxCount + 5; i++)
+        if (gameMode.isScored)
         {
-            goSushi.Add(false);
+            #region //流れる寿司の数や流れるタイミングを決める処理
+            maxCount = timeManager.maxTime - 3;
+
+            //一旦寿司を流すか否かをfalseで初期化 バグ対策でちょっと大きめにサイズを取る
+            for (int i = 0; i < maxCount + 5; i++)
+            {
+                goSushi.Add(false);
+            }
+
+            if (omomi)
+            {
+                nums[0] = 7;
+                nums[1] = 8;
+                nums[2] = 11;
+
+                //序盤中盤終盤それぞれの寿司の配置場所を確定する
+                List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
+                List<int> middleIndexList = GetRandom(maxNums[1], nums[1], maxNums[0]);
+                List<int> lastIndexList = GetRandom(maxNums[2], nums[2], maxNums[0] + maxNums[1]);
+
+                indexList = Unit3List(earlyIndexList, middleIndexList, lastIndexList);
+            }
+
+            else
+            {
+                //indexList = GetRandom(maxCount, sushiCount, 0);←0から57で完全ランダムにしたいときはこっち
+                nums[0] = 8;
+                nums[1] = 9;
+                nums[2] = 8;
+
+                //序盤中盤終盤それぞれの寿司の配置場所を確定する
+                List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
+                List<int> middleIndexList = GetRandom(maxNums[1], nums[1], maxNums[0]);
+                List<int> lastIndexList = GetRandom(maxNums[2], nums[2], maxNums[0] + maxNums[1]);
+
+                indexList = Unit3List(earlyIndexList, middleIndexList, lastIndexList);
+            }
+
+            foreach (int i in indexList)
+            {
+                goSushi[i] = true;
+            }
+            #endregion
         }
 
-        if (omomi)
-        {
-            nums[0] = 7;
-            nums[1] = 8;
-            nums[2] = 11;
-
-            //序盤中盤終盤それぞれの寿司の配置場所を確定する
-            List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
-            List<int> middleIndexList = GetRandom(maxNums[1], nums[1], maxNums[0]);
-            List<int> lastIndexList = GetRandom(maxNums[2], nums[2], maxNums[0] + maxNums[1]);
-
-            indexList = Unit3List(earlyIndexList, middleIndexList, lastIndexList);
-        }
-
-        else
-        {
-            //indexList = GetRandom(maxCount, sushiCount, 0);←0から57で完全ランダムにしたいときはこっち
-            nums[0] = 8;
-            nums[1] = 9;
-            nums[2] = 8;
-
-            //序盤中盤終盤それぞれの寿司の配置場所を確定する
-            List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
-            List<int> middleIndexList = GetRandom(maxNums[1], nums[1], maxNums[0]);
-            List<int> lastIndexList = GetRandom(maxNums[2], nums[2], maxNums[0] + maxNums[1]);
-
-            indexList = Unit3List(earlyIndexList, middleIndexList, lastIndexList);
-        }               
-        
-        foreach (int i in indexList)
-        {
-            goSushi[i] = true;
-        }
-        #endregion
 
         time = 0f;
     }
