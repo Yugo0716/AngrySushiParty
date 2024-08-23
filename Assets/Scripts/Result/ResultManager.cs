@@ -34,6 +34,9 @@ public class ResultManager : MonoBehaviour
     int[] highScores = new int[10];
     [SerializeField] GameObject[] highScoreTexts = new GameObject[10];
 
+    AudioSource audioSource;
+    public AudioClip clickSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +49,9 @@ public class ResultManager : MonoBehaviour
         sushiCountText = sushiCountTextObj.GetComponent<TextMeshProUGUI>();
 
         rankButtonImage = rankButtonObj.GetComponent<Image>();
-        
+
+        audioSource = GetComponent<AudioSource>();
+
         score.SaveToProcRaAsync("SushiDataStore", "score");
         
 
@@ -80,11 +85,13 @@ public class ResultManager : MonoBehaviour
 
     public void RankingButtonClicked()
     {
+        audioSource.PlayOneShot(clickSound);
+
         if (!isRanking)
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.7f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 

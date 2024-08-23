@@ -14,6 +14,9 @@ public class NormalSushi : SushiController
 
     public Sprite[] sushiSprites;
 
+    GameObject sushiSpeedobj;
+    SushiSpeed sushiSpeed;
+
     // Start is called before the first frame update
     override public void Start()
     {
@@ -23,6 +26,22 @@ public class NormalSushi : SushiController
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = GetSushiSprite(sushiSprites);
 
+        sushiSpeedobj = GameObject.FindGameObjectWithTag("SushiSpeed");
+        if(sushiSpeedobj != null)
+        {
+            sushiSpeed = sushiSpeedobj.GetComponent<SushiSpeed>();
+        }
+        
+
+        if (toRight)
+        {
+            if (speed != 3.0f) speed = 3.0f;
+        }
+        else
+        {
+            if (speed != -3.0f) speed = -3.0f;
+        }
+        rbody.velocity = new Vector2(speed, 0f);
     }
 
     // Update is called once per frame
@@ -33,19 +52,15 @@ public class NormalSushi : SushiController
 
     private void FixedUpdate()
     {
-        if (toRight)
+        if(!gameMode.isScored)
         {
-            if (speed != 3.0f) speed = 3.0f;
-        }
-        else
-        {
-            if (speed != -3.0f) speed = -3.0f;
-        }
+            speed = sushiSpeed.speed;
 
-        if (!speedCheck)
-        {
+            if(!toRight)
+            {
+                speed = -speed;
+            }
             rbody.velocity = new Vector2(speed, 0f);
-            speedCheck = true;
         }
     }
 

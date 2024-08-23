@@ -149,12 +149,10 @@ public class BubbleGenerator : MonoBehaviour
 
         itemText = canvas.transform.GetChild(0).gameObject;
         giveText = canvas.transform.GetChild(1).gameObject;
-        //itemText.transform.localPosition = bubbleObj.transform.position;
+        
         itemText.GetComponent<TextMeshProUGUI>().text = numAndItemName[num];
         giveText.GetComponent<TextMeshProUGUI>().text = giveTextList[UnityEngine.Random.Range(0, giveTextList.Count)];
 
         return num;
-    }
-
-        
+    }       
 }

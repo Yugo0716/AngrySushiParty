@@ -32,7 +32,7 @@ public class SushiController : MonoBehaviour
     new Renderer renderer;
 
     protected ScoreManager scoreManager;
-    TimeManager timeManager;
+    protected TimeManager timeManager;
 
     protected string defaultLayerName;
 
@@ -40,7 +40,7 @@ public class SushiController : MonoBehaviour
     public AudioClip correctPutSound;
 
     //スコアを取るモードか取らないか
-    GameMode gameMode;
+    protected GameMode gameMode;
     private bool isScored;
 
     // Start is called before the first frame update
@@ -113,10 +113,14 @@ public class SushiController : MonoBehaviour
             #region ドラッグで移動させる処理
             if (onSushi && Input.GetMouseButtonDown(0))
             {
-                if (!sushiRay) sushiRay = true;
-                offset = transform.position - GetMousePos();
-                renderer.sortingOrder = 300;
-                renderer.sortingLayerName = "BubbleLayer";
+               //これでタッチ無効にできてるか試してみる
+                if (Input.touchCount == 0)
+                {
+                    if (!sushiRay) sushiRay = true;
+                    offset = transform.position - GetMousePos();
+                    renderer.sortingOrder = 300;
+                    renderer.sortingLayerName = "BubbleLayer";
+                }
             }
 
             if (sushiRay && Input.GetMouseButton(0))

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-    public int life = 3;
+    public int life = 100;
     [SerializeField] GameObject lifeTextObj;
     TextMeshProUGUI lifeText;
 

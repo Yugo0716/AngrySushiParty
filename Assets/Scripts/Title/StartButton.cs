@@ -22,9 +22,14 @@ public class StartButton : MonoBehaviour
 
     public void StartButtonClick()
     {
-        audioSource.PlayOneShot(clickSound);
+
+        if (Input.touchCount == 0)
+        {
+            audioSource.PlayOneShot(clickSound);
+
+            StartCoroutine("Load", "GameScene");
+        }
         
-        StartCoroutine("Load", "GameScene");
     }
 
     IEnumerator Load(string sceneName)

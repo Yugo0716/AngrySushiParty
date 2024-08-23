@@ -12,11 +12,6 @@ public class Bubble_test : MonoBehaviour
 
     ItemController itemController;
 
-    Dictionary<ItemTypeSc.ItemType, int> itemTypeAndNum = new Dictionary<ItemTypeSc.ItemType, int>()
-    {
-        {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
-    };
-
     public List<Sprite> bubbleSprite = new List<Sprite>();
     public List<Sprite> cBubbleSprite = new List<Sprite>();
 

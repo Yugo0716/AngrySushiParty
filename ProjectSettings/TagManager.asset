@@ -16,6 +16,8 @@ TagManager:
   - Frame
   - SushiCount
   - AudioSource
+  - SushiSpeed
+  - E_OrderSushi
   layers:
   - Default
   - TransparentFX

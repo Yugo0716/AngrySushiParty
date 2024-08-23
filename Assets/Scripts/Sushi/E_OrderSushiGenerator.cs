@@ -8,20 +8,19 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class OrderSushiGenerator : MonoBehaviour
+public class E_OrderSushiGenerator : MonoBehaviour
 {
-    public GameObject[] sushiObjPoses;
-    public GameObject[] bubbles;
+    public List<GameObject> sushiObjPoses = new List<GameObject>();
+    public List<GameObject> bubbles = new List<GameObject>();
 
-    public GameObject timeManagerObj;
     TimeManager timeManager;
 
     [SerializeField] float[] orderIntervals = new float[] { 13, 15, 15 }; //注文寿司がくる間隔(あとで変更する)
 
     [SerializeField] private float time;
 
-    [SerializeField]int orderCount = 0;
-    [SerializeField]int orderChance = 0;
+    [SerializeField] int orderCount = 0;
+    [SerializeField] int orderChance = 0;
 
     public Image lampOn;
 
@@ -47,6 +46,12 @@ public class OrderSushiGenerator : MonoBehaviour
 
     List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい", "ほしいな~" };
 
+    //新規
+    [SerializeField] GameObject orderSushiPos;
+    int orderSushiNum = 2;
+
+    [SerializeField] GameObject orderBubblePos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +61,7 @@ public class OrderSushiGenerator : MonoBehaviour
 
         //注文が来ることを知らせる点滅
         lampOn = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
-        
 
-        //注文の寿司と吹き出しの組が合っているかチェック
-        CheckPairs();
 
         foreach (GameObject obj in bubbles)
         {
@@ -70,63 +72,51 @@ public class OrderSushiGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timeManager.gameState == TimeManager.GameState.play)
+        if (timeManager.gameState == TimeManager.GameState.play)
         {
             time += Time.deltaTime;
 
             //注文寿司を動かす，吹き出しを表示させる 前の注文寿司が残ってるなら無し
-            if(orderChance < 3)
+            if (orderChance < 3)
             {
-                if(time > orderIntervals[orderCount])
+                if (time > orderIntervals[orderCount])
                 {
-                    if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount-1] == null))
+                    if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount - 1] == null))
                     {
                         lampOn.DOFade(1f, 0.5f).SetEase(Ease.InSine).SetLoops(6, LoopType.Yoyo);
 
                         StartCoroutine("StartOrder", orderCount);
                         lampOn.DOFade(0f, 0.5f).SetEase(Ease.InSine).SetDelay(3.0f);
-                        
+
                         orderCount++;
-                    }                    
+                    }
                     time = 0;
                     orderChance++;
                 }
             }
         }
-        else if(timeManager.gameState == TimeManager.GameState.end)
+        else if (timeManager.gameState == TimeManager.GameState.end)
         {
             foreach (GameObject obj in sushiObjPoses)
             {
-                if(obj != null && obj.activeSelf) obj.SetActive(false);
-            }
-        }
-    }
-
-    void CheckPairs()
-    {
-        if(sushiObjPoses.Length != bubbles.Length)
-        {
-            Debug.LogError("注文寿司と吹き出しの組が合いません");
-            return;
-        }
-        else
-        {
-            for (int i = 0; i < sushiObjPoses.Length; i++)
-            {
-                if (sushiObjPoses[i].transform.childCount != bubbles[i].transform.childCount)
-                {
-                    Debug.LogError("注文1セットの寿司と吹き出しの個数が合いません");
-                    return;
-                }
+                if (obj != null && obj.activeSelf) obj.SetActive(false);
             }
         }
     }
 
     IEnumerator StartOrder(int orderCount)
     {
+        
+        GameObject orderSushiPosObj = Instantiate(orderSushiPos, this.transform.position + new Vector3(-14.25f, 1.03f,0f), transform.rotation, this.transform);        
+        sushiObjPoses.Add(orderSushiPosObj);
+
+        GameObject orderBubbleObj = Instantiate(orderBubblePos, transform.position, transform.rotation, this.transform);
+        bubbles.Add(orderBubbleObj);
+
         SetSushiImage(sushiObjPoses[orderCount], orderCount);
 
         yield return new WaitForSeconds(1.8f);
+
         sushiObjPoses[orderCount].transform.DOMove(new Vector3(20f, 0f, 0f), 3f).SetRelative().SetEase(Ease.OutSine);
 
         yield return new WaitForSeconds(3f);
@@ -138,7 +128,6 @@ public class OrderSushiGenerator : MonoBehaviour
     void SetSushiImage(GameObject sushiPos, int orderCount)
     {
         int sushiCount = sushiPos.transform.childCount;
-
         // 子オブジェクトを格納する配列作成
         GameObject[] childObj = new GameObject[sushiCount];
 
@@ -159,7 +148,7 @@ public class OrderSushiGenerator : MonoBehaviour
             SushiTypeSc sushiTypeSc = childObj[i].GetComponent<SushiTypeSc>();
             sushiTypeSc.type = numAndSushiType[nums[i]];
         }
-
+        
         SetBubbleType(bubbles[orderCount], nums);
     }
 
@@ -192,7 +181,7 @@ public class OrderSushiGenerator : MonoBehaviour
 
             sushiText = canvas.transform.GetChild(0).gameObject;
             giveText = canvas.transform.GetChild(1).gameObject;
-            
+
             sushiText.GetComponent<TextMeshProUGUI>().text = numAndSushiName[nums[i]];
             giveText.GetComponent<TextMeshProUGUI>().text = giveTextList[UnityEngine.Random.Range(0, giveTextList.Count)];
 
@@ -203,7 +192,7 @@ public class OrderSushiGenerator : MonoBehaviour
     //要素数がsizeコのリストからランダムにnコの要素番号を入れたリストを返す(startの値を足したものを返すこともできる)
     public List<int> GetRandom(int size, int n, int start)
     {
-        if(n > size)
+        if (n > size)
         {
             throw new ArgumentOutOfRangeException("リストの要素数よりnが大きいです。");
         }
