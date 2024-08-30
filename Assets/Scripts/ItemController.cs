@@ -12,7 +12,7 @@ public class ItemController : MonoBehaviour
     private Vector3 offset;
     public Vector3 iniPos;
 
-    public GameObject getMousePosObj; //マウス座標取得のオブジェクト
+    GameObject getMousePosObj; //マウス座標取得のオブジェクト
     GetMousePosSc getMousePosSc;
 
     [SerializeField]private bool onItem = false; //カーソルとアイテムが重なってるときtrue
@@ -55,6 +55,7 @@ public class ItemController : MonoBehaviour
     {
         iniPos = transform.position;
 
+        getMousePosObj = GameObject.FindGameObjectWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         regeneratorSc = regenerator.GetComponent<Regenerator>();
@@ -168,7 +169,9 @@ public class ItemController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bubbleObj.GetComponent<Bubble_test>().bonusScore);
+                    //Debug.Log("ItemBonus:" + bubbleObj.GetComponent<Bubble_test>().bonusScore);
+
                     audioSource.PlayOneShot(CorrectPutSound);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);

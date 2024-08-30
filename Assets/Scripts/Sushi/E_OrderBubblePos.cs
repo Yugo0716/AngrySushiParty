@@ -1,10 +1,13 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class E_OrderBubblePos : MonoBehaviour
 {
     int sushiNum = 2;
+    float time = 0;
 
     private void Awake()
     {
@@ -22,12 +25,12 @@ public class E_OrderBubblePos : MonoBehaviour
         {
             transform.GetChild(0).gameObject.transform.position = new Vector2(-7.63f/2f, -4.05f / 2f);
             transform.GetChild(1).gameObject.transform.position = new Vector2(7.93f/2f, -1.58f/2f);
-        }
+        }  
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.childCount == 0) Destroy(gameObject);
     }
 }

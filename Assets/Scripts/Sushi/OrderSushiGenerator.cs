@@ -20,6 +20,7 @@ public class OrderSushiGenerator : MonoBehaviour
 
     [SerializeField] private float time;
 
+
     [SerializeField]int orderCount = 0;
     [SerializeField]int orderChance = 0;
 

@@ -42,7 +42,7 @@ public class GenerateBalancer : MonoBehaviour
     {
         int num = UnityEngine.Random.Range(0, 100);
 
-        if (num < rate)
+        if (num %2==0)
         {
             return true;
         }

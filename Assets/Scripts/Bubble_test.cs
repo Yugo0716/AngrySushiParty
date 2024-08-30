@@ -9,25 +9,20 @@ public class Bubble_test : MonoBehaviour
     private float time;
 
     public bool order = false;
+    public float bonusScore = 0;
 
-    ItemController itemController;
-
-    public List<Sprite> bubbleSprite = new List<Sprite>();
-    public List<Sprite> cBubbleSprite = new List<Sprite>();
-
-    ItemTypeSc itemTypeSc;
+    //public List<Sprite> bubbleSprite = new List<Sprite>();
+    //public List<Sprite> cBubbleSprite = new List<Sprite>();
 
     GameObject canvas;
-    //スコアを取るモードか取らないか
     GameMode gameMode;
-    private bool isScored;
+    bool isScored;
 
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
-        itemTypeSc = GetComponent<ItemTypeSc>();
-
+        bonusScore = 0;
         canvas = GameObject.FindGameObjectWithTag("canvas");
 
         //GameMode取得のため
@@ -41,7 +36,20 @@ public class Bubble_test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;      
+        time += Time.deltaTime;
+        if (time <= 1f)
+        {
+            bonusScore = 100f;
+        }
+        else if (time <= 11f)
+        {
+            bonusScore = Mathf.Ceil( 100 - (time-1) * 10);
+        }
+        else
+        {
+            bonusScore = 0;
+        }
+        
 
         if (time > 16.0f)
         {

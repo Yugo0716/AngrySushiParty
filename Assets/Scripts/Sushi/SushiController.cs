@@ -135,7 +135,7 @@ public class SushiController : MonoBehaviour
                     order = false;
                     audioSource.PlayOneShot(correctPutSound);
 
-                    if (isScored) GetScore();
+                    GetScore();
                     scoreManager.CountPlus();
 
                     Destroy(gameObject);
@@ -207,7 +207,7 @@ public class SushiController : MonoBehaviour
 
     public virtual void GetScore()
     {
-        scoreManager.ScorePlus(ScoreManager.ScoreType.sushi);
+        scoreManager.ScorePlus(ScoreManager.ScoreType.sushi, 0);
     }
     
     

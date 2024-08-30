@@ -10,7 +10,7 @@ public class SushiSpeed : MonoBehaviour
     //エンドレスモードでの寿司のスピード(NormalSushiに渡す)
     float rate_speed = 1;//エンドレスでspeedを変更するときの倍率
     float delTime_speed = 0f;
-    float interval_speed = 40f;
+    float interval_speed = 30f;
     public float speed = 0;
 
 
@@ -33,7 +33,7 @@ public class SushiSpeed : MonoBehaviour
             {
                 delTime_speed += Time.deltaTime;
 
-                if (delTime_speed > interval_speed)
+                if (delTime_speed > interval_speed && speed < 6.0f)
                 {
                     speed += 0.5f;
 
@@ -41,6 +41,15 @@ public class SushiSpeed : MonoBehaviour
                     rate_speed++;
 
                     Debug.Log("Speed Up!!");
+
+                    if(rate_speed >= 3 && rate_speed <=4)
+                    {
+                        interval_speed = 40f;
+                    }
+                    else
+                    {
+                        interval_speed = 50f;
+                    }
                 }
             }
         }

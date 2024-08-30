@@ -1570,8 +1570,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1901094839}
-        m_TargetAssemblyTypeName: ResultManager, Assembly-CSharp
+      - m_Target: {fileID: 1901094842}
+        m_TargetAssemblyTypeName: E_ResultManager, Assembly-CSharp
         m_MethodName: RankingButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -2242,7 +2242,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1170940662}
         m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+        m_MethodName: E_PlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3990,9 +3990,10 @@ GameObject:
   - component: {fileID: 1901094838}
   - component: {fileID: 1901094840}
   - component: {fileID: 1901094839}
+  - component: {fileID: 1901094842}
   - component: {fileID: 1901094841}
   m_Layer: 0
-  m_Name: receipt_normal
+  m_Name: receipt_Endless
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4043,7 +4044,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901094837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e70b78be39cb5c4cb6749f79a333de8, type: 3}
   m_Name: 
@@ -4109,7 +4110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 97d9538a3b946aa4c918090ec85c721a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 487d9d9db5ab8b040a7b32d775358fca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4216,6 +4217,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1901094842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901094837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a7bcf670857a84ab3257da61190945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreTextObj: {fileID: 953008436}
+  highScoreTextObj: {fileID: 363660771}
+  timeTextObj: {fileID: 2093357466}
+  congImg: {fileID: 1205287614}
+  E_score: 0
+  rankButtonObj: {fileID: 620523459}
+  rankButtonSprite: {fileID: 21300000, guid: 18d0231404b44a243a96d1190d55d814, type: 3}
+  backButtonSprite: {fileID: 21300000, guid: 01b766632eb5e754db25ba0669e450f7, type: 3}
+  highScoreTexts:
+  - {fileID: 2121155365}
+  - {fileID: 154114535}
+  - {fileID: 1674569240}
+  - {fileID: 371401287}
+  - {fileID: 48151818}
+  - {fileID: 1116017135}
+  - {fileID: 1793326916}
+  - {fileID: 1734239984}
+  - {fileID: 1541635866}
+  - {fileID: 254078282}
+  clickSound: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
 --- !u!1 &2093357466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,7 +4261,7 @@ GameObject:
   - component: {fileID: 2093357468}
   - component: {fileID: 2093357467}
   m_Layer: 5
-  m_Name: SushiCountText
+  m_Name: TimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

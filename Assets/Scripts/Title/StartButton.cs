@@ -20,7 +20,17 @@ public class StartButton : MonoBehaviour
         
     }
 
+
     public void StartButtonClick()
+    {
+        if (Input.touchCount == 0)
+        {
+            audioSource.PlayOneShot(clickSound);
+
+            StartCoroutine("Load", "SelectScene");
+        }
+    }
+    public void PlayButtonClick()
     {
 
         if (Input.touchCount == 0)
@@ -30,6 +40,18 @@ public class StartButton : MonoBehaviour
             StartCoroutine("Load", "GameScene");
         }
         
+    }
+
+    public void E_PlayButtonClick()
+    {
+
+        if (Input.touchCount == 0)
+        {
+            audioSource.PlayOneShot(clickSound);
+
+            StartCoroutine("Load", "EndlessGameScene");
+        }
+
     }
 
     IEnumerator Load(string sceneName)

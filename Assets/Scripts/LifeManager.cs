@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-    public int life = 100;
+    public int life = 3;
     [SerializeField] GameObject lifeTextObj;
     TextMeshProUGUI lifeText;
 
@@ -20,6 +20,11 @@ public class LifeManager : MonoBehaviour
     void Update()
     {
         if (life < 0) life = 0;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            life = 100;
+            UpdateLife();
+        }
     }
 
     public void LifeMinus()

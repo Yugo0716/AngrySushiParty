@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour
     public bool countDown = false;
     public int maxTime = 60;
     public float displayTime = 0;
-    public float time = 0;
+    public static float time = 0;
 
     public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
     {
@@ -39,7 +39,7 @@ public class TimeManager : MonoBehaviour
         gameMode = canvas.GetComponent<GameMode>();
 
         timeText = timeTextObj.GetComponent<TextMeshProUGUI>();
-
+        time = 0;
         //エンドレスモードの時のみ残機を考慮する
         if (!gameMode.isScored)
         {
@@ -136,6 +136,13 @@ public class TimeManager : MonoBehaviour
         uiManager.HideFinish();
 
         // シーン切り替え
-        SceneManager.LoadScene("Result");
+        if (gameMode.isScored)
+        {
+            SceneManager.LoadScene("Result");
+        }
+        else
+        {
+            SceneManager.LoadScene("EndlessResult");
+        }
     }
 }

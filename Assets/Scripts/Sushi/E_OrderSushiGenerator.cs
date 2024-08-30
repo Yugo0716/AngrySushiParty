@@ -15,7 +15,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
 
     TimeManager timeManager;
 
-    [SerializeField] float[] orderIntervals = new float[] { 13, 15, 15 }; //注文寿司がくる間隔(あとで変更する)
+    [SerializeField] float orderInterbal;
 
     [SerializeField] private float time;
 
@@ -62,11 +62,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
         //注文が来ることを知らせる点滅
         lampOn = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
 
-
-        foreach (GameObject obj in bubbles)
-        {
-            obj.SetActive(false);
-        }
+        orderInterbal = 17f;
     }
 
     // Update is called once per frame
@@ -77,21 +73,27 @@ public class E_OrderSushiGenerator : MonoBehaviour
             time += Time.deltaTime;
 
             //注文寿司を動かす，吹き出しを表示させる 前の注文寿司が残ってるなら無し
-            if (orderChance < 3)
+            if (time > orderInterbal)
             {
-                if (time > orderIntervals[orderCount])
+                if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount - 1] == null))
                 {
-                    if (orderCount == 0 || (orderCount > 0 && sushiObjPoses[orderCount - 1] == null))
+                    lampOn.DOFade(1f, 0.5f).SetEase(Ease.InSine).SetLoops(6, LoopType.Yoyo);
+
+                    StartCoroutine("StartOrder", orderCount);
+                    lampOn.DOFade(0f, 0.5f).SetEase(Ease.InSine).SetDelay(3.0f);
+
+                    orderCount++;
+                }
+                time = 0;
+                orderChance++;
+
+                if(orderChance > 3)
+                {
+                    if(orderChance % 3 == 1 && orderInterbal > 8)
                     {
-                        lampOn.DOFade(1f, 0.5f).SetEase(Ease.InSine).SetLoops(6, LoopType.Yoyo);
-
-                        StartCoroutine("StartOrder", orderCount);
-                        lampOn.DOFade(0f, 0.5f).SetEase(Ease.InSine).SetDelay(3.0f);
-
-                        orderCount++;
+                        orderInterbal -= 1.5f;
+                        Debug.Log("orderPace Up!!!!");
                     }
-                    time = 0;
-                    orderChance++;
                 }
             }
         }

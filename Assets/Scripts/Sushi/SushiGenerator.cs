@@ -15,19 +15,19 @@ public class SushiGenerator : MonoBehaviour
 
     [SerializeField]private float delTime;
     [SerializeField]int totalTime = 0;
-    [SerializeField] private float interval = 1.0f;
+    [SerializeField] private float interval = 1.1f;
 
     [SerializeField] public bool omomi = true;
 
     [SerializeField][Tooltip("寿司の枠数")]int maxCount;
-    [SerializeField][Tooltip("流れる寿司の数")]int sushiCount = 25;
+    [SerializeField][Tooltip("流れる寿司の数")]int sushiCount = 24;
 
     List<bool> goSushi = new List<bool>();
     
     List<int> indexList = new List<int>();
 
     int[] nums = new int[] { 0, 0, 0 }; //序盤、中盤、終盤に配置する寿司の数
-    int[] maxNums = new int[] { 19, 19, 19 }; //序盤、中盤、終盤に配置できる寿司の枠数(19×3)
+    int[] maxNums = new int[] { 17, 17, 17 }; //序盤、中盤、終盤に配置できる寿司の枠数(19×3)
 
     //エンドレスモードでの寿司の排出ペース
     float delTime_pace = 0;
@@ -52,7 +52,7 @@ public class SushiGenerator : MonoBehaviour
             generateBalancer = generateBalancerObj.GetComponent<GenerateBalancer>();
         }
 
-        interval = 4.0f;
+        interval = 2.9f;
 
         if (gameMode.isScored)
         {
@@ -67,9 +67,9 @@ public class SushiGenerator : MonoBehaviour
 
             if (omomi)
             {
-                nums[0] = 8;
+                nums[0] = 6;
                 nums[1] = 8;
-                nums[2] = 10;
+                nums[2] = 9;
 
                 //序盤中盤終盤それぞれの寿司の配置場所を確定する
                 List<int> earlyIndexList = GetRandom(maxNums[0], nums[0], 0);
@@ -82,8 +82,8 @@ public class SushiGenerator : MonoBehaviour
             else
             {
                 //indexList = GetRandom(maxCount, sushiCount, 0);←0から57で完全ランダムにしたいときはこっち
-                nums[0] = 8;
-                nums[1] = 9;
+                nums[0] = 7;
+                nums[1] = 8;
                 nums[2] = 8;
 
                 //序盤中盤終盤それぞれの寿司の配置場所を確定する
@@ -115,7 +115,7 @@ public class SushiGenerator : MonoBehaviour
         {
             if (gameMode.isScored)
             {
-                interval = 1.0f;
+                interval = 1.1f;
 
                 if (delTime >= interval)
                 {
@@ -126,14 +126,42 @@ public class SushiGenerator : MonoBehaviour
             }
             else //エンドレスモードならintervalとspeedは時間経過とともに変化させる
             {
-                if (delTime_pace > interval_pace && interval > 1f)
+                if (delTime_pace > interval_pace && interval > 0.6f)
                 {
-                    interval -= 0.2f;
+                    if(rate_pace <= 3)
+                    {
+                        interval -= 0.3f;
+                    }
+                    else if(rate_pace <= 8)
+                    {
+                        interval -= 0.2f;
+                    }
+                    else
+                    {
+                        interval -= 0.1f;
+                    }
 
                     delTime_pace = 0;
                     rate_pace++;
 
-                    Debug.Log("Pace Up!!");        
+                    Debug.Log("Pace Up!!");
+
+                    if(rate_pace <= 4)
+                    {
+                        interval_pace = 6f;
+                    }
+                    else if(rate_pace <= 7)
+                    {
+                        interval_pace = 10f;
+                    }
+                    else if(rate_pace <= 10)
+                    {
+                        interval_pace = 40f;
+                    }
+                    else
+                    {
+                        interval_pace = 60f;
+                    }
                 }
 
                 if(delTime >= interval)
@@ -148,7 +176,12 @@ public class SushiGenerator : MonoBehaviour
 
     public IEnumerator Generate()
     {
-        float time = UnityEngine.Random.Range(0, 0.3f);
+        float time = 0;
+        if(!gameMode.isScored)
+        {
+            time = UnityEngine.Random.Range(0, 0.3f);
+        }
+
         yield return new WaitForSeconds(time);
         Instantiate(sushiObj, transform.position, sushiObj.transform.rotation);
     }

@@ -12,7 +12,7 @@ public class YunomiController : MonoBehaviour
     private Vector3 offset;
     public Vector3 iniPos;
 
-    public GameObject getMousePosObj; //マウス座標取得のオブジェクト
+    GameObject getMousePosObj; //マウス座標取得のオブジェクト
     GetMousePosSc getMousePosSc;
 
     [SerializeField] private bool onItem = false; //カーソルとアイテムが重なってるときtrue
@@ -54,6 +54,7 @@ public class YunomiController : MonoBehaviour
 
         iniPos = transform.position;
 
+        getMousePosObj = GameObject.FindGameObjectWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         renderer = yunomiObj.GetComponent<Renderer>();
@@ -162,7 +163,7 @@ public class YunomiController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bubbleObj.GetComponent<Bubble_test>().bonusScore);
                     audioSource.PlayOneShot(correctPutSound);
                     Destroy(bubbleObj);
                 }               

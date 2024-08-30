@@ -21,7 +21,7 @@ public class OrderSushi : SushiController
     public List<Sprite> cBubbleSprite = new List<Sprite>();
 
     public GameObject preFrontObj = null;
-
+    float bonusScore = 0;
     // Start is called before the first frame update
     override public void Start()
     {
@@ -57,6 +57,7 @@ public class OrderSushi : SushiController
                     if (!order) order = true;
                     destroyObj = bubbleObj;
                     bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[sushiNum];
+                    bonusScore = bubbleObj.GetComponent<OrderBubbleScore>().bonusScore;
                 }
                 else
                 {
@@ -79,6 +80,7 @@ public class OrderSushi : SushiController
     }
     public override void GetScore()
     {
-        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleOrder);
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleOrder, bonusScore);
+        //Debug.Log("OrderBonus:" + bonusScore);
     }
 }

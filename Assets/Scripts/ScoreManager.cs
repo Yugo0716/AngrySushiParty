@@ -40,20 +40,28 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    public void ScorePlus(ScoreType type)
+    public void ScorePlus(ScoreType type, float bonus)
     {
-        if(type == ScoreType.sushi)
+        if (gameMode.isScored)
         {
-            score += 300;
+            if (type == ScoreType.sushi)
+            {
+                score += 300;
+            }
+            else if (type == ScoreType.bubbleNormal)
+            {
+                score += 100 + (int)bonus;
+            }
+            else if (type == ScoreType.bubbleOrder)
+            {
+                score += 200 + (int)bonus;
+            }
         }
-        else if(type == ScoreType.bubbleNormal)
+        else
         {
-            score += 100;
+            score++;
         }
-        else if (type == ScoreType.bubbleOrder)
-        {
-            score += 400;
-        }
+        
         UpdateScore();
     }
 
@@ -65,14 +73,6 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateScore()
     {
-        if(gameMode.isScored)
-        {
-            scoreText.text = "スコア：" + score.ToString();
-        }
-
-        else
-        {
-            scoreText.text = "スコア：" + GetSushiCount.count.ToString();
-        }           
+        scoreText.text = "スコア：" + score.ToString();
     }
 }
