@@ -110,7 +110,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
     {
         
         GameObject orderSushiPosObj = Instantiate(orderSushiPos, this.transform.position + new Vector3(-14.25f, 1.03f,0f), transform.rotation, this.transform);        
-        sushiObjPoses.Add(orderSushiPosObj);
+        sushiObjPoses.Add(orderSushiPosObj);        
 
         GameObject orderBubbleObj = Instantiate(orderBubblePos, transform.position, transform.rotation, this.transform);
         bubbles.Add(orderBubbleObj);
@@ -121,9 +121,31 @@ public class E_OrderSushiGenerator : MonoBehaviour
 
         sushiObjPoses[orderCount].transform.DOMove(new Vector3(20f, 0f, 0f), 3f).SetRelative().SetEase(Ease.OutSine);
 
-        yield return new WaitForSeconds(3f);
 
+        yield return new WaitForSeconds(3f);
         bubbles[orderCount].SetActive(true);
+
+        //吹き出しはdelTimeおきにポポポンって感じにでるようにする
+        List<int> bubbleCount = new List<int>();
+        for (var i = 0; i < bubbles[orderCount].transform.childCount; i++)
+        {
+            bubbleCount.Add(i);
+        }
+
+        Shuffle(bubbleCount);
+
+        int layer = 200;
+        foreach (int i in bubbleCount)
+        {
+            GameObject childObj = bubbles[orderCount].transform.GetChild(i).gameObject;
+            //float delTime = UnityEngine.Random.Range(0f, 0.2f);
+            float delTime = 0.1f;
+            yield return new WaitForSeconds(delTime);
+            childObj.SetActive(true);
+            childObj.GetComponent<Renderer>().sortingOrder = layer;
+            childObj.transform.GetChild(0).gameObject.GetComponent<Canvas>().sortingOrder = layer + 1;
+            layer += 10;
+        }
     }
 
     //寿司のスプライトとSushiTypeの指定

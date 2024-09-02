@@ -489,6 +489,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7606698278724245585, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9105864833462883753, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -575,6 +579,10 @@ PrefabInstance:
     - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_Name
       value: BubbleOrder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1302,9 +1310,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleOrder (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5989671220735031851, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_SortingOrder
-      value: 254
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1522,7 +1534,7 @@ Transform:
   m_GameObject: {fileID: 745107629}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: -6.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1544,9 +1556,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleOrder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5989671220735031851, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_SortingOrder
-      value: 252
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1927,9 +1943,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleOrder (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5989671220735031851, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_SortingOrder
-      value: 251
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
@@ -2003,6 +2023,10 @@ PrefabInstance:
     - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_Name
       value: BubbleOrder (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
@@ -2605,7 +2629,7 @@ Transform:
   m_GameObject: {fileID: 1374279116}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2977,6 +3001,10 @@ PrefabInstance:
     - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_Name
       value: BubbleOrder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5918868428262473884, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3548,6 +3576,10 @@ PrefabInstance:
       value: OrderBubblesB
       objectReference: {fileID: 0}
     - target: {fileID: 3274283725247972523, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606698278724245585, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4248,6 +4280,10 @@ PrefabInstance:
       value: OrderBubblesA
       objectReference: {fileID: 0}
     - target: {fileID: 3274283725247972523, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606698278724245585, guid: f02b7d381b574a4488a792a722c8b405, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

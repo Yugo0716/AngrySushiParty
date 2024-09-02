@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u308F\u3055\u3073"
+  m_text: "\u6E6F\u306E\u307F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}
   m_sharedMaterial: {fileID: 4899372145523913787, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}
@@ -195,7 +195,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 422076083
-  m_SortingOrder: 30
+  m_SortingOrder: 18
   m_TargetDisplay: 0
 --- !u!114 &446901236491797675
 MonoBehaviour:
@@ -314,8 +314,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 422076083
   m_SortingLayer: 8
-  m_SortingOrder: 30
-  m_Sprite: {fileID: 21300000, guid: b88dfe26f4232e540ac3f506c3cd2677, type: 3}
+  m_SortingOrder: 18
+  m_Sprite: {fileID: 21300000, guid: 4bf14a178d8dab440a0ded213d33c6e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0
+  bonusScore: 0
 --- !u!50 &9047492002422710224
 Rigidbody2D:
   serializedVersion: 4
@@ -378,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f154c9de265f354db7000b0545dfd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!60 &5449378673943153482
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -617,7 +618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u304F\u3060\u3055\u3044"
+  m_text: "\u307B\u3057\u3044\u306A~"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}
   m_sharedMaterial: {fileID: 4899372145523913787, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}

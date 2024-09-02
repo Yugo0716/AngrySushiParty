@@ -58,6 +58,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleOrder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8465346872386944941, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -147,6 +151,10 @@ PrefabInstance:
     - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: m_Name
       value: BubbleOrder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363113642797898212, guid: 618856c620bee164d9d31898d1af810a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5732415354146626057, guid: 618856c620bee164d9d31898d1af810a, type: 3}
       propertyPath: type
