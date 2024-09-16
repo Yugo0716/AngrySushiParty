@@ -53,8 +53,8 @@ public class ResultManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         score.SaveToProcRaAsync("SushiDataStore", "score");
-        
 
+        PlayerPrefs.DeleteAll();
 
         if (highScore < score)
         {
@@ -65,6 +65,7 @@ public class ResultManager : MonoBehaviour
         if(isHighScore)
         {
             congImg.SetActive(true);
+            scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
         }
         else
         {

@@ -49,6 +49,9 @@ public class OrderSushiGenerator : MonoBehaviour
 
     List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい", "ほしいな~" };
 
+
+    AudioSource audioSource;
+    [SerializeField] AudioClip bubbleAppearSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +61,8 @@ public class OrderSushiGenerator : MonoBehaviour
 
         //注文が来ることを知らせる点滅
         lampOn = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
-        
+
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
 
         //注文の寿司と吹き出しの組が合っているかチェック
         CheckPairs();
@@ -147,13 +151,15 @@ public class OrderSushiGenerator : MonoBehaviour
         foreach(int i in bubbleCount)
         {
             GameObject childObj = bubbles[orderCount].transform.GetChild(i).gameObject;
-            //float delTime = UnityEngine.Random.Range(0f, 0.2f);
-            float delTime = 0.1f;
+            float delTime = UnityEngine.Random.Range(0.05f, 0.15f);
+            //float delTime = 0.1f;
             yield return new WaitForSeconds(delTime);
             childObj.SetActive(true);
             childObj.GetComponent<Renderer>().sortingOrder = layer;
             childObj.transform.GetChild(0).gameObject.GetComponent<Canvas>().sortingOrder = layer + 1;
             layer+=10;
+
+            audioSource.PlayOneShot(bubbleAppearSound);
         }
         
     }

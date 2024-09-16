@@ -42,12 +42,16 @@ public class BubbleGenerator : MonoBehaviour
 
     List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい","ほしいな~"};
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip bubbleAppearSound;
+
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         timeManager = canvas.GetComponent<TimeManager>();
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +66,7 @@ public class BubbleGenerator : MonoBehaviour
                 Generate("BubbleNormal");
                 counter++;
                 time = 0;
+                audioSource.PlayOneShot(bubbleAppearSound);
             }
         }
         

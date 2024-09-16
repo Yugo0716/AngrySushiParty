@@ -18,6 +18,7 @@ TagManager:
   - AudioSource
   - SushiSpeed
   - E_OrderSushi
+  - ScorePlusCanvas
   layers:
   - Default
   - TransparentFX

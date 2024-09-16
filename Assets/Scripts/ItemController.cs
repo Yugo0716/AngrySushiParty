@@ -46,9 +46,13 @@ public class ItemController : MonoBehaviour
     AudioSource audioSource;
     public AudioClip CorrectPutSound;
 
+    int bonusScore;
+
     //スコアを取るモードか取らないか
     GameMode gameMode;
     private bool isScored;
+
+    [SerializeField] GameObject scorePlusTextObj;
 
     // Start is called before the first frame update
     void Start()
@@ -169,9 +173,8 @@ public class ItemController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bubbleObj.GetComponent<Bubble_test>().bonusScore);
-                    //Debug.Log("ItemBonus:" + bubbleObj.GetComponent<Bubble_test>().bonusScore);
-
+                    bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
+                    GetScore();
                     audioSource.PlayOneShot(CorrectPutSound);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
@@ -193,6 +196,22 @@ public class ItemController : MonoBehaviour
             ResetPos() ;
         }
 
+    }
+
+    void GetScore()
+    {
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bonusScore);
+
+        GameObject scorePlusCanvas = GameObject.FindGameObjectWithTag("ScorePlusCanvas");
+        if (gameMode.isScored)
+        {
+            GameObject scorePlusTextObj2 = Instantiate(scorePlusTextObj);
+            scorePlusTextObj2.transform.SetParent(scorePlusCanvas.transform, false);
+            scorePlusTextObj2.transform.position = gameObject.transform.position;
+
+            ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore);
+        }
     }
     
     private Vector3 GetMousePos()

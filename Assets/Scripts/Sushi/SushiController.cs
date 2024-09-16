@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ public class SushiController : MonoBehaviour
 
     protected Rigidbody2D rbody;
 
+    protected GameObject canvas;
+
     new Renderer renderer;
 
     protected ScoreManager scoreManager;
@@ -42,6 +45,8 @@ public class SushiController : MonoBehaviour
     //スコアを取るモードか取らないか
     protected GameMode gameMode;
     private bool isScored;
+
+    [SerializeField] protected GameObject scorePlusTextObj;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -60,7 +65,7 @@ public class SushiController : MonoBehaviour
         defaultLayerName = renderer.sortingLayerName;
 
         //ScorePlusをするため
-        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        canvas = GameObject.FindGameObjectWithTag("canvas");
         scoreManager = canvas.GetComponent<ScoreManager>();
 
         timeManager = canvas.GetComponent<TimeManager>();
@@ -208,6 +213,18 @@ public class SushiController : MonoBehaviour
     public virtual void GetScore()
     {
         scoreManager.ScorePlus(ScoreManager.ScoreType.sushi, 0);
+
+        GameObject scorePlusCanvas = GameObject.FindGameObjectWithTag("ScorePlusCanvas");
+
+        if (gameMode.isScored)
+        {
+            GameObject scorePlusTextObj2 = Instantiate(scorePlusTextObj);
+            scorePlusTextObj2.transform.SetParent(scorePlusCanvas.transform, false);
+            scorePlusTextObj2.transform.position = gameObject.transform.position;
+
+            ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.sushi]);
+        }        
     }
     
     

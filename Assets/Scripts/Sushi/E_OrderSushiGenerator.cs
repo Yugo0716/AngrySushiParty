@@ -52,6 +52,8 @@ public class E_OrderSushiGenerator : MonoBehaviour
 
     [SerializeField] GameObject orderBubblePos;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip bubbleAppearSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +61,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         timeManager = canvas.GetComponent<TimeManager>();
 
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
         //íçï∂Ç™óàÇÈÇ±Ç∆ÇímÇÁÇπÇÈì_ñ≈
         lampOn = GameObject.FindGameObjectWithTag("Announce").GetComponent<Image>();
 
@@ -145,6 +148,8 @@ public class E_OrderSushiGenerator : MonoBehaviour
             childObj.GetComponent<Renderer>().sortingOrder = layer;
             childObj.transform.GetChild(0).gameObject.GetComponent<Canvas>().sortingOrder = layer + 1;
             layer += 10;
+            audioSource.PlayOneShot(bubbleAppearSound);
+
         }
     }
 

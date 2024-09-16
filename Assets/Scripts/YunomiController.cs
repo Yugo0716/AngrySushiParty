@@ -40,12 +40,16 @@ public class YunomiController : MonoBehaviour
 
     public GameObject preFrontObj = null;
 
+    int bonusScore;
+
     //スコアを取るモードか取らないか
     GameMode gameMode;
     private bool isScored;
 
     AudioSource audioSource;
     public AudioClip correctPutSound;
+
+    [SerializeField] GameObject scorePlusTextObj;
 
     // Start is called before the first frame update
     void Start()
@@ -163,7 +167,8 @@ public class YunomiController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    if(isScored) scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bubbleObj.GetComponent<Bubble_test>().bonusScore);
+                    bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
+                    GetScore();
                     audioSource.PlayOneShot(correctPutSound);
                     Destroy(bubbleObj);
                 }               
@@ -182,6 +187,22 @@ public class YunomiController : MonoBehaviour
             ResetPos();
         }
 
+    }
+
+    void GetScore()
+    {
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bonusScore);
+
+        GameObject scorePlusCanvas = GameObject.FindGameObjectWithTag("ScorePlusCanvas");
+        if (gameMode.isScored)
+        {
+            GameObject scorePlusTextObj2 = Instantiate(scorePlusTextObj);
+            scorePlusTextObj2.transform.SetParent(scorePlusCanvas.transform, false);
+            scorePlusTextObj2.transform.position = yunomiObj.transform.position;
+
+            ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore);
+        }
     }
 
     private Vector3 GetMousePos()

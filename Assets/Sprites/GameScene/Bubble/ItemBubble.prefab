@@ -195,7 +195,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 422076083
-  m_SortingOrder: 18
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!114 &446901236491797675
 MonoBehaviour:
@@ -294,7 +294,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 422076083
   m_SortingLayer: 8
-  m_SortingOrder: 18
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 4bf14a178d8dab440a0ded213d33c6e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u307B\u3057\u3044\u306A~"
+  m_text: "\u304F\u308C~"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}
   m_sharedMaterial: {fileID: 4899372145523913787, guid: 302417fa36903d14d95491a24f40b1c7, type: 2}

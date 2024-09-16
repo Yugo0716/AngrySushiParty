@@ -147,6 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 35258150954052842, guid: e729482bb3788d8488013cb25631d19b, type: 3}
+    - {fileID: 4772347103429416502, guid: e729482bb3788d8488013cb25631d19b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -191,6 +192,7 @@ MonoBehaviour:
   order: 0
   sushiPos: {fileID: 5684069207117801162}
   correctPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
+  scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
   speed: 0
   toRight: 1
   sushiSprites:

@@ -22,6 +22,12 @@ public class ScoreManager : MonoBehaviour
         bubbleOrder //íçï∂ÉåÅ[ÉìÇÃéıéi
     };
 
+    public Dictionary<ScoreType, int> baseScore = new Dictionary<ScoreType, int>()
+    {
+        {ScoreType.sushi, 300}, {ScoreType.bubbleNormal, 100}, {ScoreType.bubbleOrder, 200}
+    };
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,21 +46,21 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    public void ScorePlus(ScoreType type, float bonus)
+    public void ScorePlus(ScoreType type, int bonus)
     {
         if (gameMode.isScored)
         {
             if (type == ScoreType.sushi)
             {
-                score += 300;
+                score += baseScore[ScoreType.sushi]; //300
             }
             else if (type == ScoreType.bubbleNormal)
             {
-                score += 100 + (int)bonus;
+                score += baseScore[ScoreType.bubbleNormal] + bonus; //100
             }
             else if (type == ScoreType.bubbleOrder)
             {
-                score += 200 + (int)bonus;
+                score += baseScore[ScoreType.bubbleOrder] + bonus; //200
             }
         }
         else
