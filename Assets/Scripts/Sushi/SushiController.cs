@@ -223,7 +223,7 @@ public class SushiController : MonoBehaviour
             scorePlusTextObj2.transform.position = gameObject.transform.position;
 
             ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
-            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.sushi]);
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.sushi], false);
         }        
     }
     

@@ -151,8 +151,8 @@ public class OrderSushiGenerator : MonoBehaviour
         foreach(int i in bubbleCount)
         {
             GameObject childObj = bubbles[orderCount].transform.GetChild(i).gameObject;
-            float delTime = UnityEngine.Random.Range(0.05f, 0.15f);
-            //float delTime = 0.1f;
+            //float delTime = UnityEngine.Random.Range(0.05f, 0.15f);
+            float delTime = 0.1f;
             yield return new WaitForSeconds(delTime);
             childObj.SetActive(true);
             childObj.GetComponent<Renderer>().sortingOrder = layer;

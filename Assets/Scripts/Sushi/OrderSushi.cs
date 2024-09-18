@@ -90,7 +90,10 @@ public class OrderSushi : SushiController
             scorePlusTextObj2.transform.position = gameObject.transform.position;
 
             ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
-            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleOrder]+bonusScore);
+
+            bool isMax = false;
+            if (bonusScore == 300) isMax = true;
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleOrder]+bonusScore, isMax);
         }
     }
 }

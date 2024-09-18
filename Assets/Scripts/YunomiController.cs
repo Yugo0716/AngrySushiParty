@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 //using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using static ItemTypeSc;
 
 public class YunomiController : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class YunomiController : MonoBehaviour
     [SerializeField] private bool order = false; //マウスから離したら注文対応できるという状況
 
     new Renderer renderer;
+    SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite onSprite;
 
     ScoreManager scoreManager;
     TimeManager timeManager;
@@ -62,6 +66,10 @@ public class YunomiController : MonoBehaviour
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         renderer = yunomiObj.GetComponent<Renderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //デフォルトのスプライト
+        spriteRenderer.sprite = normalSprite;
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -139,10 +147,20 @@ public class YunomiController : MonoBehaviour
                 if (frontObjB == gameObject)
                 {
                     onItem = true;
+
+                    if (spriteRenderer.sprite != onSprite)
+                    {
+                        spriteRenderer.sprite = onSprite;
+                    }
                 }
                 else
                 {
                     onItem = false;
+
+                    if (spriteRenderer.sprite != normalSprite)
+                    {
+                        spriteRenderer.sprite = normalSprite;
+                    }
                 }
             }
             #endregion
@@ -201,7 +219,10 @@ public class YunomiController : MonoBehaviour
             scorePlusTextObj2.transform.position = yunomiObj.transform.position;
 
             ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
-            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore);
+
+            bool isMax = false;
+            if (bonusScore == 100) isMax = true;
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal] + bonusScore, isMax);
         }
     }
 

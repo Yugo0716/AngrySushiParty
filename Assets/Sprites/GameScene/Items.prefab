@@ -151,6 +151,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -465,6 +475,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -739,6 +759,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -1013,6 +1043,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -1212,7 +1252,7 @@ SpriteRenderer:
   m_SortingLayerID: -1360553209
   m_SortingLayer: 7
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee372ff959be4cf4ea48bd6751b5eacd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1259,7 +1299,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 2.5, y: 2.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1286,6 +1326,8 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites: []
+  onItemSprites: []
   defaultSprite: {fileID: 0}
   bubbleSprite: []
   cBubbleSprite:
@@ -1472,6 +1514,8 @@ MonoBehaviour:
   onItem: 0
   itemRay: 0
   order: 0
+  normalSprite: {fileID: 21300000, guid: bd8e86dfaa801b34c9790bd65a934565, type: 3}
+  onSprite: {fileID: 21300000, guid: bde7a5c5b20a2e6418f75496715707a2, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -1733,6 +1777,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}
@@ -2007,6 +2061,16 @@ MonoBehaviour:
   bubbleObj: {fileID: 0}
   order: 0
   regenerator: {fileID: 2175181689281263585}
+  normalItemSprites:
+  - {fileID: 21300000, guid: a8f9de2ffa4348845bece43d2595805f, type: 3}
+  - {fileID: 21300000, guid: 63dab086fb47dc944a10baaf3b555ce0, type: 3}
+  - {fileID: 21300000, guid: 5ad1a44c37e9e5d43bc9ec686c754e80, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
+  onItemSprites:
+  - {fileID: 21300000, guid: 2401fcb682fd0b54cb88fa54b9b9f8a1, type: 3}
+  - {fileID: 21300000, guid: dc94983317fab3d419d726f8ba32aafc, type: 3}
+  - {fileID: 21300000, guid: 5dd2be52651402f4da58ae1905cc4102, type: 3}
+  - {fileID: 21300000, guid: 212aa79af3e6f784b87d81b3440cb9d3, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: ca1c28fbec5d03849aea046c70078b0b, type: 3}

@@ -2938,10 +2938,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Items
       objectReference: {fileID: 0}
-    - target: {fileID: 6166974321047213748, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
-      propertyPath: getMousePosObj
+    - target: {fileID: 1981454084265386589, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
+      propertyPath: normalSprite
       value: 
-      objectReference: {fileID: 269910138}
+      objectReference: {fileID: 21300000, guid: bd8e86dfaa801b34c9790bd65a934565, type: 3}
+    - target: {fileID: 4419106193494637590, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438193381337747637, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ee372ff959be4cf4ea48bd6751b5eacd, type: 3}
     - target: {fileID: 9126559243872280635, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

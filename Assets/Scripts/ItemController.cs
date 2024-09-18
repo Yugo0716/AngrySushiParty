@@ -27,6 +27,10 @@ public class ItemController : MonoBehaviour
     Regenerator regeneratorSc;
 
     new Renderer renderer;
+    SpriteRenderer spriteRenderer;
+
+    public List<Sprite> normalItemSprites = new List<Sprite>();
+    public List<Sprite> onItemSprites = new List<Sprite>();
 
     ScoreManager scoreManager;
     TimeManager timeManager;
@@ -35,6 +39,8 @@ public class ItemController : MonoBehaviour
     {
         {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
     };
+
+    ItemTypeSc itemType;
 
     public Sprite defaultSprite;
 
@@ -65,6 +71,12 @@ public class ItemController : MonoBehaviour
         regeneratorSc = regenerator.GetComponent<Regenerator>();
 
         renderer = gameObject.GetComponent<Renderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //デフォルトのスプライト
+        spriteRenderer.sprite = normalItemSprites[itemTypeAndNum[GetComponent<ItemTypeSc>().type]];
+
+        itemType = GetComponent<ItemTypeSc>();
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -146,10 +158,22 @@ public class ItemController : MonoBehaviour
                 if (frontObjB == gameObject)
                 {
                     onItem = true;
+
+                    if(spriteRenderer.sprite != onItemSprites[itemTypeAndNum[itemType.type]])
+                    {
+                        spriteRenderer.sprite = onItemSprites[itemTypeAndNum[itemType.type]];
+                    }
+
                 }
                 else
                 {
                     onItem = false;
+
+                    if (spriteRenderer.sprite != normalItemSprites[itemTypeAndNum[itemType.type]])
+                    {
+                        spriteRenderer.sprite = normalItemSprites[itemTypeAndNum[itemType.type]];
+                    }
+
                 }
             }
             #endregion
@@ -210,7 +234,10 @@ public class ItemController : MonoBehaviour
             scorePlusTextObj2.transform.position = gameObject.transform.position;
 
             ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
-            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore);
+
+            bool isMax = false;
+            if (bonusScore == 100) isMax = true;
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore, isMax);
         }
     }
     
