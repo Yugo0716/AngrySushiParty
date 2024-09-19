@@ -10,12 +10,16 @@ public class NormalSushi : SushiController
     [SerializeField] private bool toRight = true; //‰E‚É—¬‚ê‚éŽõŽi‚È‚Ì‚©
     bool speedCheck = false;
 
-    SpriteRenderer spriteRenderer;
-
     public Sprite[] sushiSprites;
 
     GameObject sushiSpeedobj;
     SushiSpeed sushiSpeed;
+
+    Dictionary<int, SushiTypeSc.SushiType> numAndSushiType = new Dictionary<int, SushiTypeSc.SushiType>()
+    {
+        {0, SushiTypeSc.SushiType.Tamago}, {1, SushiTypeSc.SushiType.Ebi}, {2, SushiTypeSc.SushiType.Ika}, {3, SushiTypeSc.SushiType.Maguro}
+        ,{4, SushiTypeSc.SushiType.Ikura}
+    };
 
     // Start is called before the first frame update
     override public void Start()
@@ -23,7 +27,6 @@ public class NormalSushi : SushiController
         base.Start();
         speed = rbody.velocity.x;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = GetSushiSprite(sushiSprites);
 
         sushiSpeedobj = GameObject.FindGameObjectWithTag("SushiSpeed");
@@ -66,6 +69,8 @@ public class NormalSushi : SushiController
 
     Sprite GetSushiSprite(Sprite[] sprites)
     {
+        int rand = Random.Range(0, sprites.Length);
+        sushiType.type = numAndSushiType[rand];
         return sprites[Random.Range(0, sprites.Length)];
     }
 }

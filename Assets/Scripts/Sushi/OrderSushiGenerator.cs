@@ -99,13 +99,13 @@ public class OrderSushiGenerator : MonoBehaviour
                 }
             }
         }
-        else if(timeManager.gameState == TimeManager.GameState.end)
+        /*else if(timeManager.gameState == TimeManager.GameState.end)
         {
             foreach (GameObject obj in sushiObjPoses)
             {
                 if(obj != null && obj.activeSelf) obj.SetActive(false);
             }
-        }
+        }*/
     }
 
     void CheckPairs()

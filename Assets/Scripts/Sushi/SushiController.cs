@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using static ItemTypeSc;
 
 public class SushiController : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class SushiController : MonoBehaviour
 
     new Renderer renderer;
 
+    protected SpriteRenderer spriteRenderer;
+    public List<Sprite> normalSushiSprites = new List<Sprite>();
+    public List<Sprite> onSushiSprites = new List<Sprite>();
+
     protected ScoreManager scoreManager;
     protected TimeManager timeManager;
 
@@ -48,6 +53,14 @@ public class SushiController : MonoBehaviour
 
     [SerializeField] protected GameObject scorePlusTextObj;
 
+    protected Dictionary<SushiTypeSc.SushiType, int> sushiTypeAndNum = new Dictionary<SushiTypeSc.SushiType, int>()
+    {
+        {SushiTypeSc.SushiType.Tamago, 0 }, {SushiTypeSc.SushiType.Ebi, 1}, {SushiTypeSc.SushiType.Ika, 2}, {SushiTypeSc.SushiType.Maguro, 3}
+        , {SushiTypeSc.SushiType.Ikura, 4}
+    };
+
+    protected SushiTypeSc sushiType;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -61,6 +74,12 @@ public class SushiController : MonoBehaviour
         
         rbody = sushiPos.GetComponent<Rigidbody2D>();
         renderer = GetComponent<Renderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        sushiType = GetComponent<SushiTypeSc>();
+        //デフォルトのスプライト
+        spriteRenderer.sprite = normalSushiSprites[sushiTypeAndNum[sushiType.type]];
+
 
         defaultLayerName = renderer.sortingLayerName;
 
@@ -106,10 +125,20 @@ public class SushiController : MonoBehaviour
                     if (frontObj == gameObject)
                     {
                         if (!onSushi) onSushi = true;
+
+                        if (spriteRenderer.sprite != onSushiSprites[sushiTypeAndNum[sushiType.type]])
+                        {
+                            spriteRenderer.sprite = onSushiSprites[sushiTypeAndNum[sushiType.type]];
+                        }
                     }
                     else
                     {
                         if (onSushi) onSushi = false;
+
+                        if (spriteRenderer.sprite != normalSushiSprites[sushiTypeAndNum[sushiType.type]])
+                        {
+                            spriteRenderer.sprite = normalSushiSprites[sushiTypeAndNum[sushiType.type]];
+                        }
                     }
                 }
             }
@@ -164,6 +193,7 @@ public class SushiController : MonoBehaviour
             ResetPos() ;
             tableObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             renderer.sortingLayerName = defaultLayerName;
+            spriteRenderer.sprite = normalSushiSprites[sushiTypeAndNum[sushiType.type]];
         }
     }
 
