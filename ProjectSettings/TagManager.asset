@@ -19,6 +19,7 @@ TagManager:
   - SushiSpeed
   - E_OrderSushi
   - ScorePlusCanvas
+  - FadeCanvas
   layers:
   - Default
   - TransparentFX

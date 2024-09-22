@@ -2853,6 +2853,7 @@ GameObject:
   - component: {fileID: 1542664303}
   - component: {fileID: 1542664302}
   - component: {fileID: 1542664306}
+  - component: {fileID: 1542664307}
   m_Layer: 5
   m_Name: TitleButton
   m_TagString: Untagged
@@ -2936,8 +2937,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1542664302}
-        m_TargetAssemblyTypeName: GoTitleButton, Assembly-CSharp
+      - m_Target: {fileID: 1542664307}
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
         m_MethodName: TitleButtonClick
         m_Mode: 1
         m_Arguments:
@@ -3094,6 +3095,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1542664307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542664300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d05d733c122054cb84fa0744ca4b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
 --- !u!1001 &1583323334
 PrefabInstance:
   m_ObjectHideFlags: 0

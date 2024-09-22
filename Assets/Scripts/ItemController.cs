@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -59,6 +55,8 @@ public class ItemController : MonoBehaviour
     private bool isScored;
 
     [SerializeField] GameObject scorePlusTextObj;
+
+    [SerializeField] ParticleSystem particleSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -200,6 +198,7 @@ public class ItemController : MonoBehaviour
                     bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
                     GetScore();
                     audioSource.PlayOneShot(CorrectPutSound);
+                    Instantiate(particleSystem, transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
                 }

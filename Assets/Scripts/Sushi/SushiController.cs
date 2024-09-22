@@ -2,11 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using TMPro;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using static ItemTypeSc;
 
 public class SushiController : MonoBehaviour
 {
@@ -52,6 +49,8 @@ public class SushiController : MonoBehaviour
     private bool isScored;
 
     [SerializeField] protected GameObject scorePlusTextObj;
+
+    [SerializeField] ParticleSystem particleSystem;
 
     protected Dictionary<SushiTypeSc.SushiType, int> sushiTypeAndNum = new Dictionary<SushiTypeSc.SushiType, int>()
     {
@@ -172,6 +171,7 @@ public class SushiController : MonoBehaviour
                     GetScore();
                     scoreManager.CountPlus();
 
+                    Instantiate(particleSystem, transform.position, particleSystem.transform.rotation);
                     Destroy(gameObject);
                     if(destroyObj != null) Destroy(destroyObj);
                 }

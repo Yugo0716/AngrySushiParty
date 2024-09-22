@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Profiling;
-using System.Linq;
+
 
 public class OrderSushi : SushiController
 {

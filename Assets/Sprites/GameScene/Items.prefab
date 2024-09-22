@@ -175,6 +175,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &920279402324525086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +500,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &2290832296841175912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,6 +785,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &8131572035694769525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,6 +1070,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &8363176680139005912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,6 +1342,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 0}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &5114640122104939152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1535,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   correctPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!82 &5743643522893122407
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1801,6 +1807,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &4336836399957702598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,6 +2092,7 @@ MonoBehaviour:
   preFrontObj: {fileID: 0}
   CorrectPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
 --- !u!114 &4993438964988511408
 MonoBehaviour:
   m_ObjectHideFlags: 0

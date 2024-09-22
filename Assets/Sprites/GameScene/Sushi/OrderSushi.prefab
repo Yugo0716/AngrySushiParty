@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e35b5683061f1354fbfe864abf4c1890, type: 3}
   correctPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
   defaultSprite: {fileID: 0}
   bubbleSprite:
   - {fileID: 21300000, guid: 18be8d974bf4232449e0b2ce20400c36, type: 3}

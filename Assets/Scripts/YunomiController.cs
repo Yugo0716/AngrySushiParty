@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using static ItemTypeSc;
+
 
 public class YunomiController : MonoBehaviour
 {
@@ -54,6 +52,8 @@ public class YunomiController : MonoBehaviour
     public AudioClip correctPutSound;
 
     [SerializeField] GameObject scorePlusTextObj;
+
+    [SerializeField] ParticleSystem particleSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -188,6 +188,7 @@ public class YunomiController : MonoBehaviour
                     bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
                     GetScore();
                     audioSource.PlayOneShot(correctPutSound);
+                    Instantiate(particleSystem, yunomiObj.transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                 }               
 

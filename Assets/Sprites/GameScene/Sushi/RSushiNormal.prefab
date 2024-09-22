@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7700716613362396840
@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 02b32bd8df361ad4a8802419584bd9bc, type: 3}
   correctPutSound: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
   scorePlusTextObj: {fileID: 6224477085696675743, guid: 074dde9087854e846bd28b727d22783b, type: 3}
+  particleSystem: {fileID: 3927581286460316691, guid: 2850bd98b1427bf4f94fb9016b8b84d5, type: 3}
   speed: 0
   toRight: 1
   sushiSprites:
