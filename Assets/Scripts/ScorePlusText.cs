@@ -27,10 +27,7 @@ public class ScorePlusText : MonoBehaviour
         {
             scorePlusText.color = new Color(0.745283f, 0.6941177f, 0, 1);
         }
-        else
-        {
 
-        }
         scorePlusText.text = "+" + plusScore.ToString();
 
         scorePlusText.transform.DOMoveY(1f, 0.5f).SetRelative(true);
