@@ -47,6 +47,7 @@ public class TimeManager : MonoBehaviour
         }
 
         gameState = GameState.ready;
+        StartCoroutine(StartProcess());
 
         //ç≈èâÇÃï\é¶É^ÉCÉÄ
         if (gameMode.isScored)
@@ -83,7 +84,7 @@ public class TimeManager : MonoBehaviour
 
     void ReadyUpdate()
     {
-        StartCoroutine(StartProcess());
+        
     }
 
     void PlayUpdate()
@@ -119,8 +120,8 @@ public class TimeManager : MonoBehaviour
 
     IEnumerator StartProcess()
     {
+        yield return new WaitForSeconds(1.0f);
         uiManager.DisplayStart();
-
         yield return new WaitForSeconds(2.0f);
 
         uiManager.HideStart();

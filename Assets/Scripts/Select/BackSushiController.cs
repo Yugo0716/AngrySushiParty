@@ -1,39 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class NormalSushi : SushiController
+public class BackSushiController : MonoBehaviour
 {
+    Rigidbody2D rbody;
+    float time = 0;
+
     [SerializeField] private float speed = 0f;
 
     [SerializeField] private bool toRight = true; //‰E‚É—¬‚ê‚éŽõŽi‚È‚Ì‚©
 
     public Sprite[] sushiSprites;
 
-    GameObject sushiSpeedobj;
-    SushiSpeed sushiSpeed;
+    SpriteRenderer spriteRenderer;
+    //public List<Sprite> normalSushiSprites = new List<Sprite>();
 
+    
     Dictionary<int, SushiTypeSc.SushiType> numAndSushiType = new Dictionary<int, SushiTypeSc.SushiType>()
     {
         {0, SushiTypeSc.SushiType.Tamago}, {1, SushiTypeSc.SushiType.Ebi}, {2, SushiTypeSc.SushiType.Ika}, {3, SushiTypeSc.SushiType.Maguro}
         ,{4, SushiTypeSc.SushiType.Ikura}
     };
 
+    SushiTypeSc sushiType;
+
     // Start is called before the first frame update
-    override public void Start()
+    void Start()
     {
-        base.Start();
-        speed = rbody.velocity.x;
+        time = 0f;
+        rbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        sushiType = GetComponent<SushiTypeSc>();
 
         spriteRenderer.sprite = GetSushiSprite(sushiSprites);
-
-        sushiSpeedobj = GameObject.FindGameObjectWithTag("SushiSpeed");
-        if(sushiSpeedobj != null)
-        {
-            sushiSpeed = sushiSpeedobj.GetComponent<SushiSpeed>();
-        }
-        
 
         if (toRight)
         {
@@ -47,29 +51,25 @@ public class NormalSushi : SushiController
     }
 
     // Update is called once per frame
-    override public void Update()
+    void Update()
     {
-        base.Update();
+        
     }
 
     private void FixedUpdate()
     {
-        if(!gameMode.isScored)
-        {
-            speed = sushiSpeed.speed;
+        time += Time.deltaTime;
 
-            if(!toRight)
-            {
-                speed = -speed;
-            }
-            rbody.velocity = new Vector2(speed, 0f);
+        if(time > 6f)
+        {
+            Destroy(gameObject);
         }
     }
 
     Sprite GetSushiSprite(Sprite[] sprites)
     {
-        int rand = Random.Range(0, sprites.Length);
+        int rand = UnityEngine.Random.Range(0, sprites.Length);
         sushiType.type = numAndSushiType[rand];
-        return sprites[Random.Range(0, sprites.Length)];
+        return sprites[UnityEngine.Random.Range(0, sprites.Length)];
     }
 }

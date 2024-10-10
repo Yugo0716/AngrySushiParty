@@ -3908,6 +3908,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 4591429314828708642, guid: 775aebf9c71c7834890bd406d7bdfc44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4359,6 +4363,10 @@ PrefabInstance:
     - target: {fileID: 1132686085715864950, guid: 0449a7161061ea0468c0a8a1632922d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3320111885567538833, guid: 0449a7161061ea0468c0a8a1632922d0, type: 3}
+      propertyPath: m_Depth
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7685642728292889186, guid: 0449a7161061ea0468c0a8a1632922d0, type: 3}
       propertyPath: m_Name
