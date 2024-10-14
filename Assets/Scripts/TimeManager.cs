@@ -14,12 +14,16 @@ public class TimeManager : MonoBehaviour
     UIManager uiManager;
     GameMode gameMode;
     LifeManager lifeManager = null;
-    
+
+    GameObject sushiCounterObj;
+    SushiCounter sushiCounter;
 
     public bool countDown = false;
     public int maxTime = 60;
     public float displayTime = 0;
     public static float time = 0;
+
+    bool isStart = true;
 
     public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
     {
@@ -38,6 +42,12 @@ public class TimeManager : MonoBehaviour
         uiManager = canvas.GetComponent<UIManager>();
         gameMode = canvas.GetComponent<GameMode>();
 
+        sushiCounterObj = GameObject.FindGameObjectWithTag("SushiCounter");
+        if(sushiCounterObj != null)
+        {
+            sushiCounter = sushiCounterObj.GetComponent<SushiCounter>();
+        }
+
         timeText = timeTextObj.GetComponent<TextMeshProUGUI>();
         time = 0;
         //エンドレスモードの時のみ残機を考慮する
@@ -47,7 +57,6 @@ public class TimeManager : MonoBehaviour
         }
 
         gameState = GameState.ready;
-        StartCoroutine(StartProcess());
 
         //最初の表示タイム
         if (gameMode.isScored)
@@ -84,7 +93,11 @@ public class TimeManager : MonoBehaviour
 
     void ReadyUpdate()
     {
-        
+        if(sushiCounter.counter <= 0 && isStart)
+        {
+            StartCoroutine(StartProcess());
+            isStart = false;
+        }
     }
 
     void PlayUpdate()
@@ -126,6 +139,9 @@ public class TimeManager : MonoBehaviour
 
         uiManager.HideStart();
         gameState = GameState.play;
+
+        SceneManager.UnloadSceneAsync("SelectScene");
+        SceneManager.UnloadSceneAsync("BackScene");
     }
 
     IEnumerator FinishProcess()

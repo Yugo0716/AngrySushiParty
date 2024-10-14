@@ -25,9 +25,13 @@ public class ResultManager : MonoBehaviour
 
     bool isRanking = false;
     [SerializeField] GameObject rankButtonObj;
+    Button rankButton;
     Image rankButtonImage;
+
     [SerializeField] Sprite rankButtonSprite;
     [SerializeField] Sprite backButtonSprite;
+    [SerializeField] Sprite rankButtonSprite_touch;
+    [SerializeField] Sprite backButtonSprite_touch;
 
     bool isHighScore = false;
 
@@ -49,6 +53,7 @@ public class ResultManager : MonoBehaviour
         sushiCountText = sushiCountTextObj.GetComponent<TextMeshProUGUI>();
 
         rankButtonImage = rankButtonObj.GetComponent<Image>();
+        rankButton = rankButtonObj.GetComponent<Button>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -96,7 +101,12 @@ public class ResultManager : MonoBehaviour
 
             rankButtonImage.sprite = backButtonSprite;
 
-            
+            SpriteState spriteState = rankButton.spriteState; 
+            spriteState.highlightedSprite = backButtonSprite_touch; 
+            rankButton.spriteState = spriteState;
+
+
+
             var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
                 .SetLimit(10)
                 .SetDescSort("score");
@@ -131,6 +141,10 @@ public class ResultManager : MonoBehaviour
             this.transform.DOLocalMove(new Vector3(-160f, 230f, -3750f), 0.8f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
+
+            SpriteState spriteState = rankButton.spriteState;
+            spriteState.highlightedSprite = rankButtonSprite_touch;
+            rankButton.spriteState = spriteState;
         }
     }
 }

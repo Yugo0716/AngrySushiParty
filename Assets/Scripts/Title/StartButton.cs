@@ -22,11 +22,16 @@ public class StartButton : MonoBehaviour
 
     [SerializeField] GameObject clickBlurObj;
     ClickBlur clickBlur;
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if(backSushiGeneratorObjA != null)
+
+        backSushiGeneratorObjA = GameObject.FindGameObjectWithTag("BackSushiGeneratorA");
+        backSushiGeneratorObjB = GameObject.FindGameObjectWithTag("BackSushiGeneratorB");
+        clickBlurObj = GameObject.FindGameObjectWithTag("ClickBlur");
+        if (backSushiGeneratorObjA != null)
         {
             backSushiGeneratorA = backSushiGeneratorObjA.GetComponent<BackSushiGenerator>();
         }
@@ -38,6 +43,7 @@ public class StartButton : MonoBehaviour
         {
             clickBlur = clickBlurObj.GetComponent<ClickBlur>();
         }
+
         fadeCanvas = GameObject.FindGameObjectWithTag("FadeCanvas");
         fadeManager = fadeCanvas.GetComponent<FadeManager>();
     }
@@ -45,9 +51,10 @@ public class StartButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
+    //セレクト画面とリザルトでのリトライで使用
     public void SelectNormalGame()
     {
         if (Input.touchCount == 0)
@@ -55,10 +62,11 @@ public class StartButton : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
-            StartCoroutine("SelectGame", "GameScene");
+            StartCoroutine(SelectGame("GameScene"));
         }
     }
 
+    //セレクト画面とリザルトでのリトライで使用
     public void SelectEndlessGame()
     {
         if (Input.touchCount == 0)
@@ -66,20 +74,28 @@ public class StartButton : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
-            StartCoroutine("SelectGame", "EndlessGameScene");
+            StartCoroutine(SelectGame("EndlessGameScene"));
         }
     }
 
-
+    //タイトルからとゲーム中からで使用
     public void StartButtonClick()
     {
         if (Input.touchCount == 0)
         {
             audioSource.PlayOneShot(clickSound);
 
-            StartCoroutine("Load", "SelectScene");
+
+            //SceneManager.LoadScene("SelectScene");
+            StartCoroutine(FadeLoadwithBack("SelectScene"));
+            //UnduplicateLoad("BackScene");
+
+
+            //StartCoroutine("Load", "SelectScene");
         }
     }
+
+    #region 使わん
     public void PlayButtonClick()
     {
 
@@ -87,7 +103,7 @@ public class StartButton : MonoBehaviour
         {
             audioSource.PlayOneShot(clickSound);
             
-            StartCoroutine("Load", "GameScene");
+            StartCoroutine(FadeLoad("GameScene"));
         }
         
     }
@@ -99,42 +115,58 @@ public class StartButton : MonoBehaviour
         {
             audioSource.PlayOneShot(clickSound);
 
-            StartCoroutine("Load", "EndlessGameScene");
+            StartCoroutine(FadeLoad("EndlessGameScene"));
         }
 
     }
+    #endregion
 
+    //セレクト画面からで使用
     public void TitleButtonClick()
     {
         audioSource.PlayOneShot(clickSound);
         
-        StartCoroutine("Load", "Title");
-        //FadeLoadScene("Title");
+        StartCoroutine(FadeLoad("Title"));
     }
 
+    //ゲーム画面に移行するとき
     IEnumerator SelectGame(string sceneName)
     {
-        
-        //fadeManager.FadeIn();
         yield return new WaitForSeconds(0.3f);
         clickBlur.Blur();
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-        yield return new WaitForSeconds(3.0f);
-        SceneManager.UnloadSceneAsync("SelectScene");
     }
 
-    IEnumerator Load(string sceneName)
+
+    IEnumerator FadeLoad(string sceneName)
     {
         fadeManager.FadeIn();
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(sceneName);
     }
 
-    public async void FadeLoadScene(string sceneName)
+    IEnumerator FadeLoadwithBack(string sceneName)
     {
         fadeManager.FadeIn();
-        await Task.Delay(300);
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(sceneName);
+        UnduplicateLoad("BackScene");
+    }
+
+
+    private void UnduplicateLoad(string loadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == loadSceneName)
+            {
+                return;
+            }
+        }
+
+        SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
     }
 }

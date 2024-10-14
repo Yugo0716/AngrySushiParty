@@ -428,7 +428,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847875261409651262}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 0.024, y: 0.024, z: 0.024}
   m_ConstrainProportionsScale: 0
@@ -508,8 +508,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 120, y: 81.3}
-  m_Spacing: {x: 68.37, y: -37.2}
+  m_CellSize: {x: 120, y: 67.5}
+  m_Spacing: {x: 68.37, y: -21}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &3806362488299387116

@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6558839201898107440, guid: 3c3d20fee3032d94ab6eb46afc55b711, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.9
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 6558839201898107440, guid: 3c3d20fee3032d94ab6eb46afc55b711, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -859,13 +859,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -875,7 +875,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 43f0373a91f265549948a9f9e0161b0c, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -1209,7 +1209,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1219,7 +1219,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7f4ab7f1f19b14f44a01ca394ddd6f04, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -1309,6 +1309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
+  backSushiGeneratorObjA: {fileID: 0}
+  backSushiGeneratorObjB: {fileID: 0}
+  clickBlurObj: {fileID: 0}
 --- !u!82 &1170940663
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1649,6 +1652,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5835075511627427718, guid: d70a4743e75c7994aac484e5162828de, type: 3}
+      propertyPath: m_Spacing.y
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835075511627427718, guid: d70a4743e75c7994aac484e5162828de, type: 3}
+      propertyPath: m_CellSize.y
+      value: 67.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5863669286339161608, guid: d70a4743e75c7994aac484e5162828de, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1739,7 +1750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6131949722388363531, guid: d70a4743e75c7994aac484e5162828de, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.9
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 6131949722388363531, guid: d70a4743e75c7994aac484e5162828de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1908,7 +1919,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1918,7 +1929,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: fe5111910db15b54e8c612649607d942, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -2104,6 +2115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
+  backSushiGeneratorObjA: {fileID: 0}
+  backSushiGeneratorObjB: {fileID: 0}
+  clickBlurObj: {fileID: 0}
 --- !u!1001 &1583323334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2614,6 +2628,8 @@ MonoBehaviour:
   rankButtonObj: {fileID: 620523459}
   rankButtonSprite: {fileID: 21300000, guid: 18d0231404b44a243a96d1190d55d814, type: 3}
   backButtonSprite: {fileID: 21300000, guid: 01b766632eb5e754db25ba0669e450f7, type: 3}
+  rankButtonSprite_touch: {fileID: 21300000, guid: 43f0373a91f265549948a9f9e0161b0c, type: 3}
+  backButtonSprite_touch: {fileID: 21300000, guid: ffeef9912c8dfc5428c7dc4b15b61539, type: 3}
   highScoreTexts:
   - {fileID: 0}
   - {fileID: 0}
@@ -2794,6 +2810,8 @@ MonoBehaviour:
   rankButtonObj: {fileID: 620523459}
   rankButtonSprite: {fileID: 21300000, guid: 18d0231404b44a243a96d1190d55d814, type: 3}
   backButtonSprite: {fileID: 21300000, guid: 01b766632eb5e754db25ba0669e450f7, type: 3}
+  rankButtonSprite_touch: {fileID: 21300000, guid: 43f0373a91f265549948a9f9e0161b0c, type: 3}
+  backButtonSprite_touch: {fileID: 21300000, guid: ffeef9912c8dfc5428c7dc4b15b61539, type: 3}
   highScoreTexts:
   - {fileID: 437715605}
   - {fileID: 437715604}

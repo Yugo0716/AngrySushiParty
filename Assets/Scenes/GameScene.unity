@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startText: {fileID: 489100278}
-  finishText: {fileID: 650798667}
+  finishText: {fileID: 3618514814577028014}
 --- !u!114 &482114121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,11 +1381,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618856c620bee164d9d31898d1af810a, type: 3}
---- !u!1 &650798667 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7480642241291234819, guid: c1d4bf62e8051f541a264e96be95551e, type: 3}
-  m_PrefabInstance: {fileID: 3618514814577028013}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &745107629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,6 +2044,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
+  backSushiGeneratorObjA: {fileID: 0}
+  backSushiGeneratorObjB: {fileID: 0}
+  clickBlurObj: {fileID: 0}
 --- !u!114 &1309383078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4316,6 +4314,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1d4bf62e8051f541a264e96be95551e, type: 3}
+--- !u!1 &3618514814577028014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9180028360143867904, guid: c1d4bf62e8051f541a264e96be95551e, type: 3}
+  m_PrefabInstance: {fileID: 3618514814577028013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7288566751740592504
 PrefabInstance:
   m_ObjectHideFlags: 0

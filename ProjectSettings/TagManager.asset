@@ -20,6 +20,11 @@ TagManager:
   - E_OrderSushi
   - ScorePlusCanvas
   - FadeCanvas
+  - SushiCounter
+  - BackSushi
+  - BackSushiGeneratorA
+  - BackSushiGeneratorB
+  - ClickBlur
   layers:
   - Default
   - TransparentFX
