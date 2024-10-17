@@ -55,7 +55,8 @@ public class TimeManager : MonoBehaviour
         {
             lifeManager = canvas.GetComponent<LifeManager>();
         }
-
+        
+        SoundManager.soundManager.StopBGM();
         gameState = GameState.ready;
 
         //最初の表示タイム
@@ -139,6 +140,7 @@ public class TimeManager : MonoBehaviour
 
         uiManager.HideStart();
         gameState = GameState.play;
+        SoundManager.soundManager.PlayBGM(BGMType.Play);
 
         SceneManager.UnloadSceneAsync("SelectScene");
         SceneManager.UnloadSceneAsync("BackScene");
@@ -151,6 +153,8 @@ public class TimeManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         uiManager.HideFinish();
+
+        SoundManager.soundManager.StopBGM();
 
         // シーン切り替え
         if (gameMode.isScored)

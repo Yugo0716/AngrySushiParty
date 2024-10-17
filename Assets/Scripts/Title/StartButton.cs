@@ -14,6 +14,7 @@ public class StartButton : MonoBehaviour
 
     FadeManager fadeManager;
     GameObject fadeCanvas;
+    GameObject canvas;
 
     [SerializeField] GameObject backSushiGeneratorObjA;
     [SerializeField] GameObject backSushiGeneratorObjB;
@@ -23,10 +24,18 @@ public class StartButton : MonoBehaviour
     [SerializeField] GameObject clickBlurObj;
     ClickBlur clickBlur;
 
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        canvas = GameObject.FindGameObjectWithTag("SelectCanvas");
         audioSource = GetComponent<AudioSource>();
+        if(canvas != null)
+        {
+            animator = canvas.GetComponent<Animator>();
+        }
+        
 
         backSushiGeneratorObjA = GameObject.FindGameObjectWithTag("BackSushiGeneratorA");
         backSushiGeneratorObjB = GameObject.FindGameObjectWithTag("BackSushiGeneratorB");
@@ -62,6 +71,8 @@ public class StartButton : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
+
+            animator.Play("NormalSelectAnimation");
             StartCoroutine(SelectGame("GameScene"));
         }
     }

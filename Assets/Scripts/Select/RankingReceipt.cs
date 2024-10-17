@@ -1,42 +1,33 @@
+using DG.Tweening;
+using ProcRanking;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using ProcRanking;
-using System;
-using DG.Tweening;
 using UnityEngine.UI;
+using ProcRanking;
+using TMPro;
+using System;
+using UnityEngine.SocialPlatforms.Impl;
 
-public class ResultManager : MonoBehaviour
+public class RankingReceipt : MonoBehaviour
 {
-    [SerializeField] GameObject scoreTextObj;
-    [SerializeField] GameObject highScoreTextObj;
-    [SerializeField] GameObject sushiCountTextObj;
-    TextMeshProUGUI scoreText;
-    TextMeshProUGUI highScoreText;
-    TextMeshProUGUI sushiCountText;
-
-    [SerializeField] GameObject congImg;
-
-    public int score = 3;
-    int highScore = 0;
-    int sushiCount = 0;
-
     bool isRanking = false;
     [SerializeField] GameObject rankButtonObj;
     Button rankButton;
     Image rankButtonImage;
 
+    [SerializeField] GameObject highScoreTextObj;
+    TextMeshProUGUI highScoreText;
+
+    int highScore = 0;
+
+    int[] highScores = new int[10];
+    [SerializeField] GameObject[] highScoreTexts = new GameObject[10];
+
     [SerializeField] Sprite rankButtonSprite;
     [SerializeField] Sprite backButtonSprite;
     [SerializeField] Sprite rankButtonSprite_touch;
     [SerializeField] Sprite backButtonSprite_touch;
-
-    bool isHighScore = false;
-
-    int[] highScores = new int[10];
-    [SerializeField] GameObject[] highScoreTexts = new GameObject[10];
 
     AudioSource audioSource;
     public AudioClip clickSound;
@@ -44,51 +35,20 @@ public class ResultManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = ScoreManager.score;
-        sushiCount = GetSushiCount.count;
         highScore = PlayerPrefs.GetInt("maxScore", 0);
-
-        scoreText = scoreTextObj.GetComponent<TextMeshProUGUI>();
         highScoreText = highScoreTextObj.GetComponent<TextMeshProUGUI>();
-        sushiCountText = sushiCountTextObj.GetComponent<TextMeshProUGUI>();
 
         rankButtonImage = rankButtonObj.GetComponent<Image>();
         rankButton = rankButtonObj.GetComponent<Button>();
 
         audioSource = GetComponent<AudioSource>();
 
-        score.SaveToProcRaAsync("SushiDataStore", "score");
+        highScoreText.text = highScore.ToString();
 
         SoundManager.soundManager.PlayBGM(BGMType.Select);
-        PlayerPrefs.DeleteAll();
-
-        if (highScore < score)
-        {
-            PlayerPrefs.SetInt("maxScore", score);
-            isHighScore = true;
-        }
-
-        if(isHighScore)
-        {
-            congImg.SetActive(true);
-            scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
-        }
-        else
-        {
-            congImg.SetActive(false);
-        }
-
-
-        scoreText.text = score.ToString();
-        highScoreText.text = highScore.ToString();
-        sushiCountText.text = sushiCount.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void RankingButtonClicked()
     {
@@ -98,12 +58,13 @@ public class ResultManager : MonoBehaviour
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(176f, -27f, 0f), 0.8f).SetEase(Ease.InOutSine);
+            //this.transform.DOLocalMove(new Vector3(0, 0f, 0f), 0.8f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 
-            SpriteState spriteState = rankButton.spriteState; 
-            spriteState.highlightedSprite = backButtonSprite_touch; 
+            SpriteState spriteState = rankButton.spriteState;
+            spriteState.highlightedSprite = backButtonSprite_touch;
             rankButton.spriteState = spriteState;
 
 
@@ -133,13 +94,12 @@ public class ResultManager : MonoBehaviour
                     }
                 }
             });
-
         }
         else
         {
             isRanking = false;
 
-            this.transform.DOLocalMove(new Vector3(-160f, 230f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.8f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
 

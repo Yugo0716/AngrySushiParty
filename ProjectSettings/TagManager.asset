@@ -25,6 +25,7 @@ TagManager:
   - BackSushiGeneratorA
   - BackSushiGeneratorB
   - ClickBlur
+  - SelectCanvas
   layers:
   - Default
   - TransparentFX
