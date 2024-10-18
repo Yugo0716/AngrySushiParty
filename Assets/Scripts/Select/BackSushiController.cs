@@ -31,6 +31,8 @@ public class BackSushiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject parent = GameObject.FindGameObjectWithTag("BackSushiParent");
+        gameObject.transform.SetParent(parent.transform);
         time = 0f;
         rbody = GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();

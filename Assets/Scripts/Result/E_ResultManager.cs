@@ -95,7 +95,7 @@ public class E_ResultManager : MonoBehaviour
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.7f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 
@@ -135,7 +135,7 @@ public class E_ResultManager : MonoBehaviour
         {
             isRanking = false;
 
-            this.transform.DOLocalMove(new Vector3(-160f, 230f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.7f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
 

@@ -1,14 +1,10 @@
 using DG.Tweening;
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-public class StartButton : MonoBehaviour
+public class SceneChange_Result : MonoBehaviour
 {
     AudioSource audioSource;
     public AudioClip clickSound;
@@ -16,6 +12,8 @@ public class StartButton : MonoBehaviour
     FadeManager fadeManager;
     GameObject fadeCanvas;
     GameObject canvas;
+
+    [SerializeField] GameObject receipt;
 
     [SerializeField] GameObject backSushiGeneratorObjA;
     [SerializeField] GameObject backSushiGeneratorObjB;
@@ -25,20 +23,18 @@ public class StartButton : MonoBehaviour
     [SerializeField] GameObject clickBlurObj;
     ClickBlur clickBlur;
 
-    [SerializeField] GameObject normalReceipt;
-
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        canvas = GameObject.FindGameObjectWithTag("SelectCanvas");
+        canvas = GameObject.FindGameObjectWithTag("ResultCanvas");
         audioSource = GetComponent<AudioSource>();
-        if(canvas != null)
+        if (canvas != null)
         {
             animator = canvas.GetComponent<Animator>();
         }
-        
+
 
         backSushiGeneratorObjA = GameObject.FindGameObjectWithTag("BackSushiGeneratorA");
         backSushiGeneratorObjB = GameObject.FindGameObjectWithTag("BackSushiGeneratorB");
@@ -51,7 +47,7 @@ public class StartButton : MonoBehaviour
         {
             backSushiGeneratorB = backSushiGeneratorObjB.GetComponent<BackSushiGenerator>();
         }
-        if(clickBlurObj != null)
+        if (clickBlurObj != null)
         {
             clickBlur = clickBlurObj.GetComponent<ClickBlur>();
         }
@@ -63,25 +59,32 @@ public class StartButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    //セレクト画面で使用
-    public void SelectNormalGame()
+    public void RetryNormalGame()
     {
         if (Input.touchCount == 0)
         {
             audioSource.PlayOneShot(clickSound);
-            backSushiGeneratorA.isGo = false;
-            backSushiGeneratorB.isGo = false;
+            if(backSushiGeneratorA != null)
+            {
+                backSushiGeneratorA.isGo = false;
+            }
+            if (backSushiGeneratorA != null)
+            {
+                backSushiGeneratorB.isGo = false;
+            }
+            
 
-            animator.Play("NormalSelectAnimation");
-            normalReceipt.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.45f).SetEase(Ease.InOutSine);
+            animator.Play("RetryAnimation");
+            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+
             StartCoroutine(SelectGame("GameScene"));
         }
     }
 
-    public void SelectEndlessGame()
+    public void RetryEndlessGame()
     {
         if (Input.touchCount == 0)
         {
@@ -92,37 +95,55 @@ public class StartButton : MonoBehaviour
         }
     }
 
-    //タイトルからとゲーム中からで使用
-    public void StartButtonClick()
+    public void SelectButtonClick()
     {
         if (Input.touchCount == 0)
         {
             audioSource.PlayOneShot(clickSound);
 
-            StartCoroutine(FadeLoadwithBack("SelectScene"));
+            animator.Play("SelectAnimation");
+            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+            StartCoroutine(LoadwithBack("SelectScene"));
+
         }
     }
-
-    
 
     //ゲーム画面に移行するとき
     IEnumerator SelectGame(string sceneName)
     {
-        yield return new WaitForSeconds(0.5f);
-        clickBlur.Blur();
+        yield return new WaitForSeconds(0.3f);
+        if(clickBlur != null)
+        {
+            clickBlur.Blur();
+        }
+        
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
+    public void TitleButtonClick()
+    {
+        audioSource.PlayOneShot(clickSound);
 
-    IEnumerator FadeLoadwithBack(string sceneName)
+        StartCoroutine(FadeLoad("Title"));
+    }
+
+    IEnumerator LoadwithBack(string sceneName)
+    {
+        //fadeManager.FadeIn();
+        yield return new WaitForSeconds(1f);
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(currentScene.name);
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        UnduplicateLoad("BackScene");
+    }
+
+    IEnumerator FadeLoad(string sceneName)
     {
         fadeManager.FadeIn();
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(sceneName);
-        UnduplicateLoad("BackScene");
     }
-
 
     void UnduplicateLoad(string loadSceneName)
     {
@@ -135,7 +156,6 @@ public class StartButton : MonoBehaviour
                 return;
             }
         }
-
         SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
     }
 }

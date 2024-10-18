@@ -18,12 +18,16 @@ public class TimeManager : MonoBehaviour
     GameObject sushiCounterObj;
     SushiCounter sushiCounter;
 
+    FadeManager fadeManager;
+    GameObject fadeCanvas;
+
     public bool countDown = false;
     public int maxTime = 60;
     public float displayTime = 0;
     public static float time = 0;
 
     bool isStart = true;
+    bool isFinish = true;
 
     public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
     {
@@ -41,6 +45,9 @@ public class TimeManager : MonoBehaviour
         scoreManager = canvas.GetComponent<ScoreManager>();
         uiManager = canvas.GetComponent<UIManager>();
         gameMode = canvas.GetComponent<GameMode>();
+
+        fadeCanvas = GameObject.FindGameObjectWithTag("FadeCanvas");
+        fadeManager = fadeCanvas.GetComponent<FadeManager>();
 
         sushiCounterObj = GameObject.FindGameObjectWithTag("SushiCounter");
         if(sushiCounterObj != null)
@@ -129,21 +136,29 @@ public class TimeManager : MonoBehaviour
 
     void EndUpdate()
     {
-        StartCoroutine(FinishProcess());
+        if (isFinish)
+        {
+            StartCoroutine(FinishProcess());
+            isFinish = false;
+        }
+        
     }
 
     IEnumerator StartProcess()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
         uiManager.DisplayStart();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.2f);
 
         uiManager.HideStart();
         gameState = GameState.play;
         SoundManager.soundManager.PlayBGM(BGMType.Play);
 
-        SceneManager.UnloadSceneAsync("SelectScene");
-        SceneManager.UnloadSceneAsync("BackScene");
+        ExistUnload("SelectScene");
+        ExistUnload("BackScene");
+        ExistUnload("Result");
+        ExistUnload("EndlessResult");
+        Resources.UnloadUnusedAssets();
     }
 
     IEnumerator FinishProcess()
@@ -159,11 +174,48 @@ public class TimeManager : MonoBehaviour
         // シーン切り替え
         if (gameMode.isScored)
         {
-            SceneManager.LoadScene("Result");
+            StartCoroutine(FadeLoadwithBack("Result"));
         }
         else
         {
-            SceneManager.LoadScene("EndlessResult");
+            StartCoroutine(FadeLoadwithBack("EndlessResult"));
+        }
+    }
+
+    IEnumerator FadeLoadwithBack(string sceneName)
+    {
+        fadeManager.FadeIn();
+        yield return new WaitForSeconds(0.3f);
+
+        SceneManager.LoadScene(sceneName);
+        UnduplicateLoad("BackScene");
+    }
+
+    void UnduplicateLoad(string loadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == loadSceneName)
+            {
+                return;
+            }
+        }
+
+        SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
+    }
+
+    void ExistUnload(string unloadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == unloadSceneName)
+            {
+                SceneManager.UnloadSceneAsync(unloadSceneName);
+            }
         }
     }
 }

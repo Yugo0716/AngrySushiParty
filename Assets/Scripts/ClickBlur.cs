@@ -31,4 +31,14 @@ public class ClickBlur : MonoBehaviour
                 .From(0.1f);
         }
     }
+
+    public void UnBlur()
+    {
+        if (volume.profile.TryGet<DepthOfField>(out depthOfField))
+        {
+            // 50‚©‚ç0.1‚É1•b‚Å•Ï‰»‚³‚¹‚é
+            DOTween.To(() => depthOfField.focusDistance.value, x => depthOfField.focusDistance.value = x, 0.1f, 2f)
+                .From(10f);
+        }
+    }
 }

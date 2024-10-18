@@ -24,7 +24,7 @@ public class SushiGenerator : MonoBehaviour
     List<int> indexList = new List<int>();
 
     int[] nums = new int[] { 0, 0, 0 }; //序盤、中盤、終盤に配置する寿司の数
-    int[] maxNums = new int[] { 17, 17, 17 }; //序盤、中盤、終盤に配置できる寿司の枠数(19×3)
+    int[] maxNums = new int[] { 17, 17, 17 }; //序盤、中盤、終盤に配置できる寿司の枠数(17×3)
 
     //エンドレスモードでの寿司の排出ペース
     float delTime_pace = 0;
@@ -105,14 +105,15 @@ public class SushiGenerator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        delTime += Time.deltaTime;
-        delTime_pace += Time.deltaTime;
+        
 
         if (timeManager.gameState == TimeManager.GameState.play)
         {
+            delTime += Time.deltaTime;
+            delTime_pace += Time.deltaTime;
             if (gameMode.isScored)
             {
-                interval = 1.1f;
+                interval = 1.12f;
 
                 if (delTime >= interval)
                 {

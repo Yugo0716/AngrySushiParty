@@ -7,6 +7,7 @@ using ProcRanking;
 using System;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultManager : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class ResultManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        UnduplicateLoad("BackScene");
         score = ScoreManager.score;
         sushiCount = GetSushiCount.count;
         highScore = PlayerPrefs.GetInt("maxScore", 0);
@@ -98,7 +101,7 @@ public class ResultManager : MonoBehaviour
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, -3750f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.7f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 
@@ -139,7 +142,7 @@ public class ResultManager : MonoBehaviour
         {
             isRanking = false;
 
-            this.transform.DOLocalMove(new Vector3(-160f, 230f, -3750f), 0.8f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.7f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
 
@@ -147,5 +150,20 @@ public class ResultManager : MonoBehaviour
             spriteState.highlightedSprite = rankButtonSprite_touch;
             rankButton.spriteState = spriteState;
         }
+    }
+
+    void UnduplicateLoad(string loadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == loadSceneName)
+            {
+                return;
+            }
+        }
+        Debug.Log("BackSceneÄ“Ç‚Ýž‚Ý");
+        SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
     }
 }
