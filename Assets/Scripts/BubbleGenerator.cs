@@ -12,9 +12,9 @@ public class BubbleGenerator : MonoBehaviour
     public GameObject bubbleObj;
     //[SerializeField] GameObject generateBubbleObj;
 
-    public Transform pointA;
-    public Transform pointB;
-    public Transform pointC;
+    [SerializeField] Transform pointA;
+    [SerializeField] Transform pointB;
+    [SerializeField] Transform pointC;
 
     int prenum = 0;
 

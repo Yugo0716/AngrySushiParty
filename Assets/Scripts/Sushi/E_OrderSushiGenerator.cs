@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class E_OrderSushiGenerator : MonoBehaviour
 {
+    [SerializeField] Transform pointA;
+    [SerializeField] Transform pointB;
+    [SerializeField] Transform pointC;
+
     public List<GameObject> sushiObjPoses = new List<GameObject>();
     public List<GameObject> bubbles = new List<GameObject>();
 
@@ -98,13 +102,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
                 }
             }
         }
-        else if (timeManager.gameState == TimeManager.GameState.end)
-        {
-            foreach (GameObject obj in sushiObjPoses)
-            {
-                if (obj != null && obj.activeSelf) obj.SetActive(false);
-            }
-        }
+        
     }
 
     IEnumerator StartOrder(int orderCount)
@@ -139,7 +137,8 @@ public class E_OrderSushiGenerator : MonoBehaviour
         foreach (int i in bubbleCount)
         {
             GameObject childObj = bubbles[orderCount].transform.GetChild(i).gameObject;
-            //float delTime = UnityEngine.Random.Range(0f, 0.2f);
+            childObj.transform.position = SetBubblePosition(i);
+            
             float delTime = 0.1f;
             yield return new WaitForSeconds(delTime);
             childObj.SetActive(true);
@@ -149,6 +148,38 @@ public class E_OrderSushiGenerator : MonoBehaviour
             audioSource.PlayOneShot(bubbleAppearSound);
 
         }
+    }
+
+    Vector2 SetBubblePosition(int num)
+    {
+        float[] x = new float[2];
+        float[] y = new float[2];
+        Vector2[] ranges = new Vector2[4];
+
+        x[0] = UnityEngine.Random.Range(pointA.position.x, pointC.position.x - 0.8f);
+        x[1] = UnityEngine.Random.Range(pointC.position.x + 0.8f, pointB.position.x);
+        y[0] = UnityEngine.Random.Range(pointC.position.y + 0.8f, pointA.position.y);
+        y[1] = UnityEngine.Random.Range(pointB.position.y, pointC.position.y - 0.8f);
+
+        ranges[0] = new Vector2(x[0], y[0]);
+        ranges[1] = new Vector2(x[0], y[1]);
+        ranges[2] = new Vector2(x[1], y[0]);
+        ranges[3] = new Vector2(x[1], y[1]);
+
+        Vector2 returnPos;
+        if (num == 0)
+        {
+            returnPos = ranges[UnityEngine.Random.Range(0, 2)];
+        }
+        else if(num == 1)
+        {
+            returnPos = ranges[UnityEngine.Random.Range(2, 4)];
+        }
+        else
+        {
+            returnPos = ranges[UnityEngine.Random.Range(0, 4)];
+        }
+        return returnPos;
     }
 
     //寿司のスプライトとSushiTypeの指定

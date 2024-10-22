@@ -26,6 +26,8 @@ public class StartButton : MonoBehaviour
     ClickBlur clickBlur;
 
     [SerializeField] GameObject normalReceipt;
+    [SerializeField] GameObject endlessReceipt;
+    [SerializeField] GameObject howtoPanel;
 
     Animator animator;
 
@@ -76,7 +78,8 @@ public class StartButton : MonoBehaviour
             backSushiGeneratorB.isGo = false;
 
             animator.Play("NormalSelectAnimation");
-            normalReceipt.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.45f).SetEase(Ease.InOutSine);
+            normalReceipt.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
+            howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
             StartCoroutine(SelectGame("GameScene"));
         }
     }
@@ -88,7 +91,21 @@ public class StartButton : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
+
+            animator.Play("EndlessSelectAnimation");
+            endlessReceipt.transform.DOLocalMove(new Vector3(-176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
+            howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
             StartCoroutine(SelectGame("EndlessGameScene"));
+        }
+    }
+
+    public void SelectTitle()
+    {
+        if (Input.touchCount == 0)
+        {
+            audioSource.PlayOneShot(clickSound);
+
+            StartCoroutine(FadeLoad("Title"));
         }
     }
 
@@ -110,7 +127,7 @@ public class StartButton : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         clickBlur.Blur();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
@@ -119,8 +136,20 @@ public class StartButton : MonoBehaviour
     {
         fadeManager.FadeIn();
         yield return new WaitForSeconds(0.3f);
+        // 現在アクティブなシーンの名前を取得
+        Scene currentScene = SceneManager.GetActiveScene();
+        // 現在のシーンを非同期でアンロード
+        SceneManager.UnloadSceneAsync(currentScene.name);
+        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadScene("BackScene", LoadSceneMode.Additive);
+        //UnduplicateLoad("BackScene");
+    }
+
+    IEnumerator FadeLoad(string sceneName)
+    {
+        fadeManager.FadeIn();
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(sceneName);
-        UnduplicateLoad("BackScene");
     }
 
 

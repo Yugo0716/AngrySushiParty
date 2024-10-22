@@ -43,11 +43,11 @@ public class BackSushiController : MonoBehaviour
 
         if (toRight)
         {
-            if (speed != 3.0f) speed = 3.0f;
+            if (speed != 3.2f) speed = 3.2f;
         }
         else
         {
-            if (speed != -3.0f) speed = -3.0f;
+            if (speed != -3.2f) speed = -3.2f;
         }
         rbody.velocity = new Vector2(speed, 0f);
     }

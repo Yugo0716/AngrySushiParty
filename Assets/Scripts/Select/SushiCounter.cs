@@ -14,7 +14,7 @@ public class SushiCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("count:"+counter);
+        //Debug.Log("count:"+counter);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -18,7 +18,7 @@ public class ResultManager : MonoBehaviour
     TextMeshProUGUI highScoreText;
     TextMeshProUGUI sushiCountText;
 
-    [SerializeField] GameObject congImg;
+    //[SerializeField] GameObject congImg;
 
     public int score = 3;
     int highScore = 0;
@@ -33,6 +33,15 @@ public class ResultManager : MonoBehaviour
     [SerializeField] Sprite backButtonSprite;
     [SerializeField] Sprite rankButtonSprite_touch;
     [SerializeField] Sprite backButtonSprite_touch;
+
+    [SerializeField] GameObject conglaturateObj;
+
+    [SerializeField] GameObject RankObj;
+    Image rankImage;
+    [SerializeField] Sprite RankSImage;
+    [SerializeField] Sprite RankAImage;
+    [SerializeField] Sprite RankBImage;
+    [SerializeField] Sprite RankCImage;
 
     bool isHighScore = false;
 
@@ -58,12 +67,30 @@ public class ResultManager : MonoBehaviour
         rankButtonImage = rankButtonObj.GetComponent<Image>();
         rankButton = rankButtonObj.GetComponent<Button>();
 
+        rankImage = RankObj.GetComponent<Image>();
+        if (score < 8000)
+        {
+            rankImage.sprite = RankCImage;
+        }
+        else if(score< 15000)
+        {
+            rankImage.sprite = RankBImage;
+        }
+        else if (score < 20000)
+        {
+            rankImage.sprite = RankAImage;
+        }
+        else
+        {
+            rankImage.sprite = RankSImage;
+        }
+
         audioSource = GetComponent<AudioSource>();
 
         score.SaveToProcRaAsync("SushiDataStore", "score");
 
         SoundManager.soundManager.PlayBGM(BGMType.Select);
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
         if (highScore < score)
         {
@@ -73,12 +100,12 @@ public class ResultManager : MonoBehaviour
 
         if(isHighScore)
         {
-            congImg.SetActive(true);
-            scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+            conglaturateObj.SetActive(true);
+            //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
         }
         else
         {
-            congImg.SetActive(false);
+            conglaturateObj.SetActive(false);
         }
 
 
@@ -101,7 +128,7 @@ public class ResultManager : MonoBehaviour
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.6f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 
@@ -142,7 +169,7 @@ public class ResultManager : MonoBehaviour
         {
             isRanking = false;
 
-            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.6f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
 

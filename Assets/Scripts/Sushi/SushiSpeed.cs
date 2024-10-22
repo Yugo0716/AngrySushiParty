@@ -42,13 +42,13 @@ public class SushiSpeed : MonoBehaviour
 
                     Debug.Log("Speed Up!!");
 
-                    if(rate_speed >= 3 && rate_speed <=4)
+                    if(rate_speed >= 3 && rate_speed <=5)
                     {
                         interval_speed = 40f;
                     }
                     else
                     {
-                        interval_speed = 50f;
+                        interval_speed = 60f;
                     }
                 }
             }

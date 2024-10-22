@@ -16,8 +16,6 @@ public class E_ResultManager : MonoBehaviour
     TextMeshProUGUI highScoreText;
     TextMeshProUGUI timeText;
 
-    [SerializeField] GameObject congImg;
-
     public int E_score = 3;
     int highScore = 0;
     float time = 0;
@@ -30,6 +28,15 @@ public class E_ResultManager : MonoBehaviour
     [SerializeField] Sprite backButtonSprite;
     [SerializeField] Sprite rankButtonSprite_touch;
     [SerializeField] Sprite backButtonSprite_touch;
+
+    [SerializeField] GameObject conglaturateObj;
+
+    [SerializeField] GameObject RankObj;
+    Image rankImage;
+    [SerializeField] Sprite RankSImage;
+    [SerializeField] Sprite RankAImage;
+    [SerializeField] Sprite RankBImage;
+    [SerializeField] Sprite RankCImage;
 
     bool isHighScore = false;
 
@@ -53,9 +60,27 @@ public class E_ResultManager : MonoBehaviour
         rankButtonImage = rankButtonObj.GetComponent<Image>();
         rankButton = rankButtonObj.GetComponent<Button>();
 
+        rankImage = RankObj.GetComponent<Image>();
+        if (E_score < 40)
+        {
+            rankImage.sprite = RankCImage;
+        }
+        else if (E_score < 100)
+        {
+            rankImage.sprite = RankBImage;
+        }
+        else if (E_score < 200)
+        {
+            rankImage.sprite = RankAImage;
+        }
+        else
+        {
+            rankImage.sprite = RankSImage;
+        }
+
         audioSource = GetComponent<AudioSource>();
 
-        //E_score.SaveToProcRaAsync("SushiDataStore", "E_score");
+        E_score.SaveToProcRaAsync("SushiDataStore", "E_score");
 
 
 
@@ -67,15 +92,15 @@ public class E_ResultManager : MonoBehaviour
 
         if (isHighScore)
         {
-            congImg.SetActive(true);
-            scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+            conglaturateObj.SetActive(true);
+            //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
         }
         else
         {
-            congImg.SetActive(false);
+            conglaturateObj.SetActive(false);
         }
 
-
+        SoundManager.soundManager.PlayBGM(BGMType.Select);
         scoreText.text = E_score.ToString();
         highScoreText.text = highScore.ToString();
         timeText.text = (Mathf.Ceil(time)).ToString();
@@ -95,7 +120,7 @@ public class E_ResultManager : MonoBehaviour
         {
             isRanking = true;
 
-            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, -110f, 0f), 0.6f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = backButtonSprite;
 
@@ -104,7 +129,7 @@ public class E_ResultManager : MonoBehaviour
             rankButton.spriteState = spriteState;
 
 
-            /*var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
+            var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
                 .SetLimit(10)
                 .SetDescSort("E_score");
 
@@ -121,21 +146,21 @@ public class E_ResultManager : MonoBehaviour
                     {
 
                         //32ビットintへキャスト
-                        highScores[i] = Convert.ToInt32(foundList[i]["score"]);
+                        highScores[i] = Convert.ToInt32(foundList[i]["E_score"]);
 
                         //スコアをテキスト表示
                         highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
 
                     }
                 }
-            });*/
+            });
 
         }
         else
         {
             isRanking = false;
 
-            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.7f).SetEase(Ease.InOutSine);
+            this.transform.DOLocalMove(new Vector3(-160f, 230f, 0f), 0.6f).SetEase(Ease.InOutSine);
 
             rankButtonImage.sprite = rankButtonSprite;
 

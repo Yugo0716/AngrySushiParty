@@ -15,12 +15,12 @@ public class SceneChange_Result : MonoBehaviour
 
     [SerializeField] GameObject receipt;
 
-    [SerializeField] GameObject backSushiGeneratorObjA;
-    [SerializeField] GameObject backSushiGeneratorObjB;
+    GameObject backSushiGeneratorObjA;
+    GameObject backSushiGeneratorObjB;
     BackSushiGenerator backSushiGeneratorA;
     BackSushiGenerator backSushiGeneratorB;
 
-    [SerializeField] GameObject clickBlurObj;
+    GameObject clickBlurObj;
     ClickBlur clickBlur;
 
     Animator animator;
@@ -89,8 +89,19 @@ public class SceneChange_Result : MonoBehaviour
         if (Input.touchCount == 0)
         {
             audioSource.PlayOneShot(clickSound);
-            backSushiGeneratorA.isGo = false;
-            backSushiGeneratorB.isGo = false;
+            if (backSushiGeneratorA != null)
+            {
+                backSushiGeneratorA.isGo = false;
+            }
+            if (backSushiGeneratorA != null)
+            {
+                backSushiGeneratorB.isGo = false;
+            }
+
+            //animator.Play("E_RetryAnimation");
+            animator.Play("RetryAnimation");
+            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+
             StartCoroutine(SelectGame("EndlessGameScene"));
         }
     }

@@ -49,7 +49,7 @@ public class SushiGenerator : MonoBehaviour
             generateBalancer = generateBalancerObj.GetComponent<GenerateBalancer>();
         }
 
-        interval = 2.9f;
+        interval = 2.3f;
 
         if (gameMode.isScored)
         {
@@ -113,7 +113,7 @@ public class SushiGenerator : MonoBehaviour
             delTime_pace += Time.deltaTime;
             if (gameMode.isScored)
             {
-                interval = 1.12f;
+                interval = 1.115f;
 
                 if (delTime >= interval)
                 {
@@ -126,11 +126,7 @@ public class SushiGenerator : MonoBehaviour
             {
                 if (delTime_pace > interval_pace && interval > 0.6f)
                 {
-                    if(rate_pace <= 3)
-                    {
-                        interval -= 0.3f;
-                    }
-                    else if(rate_pace <= 8)
+                    if(rate_pace <= 5)
                     {
                         interval -= 0.2f;
                     }
@@ -146,19 +142,21 @@ public class SushiGenerator : MonoBehaviour
 
                     if(rate_pace <= 4)
                     {
-                        interval_pace = 6f;
+                        interval_pace = 8f;
                     }
                     else if(rate_pace <= 7)
                     {
-                        interval_pace = 10f;
+                        interval_pace = 14f;
                     }
-                    else if(rate_pace <= 10)
+                    else if(rate_pace <= 11)
                     {
-                        interval_pace = 40f;
+                        Debug.Log("aaa");
+                        interval_pace = 30f;
                     }
                     else
                     {
-                        interval_pace = 60f;
+                        Debug.Log("bbb");
+                        interval_pace = 50f;
                     }
                 }
 

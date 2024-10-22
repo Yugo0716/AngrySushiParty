@@ -79,6 +79,6 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateScore()
     {
-        scoreText.text = "スコア：" + score.ToString();
+        scoreText.text = score.ToString();
     }
 }

@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LifeManager : MonoBehaviour
 {
     public int life = 3;
-    [SerializeField] GameObject lifeTextObj;
-    TextMeshProUGUI lifeText;
+
+    [SerializeField] GameObject lifeObj;
+    Image lifeImage;
+    [SerializeField] Sprite life3sprite;
+    [SerializeField] Sprite life2sprite;
+    [SerializeField] Sprite life1sprite;
+    [SerializeField] Sprite life0sprite;
 
     // Start is called before the first frame update
     void Start()
     {
-        lifeText = lifeTextObj.GetComponent<TextMeshProUGUI>();
-        UpdateLife();
+        lifeImage = lifeObj.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -23,18 +28,27 @@ public class LifeManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             life = 100;
-            UpdateLife();
         }
     }
 
     public void LifeMinus()
     {
         if (life > 0) life--;
-        UpdateLife();
-    }
-
-    void UpdateLife()
-    {
-        lifeText.text = "ÉâÉCÉtÅF" + life.ToString();
+        if (life == 3)
+        {
+            lifeImage.sprite = life3sprite;
+        }
+        if (life == 2)
+        {
+            lifeImage.sprite = life2sprite;
+        }
+        else if(life == 1)
+        {
+            lifeImage.sprite = life1sprite;
+        }
+        else
+        {
+            lifeImage.sprite = life0sprite;
+        }
     }
 }

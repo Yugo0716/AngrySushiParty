@@ -96,7 +96,7 @@ public class TimeManager : MonoBehaviour
                 break;
         }
 
-        timeText.text = "タイム：" + (Mathf.Ceil(displayTime)).ToString();
+        timeText.text = (Mathf.Ceil(displayTime)).ToString();
     }
 
     void ReadyUpdate()
@@ -124,8 +124,8 @@ public class TimeManager : MonoBehaviour
         else
         {
             displayTime = time;
-            //残機が無くなったらgameStateをendにする
-            if(lifeManager.life <= 0)
+            //残機が無くなったらorスコアが999を超えたらgameStateをendにする
+            if(lifeManager.life <= 0 || ScoreManager.score >= 999)
             {
                 gameState = GameState.end;
             }

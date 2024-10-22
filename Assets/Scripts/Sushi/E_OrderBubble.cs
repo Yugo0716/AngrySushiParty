@@ -33,17 +33,6 @@ public class E_OrderBubble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!gameMode.isScored)
-        {
-            time += Time.deltaTime;
-
-            if (time > deleteTime)
-            {
-                canvas.GetComponent<LifeManager>().LifeMinus();
-
-                Destroy(gameObject);
-            }
-        }
         
     }
 }
