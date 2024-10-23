@@ -18,6 +18,8 @@ public class ResultManager : MonoBehaviour
     TextMeshProUGUI highScoreText;
     TextMeshProUGUI sushiCountText;
 
+    [SerializeField] GameObject touchTextObj;
+
     //[SerializeField] GameObject congImg;
 
     public int score = 3;
@@ -86,27 +88,36 @@ public class ResultManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
-
-        score.SaveToProcRaAsync("SushiDataStore", "score");
-
         SoundManager.soundManager.PlayBGM(BGMType.Select);
-        //PlayerPrefs.DeleteAll();
 
-        if (highScore < score)
+        if(TouchManager.isTouch == false)
         {
-            PlayerPrefs.SetInt("maxScore", score);
-            isHighScore = true;
-        }
+            touchTextObj.SetActive(false);
+            score.SaveToProcRaAsync("SushiDataStore", "score");
 
-        if(isHighScore)
-        {
-            conglaturateObj.SetActive(true);
-            //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+
+            if (highScore < score)
+            {
+                PlayerPrefs.SetInt("maxScore", score);
+                isHighScore = true;
+            }
+
+            if (isHighScore)
+            {
+                conglaturateObj.SetActive(true);
+                //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+            }
+            else
+            {
+                conglaturateObj.SetActive(false);
+            }
         }
         else
         {
             conglaturateObj.SetActive(false);
+            touchTextObj.SetActive(true);
         }
+        
 
 
         scoreText.text = score.ToString();

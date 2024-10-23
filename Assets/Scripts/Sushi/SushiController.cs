@@ -146,15 +146,11 @@ public class SushiController : MonoBehaviour
             #region ドラッグで移動させる処理
             if (onSushi && Input.GetMouseButtonDown(0))
             {
-               //これでタッチ無効にできてるか試してみる
-                if (Input.touchCount == 0)
-                {
-                    if (!sushiRay) sushiRay = true;
-                    offset = transform.position - GetMousePos();
-                    renderer.sortingOrder = 300;
-                    renderer.sortingLayerName = "BubbleLayer";
-                    SoundManager.soundManager.SEPlay(SEType.SushiClick);
-                }
+                if (!sushiRay) sushiRay = true;
+                offset = transform.position - GetMousePos();
+                renderer.sortingOrder = 300;
+                renderer.sortingLayerName = "BubbleLayer";
+                SoundManager.soundManager.SEPlay(SEType.SushiClick);
             }
 
             if (sushiRay && Input.GetMouseButton(0))

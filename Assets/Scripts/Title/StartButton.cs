@@ -76,53 +76,41 @@ public class StartButton : MonoBehaviour
     //セレクト画面で使用
     public void SelectNormalGame()
     {
-        if (Input.touchCount == 0)
-        {
-            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
-            backSushiGeneratorA.isGo = false;
-            backSushiGeneratorB.isGo = false;
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        backSushiGeneratorA.isGo = false;
+        backSushiGeneratorB.isGo = false;
 
-            animator.Play("NormalSelectAnimation");
-            normalReceipt.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
-            howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
-            StartCoroutine(SelectGame("GameScene"));
-        }
+        animator.Play("NormalSelectAnimation");
+        normalReceipt.transform.DOLocalMove(new Vector3(176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
+        howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
+        StartCoroutine(SelectGame("GameScene"));
     }
 
     public void SelectEndlessGame()
     {
-        if (Input.touchCount == 0)
-        {
-            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
-            backSushiGeneratorA.isGo = false;
-            backSushiGeneratorB.isGo = false;
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        backSushiGeneratorA.isGo = false;
+        backSushiGeneratorB.isGo = false;
 
-            animator.Play("EndlessSelectAnimation");
-            endlessReceipt.transform.DOLocalMove(new Vector3(-176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
-            howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
-            StartCoroutine(SelectGame("EndlessGameScene"));
-        }
+        animator.Play("EndlessSelectAnimation");
+        endlessReceipt.transform.DOLocalMove(new Vector3(-176f, -719f, 0f), 0.45f).SetEase(Ease.Linear);
+        howtoPanel.transform.DOLocalMove(new Vector3(0f, 500f, 0f), 0.1f).SetEase(Ease.Linear);
+        StartCoroutine(SelectGame("EndlessGameScene"));
     }
 
     public void SelectTitle()
     {
-        if (Input.touchCount == 0)
-        {
-            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
-            StartCoroutine(FadeLoad("Title"));
-        }
+        StartCoroutine(FadeLoad("Title"));
     }
 
     //タイトルからとゲーム中からで使用
     public void StartButtonClick()
     {
-        if (Input.touchCount == 0)
-        {
-            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
-            StartCoroutine(FadeLoadwithBack("SelectScene"));
-        }
+        StartCoroutine(FadeLoadwithBack("SelectScene"));
     }
 
     

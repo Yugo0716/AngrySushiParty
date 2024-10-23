@@ -12,6 +12,7 @@ public class E_ResultManager : MonoBehaviour
     [SerializeField] GameObject scoreTextObj;
     [SerializeField] GameObject highScoreTextObj;
     [SerializeField] GameObject timeTextObj;
+    [SerializeField] GameObject touchTextObj;
     TextMeshProUGUI scoreText;
     TextMeshProUGUI highScoreText;
     TextMeshProUGUI timeText;
@@ -79,28 +80,37 @@ public class E_ResultManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+        SoundManager.soundManager.PlayBGM(BGMType.Select);
 
-        E_score.SaveToProcRaAsync("SushiDataStore", "E_score");
-
-
-
-        if (highScore < E_score)
+        if(TouchManager.isTouch == false)
         {
-            PlayerPrefs.SetInt("E_maxScore", E_score);
-            isHighScore = true;
-        }
+            touchTextObj.SetActive(false);
+            E_score.SaveToProcRaAsync("SushiDataStore", "E_score");
 
-        if (isHighScore)
-        {
-            conglaturateObj.SetActive(true);
-            //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+            if (highScore < E_score)
+            {
+                PlayerPrefs.SetInt("E_maxScore", E_score);
+                isHighScore = true;
+            }
+
+            if (isHighScore)
+            {
+                conglaturateObj.SetActive(true);
+                //scoreText.DOFade(0.0f, 1.0f).SetEase(Ease.InCubic).SetLoops(-1, LoopType.Yoyo);
+            }
+            else
+            {
+                conglaturateObj.SetActive(false);
+            }
         }
         else
         {
             conglaturateObj.SetActive(false);
+            touchTextObj.SetActive(true );
         }
+        
 
-        SoundManager.soundManager.PlayBGM(BGMType.Select);
+        
         scoreText.text = E_score.ToString();
         highScoreText.text = highScore.ToString();
         timeText.text = (Mathf.Ceil(time)).ToString();

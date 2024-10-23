@@ -10,6 +10,8 @@ public class FadeManager : MonoBehaviour
     GameObject fadeObj;
     Image fadeImage;
 
+    [SerializeField] GameObject blockPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,21 @@ public class FadeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!TouchManager.isTouch)
+        {
+            if(Input.touchCount > 0)
+            {
+                blockPanel.SetActive(true);
+            }
+            else
+            {
+                blockPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            blockPanel.SetActive(false);
+        }
     }
 
     public void FadeIn()
