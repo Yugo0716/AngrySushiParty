@@ -1930,7 +1930,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2027,6 +2027,15 @@ MonoBehaviour:
   TitleBGM: {fileID: 8300000, guid: 0967c511451aa9c49954d292253864bd, type: 3}
   SelectBGM: {fileID: 8300000, guid: d22df0803110245439719758fc859932, type: 3}
   GameBGM: {fileID: 8300000, guid: ea87c45f888b6a840a2d284ccedef790, type: 3}
+  ButtonClickSE: {fileID: 8300000, guid: b721b1383d9aa45498cefe43d571cb0a, type: 3}
+  StartPanelSE: {fileID: 8300000, guid: a9104f5be96067f4fb03277581947996, type: 3}
+  FinishPanelSE: {fileID: 8300000, guid: f15f8ee0fe9a95e4491f4bd84ae51501, type: 3}
+  SushiClickSE: {fileID: 8300000, guid: af0bb1946c994504d94792b9104dd87e, type: 3}
+  BubbleAppearSE: {fileID: 8300000, guid: d933b27b6e1ac3a4ab147f90239ad061, type: 3}
+  GetSE: {fileID: 8300000, guid: d3d0df2292ff12e4b8bc9220ddc91de8, type: 3}
+  LifeMinusSE: {fileID: 8300000, guid: 6a90cccca51ad724f8e8afee927838c6, type: 3}
+  AlartSE: {fileID: 8300000, guid: 8326384a61a08cb429ee23c667a92b43, type: 3}
+  audioSource: {fileID: 0}
 --- !u!4 &1590553222
 Transform:
   m_ObjectHideFlags: 0

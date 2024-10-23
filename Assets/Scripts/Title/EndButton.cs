@@ -15,7 +15,7 @@ public class EndButton : MonoBehaviour
     }
     public void EndButtonClick()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
         Button button = GetComponent<Button>();
         button.interactable = false;
         StartCoroutine("Load");

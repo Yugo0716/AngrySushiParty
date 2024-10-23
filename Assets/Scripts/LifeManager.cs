@@ -25,15 +25,20 @@ public class LifeManager : MonoBehaviour
     void Update()
     {
         if (life < 0) life = 0;
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             life = 100;
-        }
+        }*/
     }
 
     public void LifeMinus()
     {
-        if (life > 0) life--;
+        if (life > 0)
+        {
+            life--;
+            SoundManager.soundManager.SEPlay(SEType.LifeMinus);
+        }
         if (life == 3)
         {
             lifeImage.sprite = life3sprite;

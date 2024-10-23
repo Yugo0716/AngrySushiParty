@@ -65,7 +65,12 @@ public class StartButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*タッチ操作を認識したらタイトルに飛ばす
+        if (Input.touchCount > 0)
+        {
+            SoundManager.soundManager.SEPlay(SEType.LifeMinus);
+            StartCoroutine(FadeLoad("Title"));
+        }*/
     }
 
     //セレクト画面で使用
@@ -73,7 +78,7 @@ public class StartButton : MonoBehaviour
     {
         if (Input.touchCount == 0)
         {
-            audioSource.PlayOneShot(clickSound);
+            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
 
@@ -88,7 +93,7 @@ public class StartButton : MonoBehaviour
     {
         if (Input.touchCount == 0)
         {
-            audioSource.PlayOneShot(clickSound);
+            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
             backSushiGeneratorA.isGo = false;
             backSushiGeneratorB.isGo = false;
 
@@ -103,7 +108,7 @@ public class StartButton : MonoBehaviour
     {
         if (Input.touchCount == 0)
         {
-            audioSource.PlayOneShot(clickSound);
+            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
             StartCoroutine(FadeLoad("Title"));
         }
@@ -114,7 +119,7 @@ public class StartButton : MonoBehaviour
     {
         if (Input.touchCount == 0)
         {
-            audioSource.PlayOneShot(clickSound);
+            SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
             StartCoroutine(FadeLoadwithBack("SelectScene"));
         }

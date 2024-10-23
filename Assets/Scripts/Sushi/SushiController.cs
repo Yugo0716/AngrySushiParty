@@ -153,6 +153,7 @@ public class SushiController : MonoBehaviour
                     offset = transform.position - GetMousePos();
                     renderer.sortingOrder = 300;
                     renderer.sortingLayerName = "BubbleLayer";
+                    SoundManager.soundManager.SEPlay(SEType.SushiClick);
                 }
             }
 
@@ -166,7 +167,7 @@ public class SushiController : MonoBehaviour
                 if (order) //ŽõŽiƒQƒbƒg
                 {
                     order = false;
-                    audioSource.PlayOneShot(correctPutSound);
+                    SoundManager.soundManager.SEPlay(SEType.Get);
 
                     GetScore();
                     scoreManager.CountPlus();

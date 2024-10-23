@@ -40,7 +40,7 @@ public class BubbleGenerator : MonoBehaviour
     GameObject itemText;
     GameObject giveText;
 
-    List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい","ほしいな~"};
+    List<string> giveTextList = new List<string> { "取って~", "ください", "くれ~", "ちょうだい","ほしいな~", "くれる？", "お願い！" };
 
     AudioSource audioSource;
     [SerializeField] AudioClip bubbleAppearSound;
@@ -66,7 +66,7 @@ public class BubbleGenerator : MonoBehaviour
                 Generate("BubbleNormal");
                 counter++;
                 time = 0;
-                audioSource.PlayOneShot(bubbleAppearSound);
+                SoundManager.soundManager.SEPlay(SEType.BubbleAppear);
             }
         }
         

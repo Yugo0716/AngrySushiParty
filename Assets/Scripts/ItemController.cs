@@ -183,6 +183,7 @@ public class ItemController : MonoBehaviour
                 offset = transform.position - GetMousePos();
                 renderer.sortingOrder = 300;
                 renderer.sortingLayerName = "BubbleLayer";
+                SoundManager.soundManager.SEPlay(SEType.SushiClick);
             }
 
             if (itemRay && Input.GetMouseButton(0))
@@ -197,7 +198,7 @@ public class ItemController : MonoBehaviour
                     order = false;
                     bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
                     GetScore();
-                    audioSource.PlayOneShot(CorrectPutSound);
+                    SoundManager.soundManager.SEPlay(SEType.Get);
                     Instantiate(particleSystem, transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);

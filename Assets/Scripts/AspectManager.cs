@@ -6,6 +6,8 @@ public class AspectManager : MonoBehaviour
 {
     [SerializeField]
     private Camera targetCamera; //対象とするカメラ
+    [SerializeField]
+    private Camera targetCamera2;
 
     [SerializeField]
     private Vector2 aspectVec; //目的解像度
@@ -31,5 +33,9 @@ public class AspectManager : MonoBehaviour
         }
 
         targetCamera.rect = viewportRect; //カメラのViewportに適用
+        if(targetCamera2 != null)
+        {
+            targetCamera2.rect = viewportRect;
+        }
     }
 }

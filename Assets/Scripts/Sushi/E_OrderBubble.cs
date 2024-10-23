@@ -19,15 +19,8 @@ public class E_OrderBubble : MonoBehaviour
         canvas = GameObject.FindGameObjectWithTag("canvas");
         gameMode = canvas.GetComponent<GameMode>();
 
-        if(!gameMode.isScored)
-        {
-            speed = 9.0f;
-            deleteTime = 15f;
-            delay = deleteTime / 6f;
-
-            transform.DOScale(new Vector3(1.2f, 1.2f, 1), speed).SetEase(Ease.InSine).SetDelay(delay);
-
-        }
+        if (gameObject != null)
+            transform.DOScale(new Vector3(1.3f, 1.3f, 1), 3.0f).SetEase(Ease.InSine).SetDelay(15f);
     }
 
     // Update is called once per frame

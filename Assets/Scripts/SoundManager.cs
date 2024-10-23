@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum BGMType
@@ -10,13 +11,34 @@ public enum BGMType
     Select,
     Play
 }
+
+public enum SEType
+{
+    ButtonClick,
+    StartPanel,
+    FinishPanel,
+    SushiClick,
+    BubbleAppear,
+    Get,
+    LifeMinus,
+    Alart,
+}
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioClip TitleBGM;
     [SerializeField] AudioClip SelectBGM;
     [SerializeField] AudioClip GameBGM;
 
-    AudioSource audioSource;
+    [SerializeField] AudioClip ButtonClickSE;
+    [SerializeField] AudioClip StartPanelSE;
+    [SerializeField] AudioClip FinishPanelSE;
+    [SerializeField] AudioClip SushiClickSE;
+    [SerializeField] AudioClip BubbleAppearSE;
+    [SerializeField] AudioClip GetSE;
+    [SerializeField] AudioClip LifeMinusSE;
+    [SerializeField] AudioClip AlartSE;
+
+    public AudioSource audioSource;
 
     public static SoundManager soundManager;
     public static BGMType playingBGM = BGMType.None;
@@ -52,6 +74,11 @@ public class SoundManager : MonoBehaviour
     {
         if(type != playingBGM)
         {
+            if(audioSource.loop == false)
+            {
+                audioSource.loop = true;
+            }
+
             if(type == BGMType.Title)
             {
                 audioSource.clip = TitleBGM;
@@ -72,5 +99,45 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.Stop();
         playingBGM = BGMType.None;
+    }
+
+    public void SEPlay(SEType type)
+    {
+        if(type == SEType.ButtonClick)
+        {
+            audioSource.PlayOneShot(ButtonClickSE);
+        }
+        else if(type == SEType.StartPanel)
+        {
+            audioSource.PlayOneShot(StartPanelSE);
+        }
+        else if(type == SEType.FinishPanel)
+        {
+            audioSource.PlayOneShot(FinishPanelSE);
+        }
+        else if (type == SEType.ButtonClick)
+        {
+            audioSource.PlayOneShot(ButtonClickSE);
+        }
+        else if (type == SEType.SushiClick)
+        {
+            audioSource.PlayOneShot(SushiClickSE);
+        }
+        else if (type == SEType.BubbleAppear)
+        {
+            audioSource.PlayOneShot(BubbleAppearSE);
+        }
+        else if (type == SEType.Get)
+        {
+            audioSource.PlayOneShot(GetSE);
+        }
+        else if (type == SEType.LifeMinus)
+        {
+            audioSource.PlayOneShot(LifeMinusSE);
+        }
+        else if (type == SEType.Alart)
+        {
+            audioSource.PlayOneShot(AlartSE);
+        }
     }
 }

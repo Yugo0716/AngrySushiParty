@@ -64,59 +64,49 @@ public class SceneChange_Result : MonoBehaviour
 
     public void RetryNormalGame()
     {
-        if (Input.touchCount == 0)
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        if (backSushiGeneratorA != null)
         {
-            audioSource.PlayOneShot(clickSound);
-            if(backSushiGeneratorA != null)
-            {
-                backSushiGeneratorA.isGo = false;
-            }
-            if (backSushiGeneratorA != null)
-            {
-                backSushiGeneratorB.isGo = false;
-            }
-            
-
-            animator.Play("RetryAnimation");
-            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
-
-            StartCoroutine(SelectGame("GameScene"));
+            backSushiGeneratorA.isGo = false;
         }
+        if (backSushiGeneratorA != null)
+        {
+            backSushiGeneratorB.isGo = false;
+        }
+
+
+        animator.Play("RetryAnimation");
+        receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+
+        StartCoroutine(SelectGame("GameScene"));
     }
 
     public void RetryEndlessGame()
     {
-        if (Input.touchCount == 0)
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
+        if (backSushiGeneratorA != null)
         {
-            audioSource.PlayOneShot(clickSound);
-            if (backSushiGeneratorA != null)
-            {
-                backSushiGeneratorA.isGo = false;
-            }
-            if (backSushiGeneratorA != null)
-            {
-                backSushiGeneratorB.isGo = false;
-            }
-
-            //animator.Play("E_RetryAnimation");
-            animator.Play("RetryAnimation");
-            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
-
-            StartCoroutine(SelectGame("EndlessGameScene"));
+            backSushiGeneratorA.isGo = false;
         }
+        if (backSushiGeneratorA != null)
+        {
+            backSushiGeneratorB.isGo = false;
+        }
+
+        //animator.Play("E_RetryAnimation");
+        animator.Play("RetryAnimation");
+        receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+
+        StartCoroutine(SelectGame("EndlessGameScene"));
     }
 
     public void SelectButtonClick()
     {
-        if (Input.touchCount == 0)
-        {
-            audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
-            animator.Play("SelectAnimation");
-            receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
-            StartCoroutine(LoadwithBack("SelectScene"));
-
-        }
+        animator.Play("SelectAnimation");
+        receipt.transform.DOLocalMove(new Vector3(-160f, 707f, 0f), 0.45f).SetEase(Ease.Linear);
+        StartCoroutine(LoadwithBack("SelectScene"));
     }
 
     //ÉQÅ[ÉÄâÊñ Ç…à⁄çsÇ∑ÇÈÇ∆Ç´
@@ -134,7 +124,7 @@ public class SceneChange_Result : MonoBehaviour
 
     public void TitleButtonClick()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
         StartCoroutine(FadeLoad("Title"));
     }

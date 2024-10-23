@@ -43,7 +43,7 @@ public class HowtoPanel : MonoBehaviour
 
     public void HowtoButtonClicked()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
         if (!isPanel)
         {

@@ -46,7 +46,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
     GameObject sushiText;
     GameObject giveText;
 
-    List<string> giveTextList = new List<string> { "éÊÇ¡Çƒ~", "Ç≠ÇæÇ≥Ç¢", "Ç≠ÇÍ~", "ÇøÇÂÇ§ÇæÇ¢", "ÇŸÇµÇ¢Ç»~" };
+    List<string> giveTextList = new List<string> { "éÊÇ¡Çƒ~", "Ç≠ÇæÇ≥Ç¢", "Ç≠ÇÍ~", "ÇøÇÂÇ§ÇæÇ¢", "ÇŸÇµÇ¢Ç»~", "Ç≠ÇÍÇÈÅH", "Ç®äËÇ¢ÅI"};
 
     //êVãK
     [SerializeField] GameObject orderSushiPos;
@@ -86,6 +86,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
 
                     StartCoroutine("StartOrder", orderCount);
                     lampOn.DOFade(0f, 0.5f).SetEase(Ease.InSine).SetDelay(3.0f);
+                    SoundManager.soundManager.SEPlay(SEType.Alart);
 
                     orderCount++;
                 }
@@ -145,7 +146,7 @@ public class E_OrderSushiGenerator : MonoBehaviour
             childObj.GetComponent<Renderer>().sortingOrder = layer;
             childObj.transform.GetChild(0).gameObject.GetComponent<Canvas>().sortingOrder = layer + 1;
             layer += 10;
-            audioSource.PlayOneShot(bubbleAppearSound);
+            SoundManager.soundManager.SEPlay(SEType.BubbleAppear);
 
         }
     }

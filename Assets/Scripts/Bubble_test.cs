@@ -8,9 +8,6 @@ public class Bubble_test : MonoBehaviour
     public bool order = false;
     public float bonusScore = 0;
 
-    //public List<Sprite> bubbleSprite = new List<Sprite>();
-    //public List<Sprite> cBubbleSprite = new List<Sprite>();
-
     GameObject canvas;
     GameMode gameMode;
     bool isScored;

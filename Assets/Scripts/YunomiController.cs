@@ -173,6 +173,7 @@ public class YunomiController : MonoBehaviour
                 offset = new Vector3(0, 0, 1);
                 renderer.sortingOrder = 300;
                 renderer.sortingLayerName = "BubbleLayer";
+                SoundManager.soundManager.SEPlay(SEType.SushiClick);
             }
 
             if (itemRay && Input.GetMouseButton(0))
@@ -187,7 +188,7 @@ public class YunomiController : MonoBehaviour
                     order = false;
                     bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
                     GetScore();
-                    audioSource.PlayOneShot(correctPutSound);
+                    SoundManager.soundManager.SEPlay(SEType.Get);
                     Instantiate(particleSystem, yunomiObj.transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                 }               

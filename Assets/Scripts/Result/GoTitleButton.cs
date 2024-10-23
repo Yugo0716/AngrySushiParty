@@ -15,7 +15,7 @@ public class GoTitleButton : MonoBehaviour
     }
     public void TitleButtonClick()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
         Button button = GetComponent<Button>();
         button.interactable = false;
         StartCoroutine("Load", "Title");

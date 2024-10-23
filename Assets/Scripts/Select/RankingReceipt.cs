@@ -62,7 +62,7 @@ public class RankingReceipt : MonoBehaviour
 
     public void RankingButtonClicked()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
         if (!isRanking)
         {
@@ -121,7 +121,7 @@ public class RankingReceipt : MonoBehaviour
 
     public void E_RankingButtonClicked()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
         if (!isRanking)
         {

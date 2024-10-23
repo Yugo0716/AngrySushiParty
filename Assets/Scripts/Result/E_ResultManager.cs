@@ -114,7 +114,7 @@ public class E_ResultManager : MonoBehaviour
 
     public void RankingButtonClicked()
     {
-        audioSource.PlayOneShot(clickSound);
+        SoundManager.soundManager.SEPlay(SEType.ButtonClick);
 
         if (!isRanking)
         {

@@ -143,11 +143,12 @@ public class TimeManager : MonoBehaviour
         }
         
     }
-
+    
     IEnumerator StartProcess()
     {
         yield return new WaitForSeconds(0.2f);
         uiManager.DisplayStart();
+        SoundManager.soundManager.SEPlay(SEType.StartPanel);
         yield return new WaitForSeconds(2.2f);
 
         uiManager.HideStart();
@@ -159,12 +160,22 @@ public class TimeManager : MonoBehaviour
         ExistUnload("Result");
         ExistUnload("EndlessResult");
         Resources.UnloadUnusedAssets();
+
+        if(SoundManager.soundManager.audioSource.loop == true && SceneManager.GetActiveScene().name == "GameScene")
+        {
+            SoundManager.soundManager.audioSource.loop = false;
+        }
+        else
+        {
+            SoundManager.soundManager.audioSource.loop = true;
+        }
     }
 
     IEnumerator FinishProcess()
     {
         uiManager.DisplayFinish();
 
+        SoundManager.soundManager.SEPlay(SEType.FinishPanel);
         yield return new WaitForSeconds(2.0f);
 
         uiManager.HideFinish();
