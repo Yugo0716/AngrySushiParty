@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
@@ -153,7 +151,15 @@ public class TimeManager : MonoBehaviour
 
         uiManager.HideStart();
         gameState = GameState.play;
-        SoundManager.soundManager.PlayBGM(BGMType.Play);
+        if (gameMode.isScored)
+        {
+            SoundManager.soundManager.PlayBGM(BGMType.PlayNormal);
+        }
+        else
+        {
+            SoundManager.soundManager.PlayBGM(BGMType.PlayEndless);
+        }
+        
 
         ExistUnload("SelectScene");
         ExistUnload("BackScene");

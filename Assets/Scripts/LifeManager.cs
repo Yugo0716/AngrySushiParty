@@ -25,6 +25,7 @@ public class LifeManager : MonoBehaviour
     void Update()
     {
         if (life < 0) life = 0;
+        
         /*
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using ProcRanking;
 using TMPro;
 using System;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class RankingReceipt : MonoBehaviour
 {

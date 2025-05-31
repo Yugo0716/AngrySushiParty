@@ -9,7 +9,8 @@ public enum BGMType
     None,
     Title,
     Select,
-    Play
+    PlayNormal,
+    PlayEndless
 }
 
 public enum SEType
@@ -27,7 +28,8 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioClip TitleBGM;
     [SerializeField] AudioClip SelectBGM;
-    [SerializeField] AudioClip GameBGM;
+    [SerializeField] AudioClip NormalGameBGM;
+    [SerializeField] AudioClip EndlessGameBGM;
 
     [SerializeField] AudioClip ButtonClickSE;
     [SerializeField] AudioClip StartPanelSE;
@@ -87,9 +89,13 @@ public class SoundManager : MonoBehaviour
             {
                 audioSource.clip = SelectBGM;
             }
-            else if(type == BGMType.Play)
+            else if(type == BGMType.PlayNormal)
             {
-                audioSource.clip = GameBGM;
+                audioSource.clip = NormalGameBGM;
+            }
+            else if(type == BGMType.PlayEndless)
+            {
+                audioSource.clip = EndlessGameBGM;
             }
             audioSource.Play();
         }
