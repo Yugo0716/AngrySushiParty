@@ -6,7 +6,11 @@ public class SushiTypeSc : MonoBehaviour
 {
     public enum SushiType
     {
-        Maguro
+        Tamago,
+        Ebi,
+        Ika,
+        Maguro,
+        Ikura
     }
 
     public SushiType type;

@@ -1,26 +1,49 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 
 public class BubbleGenerator : MonoBehaviour
 {
-    public GameObject[] bubbleObjs;
-    [SerializeField] GameObject generateBubbleObj;
+    public GameObject bubbleObj;
+    //[SerializeField] GameObject generateBubbleObj;
 
-    public Transform pointA;
-    public Transform pointB;
-    public Transform pointC;
-    
+    [SerializeField] Transform pointA;
+    [SerializeField] Transform pointB;
+    [SerializeField] Transform pointC;
+
+    int prenum = 0;
+
     private float time;
-    [SerializeField] float interval = 4.0f; //‚«o‚µ‚ğo‚·ŠÔŠu
-    [SerializeField] private int counter = 8; //‚«o‚µ‚ğo‚·‚½‚Ñ‚É‘‰Á(layer‚Ég‚¤)
+    [SerializeField] float interval = 4.0f; //å¹ãå‡ºã—ã‚’å‡ºã™é–“éš”
+    [SerializeField] private int counter = 8; //å¹ãå‡ºã—ã‚’å‡ºã™ãŸã³ã«å¢—åŠ (layerã«ä½¿ã†)
     new Renderer renderer;
 
     TimeManager timeManager;
+
+    Dictionary<int, ItemTypeSc.ItemType> numAndItemType = new Dictionary<int, ItemTypeSc.ItemType>()
+    {
+        {0, ItemTypeSc.ItemType.shoyu}, {1, ItemTypeSc.ItemType.gari}, {2, ItemTypeSc.ItemType.wasabi}, {3, ItemTypeSc.ItemType.yunomi}
+    };
+
+    Dictionary<int, string> numAndItemName = new Dictionary<int, string>()
+    {
+        {0, "é†¤æ²¹"}, {1, "ã‚¬ãƒª"}, {2, "ã‚ã•ã³"}, {3, "æ¹¯ã®ã¿"}
+    };
+
+    public List<Sprite> ItemSprite = new List<Sprite>();
+
+    GameObject itemText;
+    GameObject giveText;
+
+    List<string> giveTextList = new List<string> { "å–ã£ã¦~", "ãã ã•ã„", "ãã‚Œ~", "ã¡ã‚‡ã†ã ã„","ã»ã—ã„ãª~", "ãã‚Œã‚‹ï¼Ÿ", "ãŠé¡˜ã„ï¼" };
+
+    AudioSource audioSource;
+    [SerializeField] AudioClip bubbleAppearSound;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +51,13 @@ public class BubbleGenerator : MonoBehaviour
         time = 0;
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
         timeManager = canvas.GetComponent<TimeManager>();
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(timeManager.gameState == TimeManager.GameState.play)
+        if(timeManager.gameState == TimeManager.GameState.play && timeManager.displayTime > 3)
         {
             time += Time.deltaTime;
 
@@ -42,12 +66,13 @@ public class BubbleGenerator : MonoBehaviour
                 Generate("BubbleNormal");
                 counter++;
                 time = 0;
+                SoundManager.soundManager.SEPlay(SEType.BubbleAppear);
             }
         }
         
     }
 
-    //‚«o‚µ‚ğì‚é
+    //å¹ãå‡ºã—ã‚’ä½œã‚‹
     void Generate(string tag)
     {
         int[] nums = new int[4] { 0, 0, 0, 0 };
@@ -65,17 +90,13 @@ public class BubbleGenerator : MonoBehaviour
         ranges[2] = new Vector2(x[1], y[0]);
         ranges[3] = new Vector2(x[1], y[1]);
 
-        //‰æ–Êã‚Éo‚Ä‚¢‚é‚«o‚µ‚ğŒŸõ
+        //ç”»é¢ä¸Šã«å‡ºã¦ã„ã‚‹å¹ãå‡ºã—ã‚’æ¤œç´¢
         GameObject[] tagObjects = GameObject.FindGameObjectsWithTag(tag);
 
-        //ÀÛ‚Éo‚·‚«o‚µ‚ğŒˆ‚ß‚é
-        generateBubbleObj = SelectBubble();
+        //å®Ÿéš›ã«å‡ºã™å¹ãå‡ºã—ã‚’æ±ºã‚ã‚‹(å‰ã«å‡ºã—ãŸnumã‚’è¨˜æ†¶ã—ã¦ãŠã)
+        prenum = SelectBubble(prenum);
 
-        //‚¾‚ñ‚¾‚ñè‘O‚É”z’u‚·‚é
-        renderer = generateBubbleObj.GetComponent<Renderer>();
-        renderer.sortingOrder = counter;
-
-        //‰æ–Êã‚Éo‚Ä‚¢‚é‚«o‚µ‚ğQl‚É‚Ç‚±‚É‚«o‚µ‚ğo‚·‚©Œˆ‚ß‚é
+        //ç”»é¢ä¸Šã«å‡ºã¦ã„ã‚‹å¹ãå‡ºã—ã‚’å‚è€ƒã«ã©ã“ã«å¹ãå‡ºã—ã‚’å‡ºã™ã‹æ±ºã‚ã‚‹
         if (tagObjects.Length > 0)
         {
             foreach (GameObject obj in tagObjects)
@@ -97,22 +118,46 @@ public class BubbleGenerator : MonoBehaviour
             int index = Array.IndexOf(nums, min);
             //Debug.Log(nums[0]+", " + nums[1]+", " + nums[2]+", "+nums[3]);
 
-            Instantiate(generateBubbleObj, ranges[index], generateBubbleObj.transform.rotation);
+            Instantiate(bubbleObj, ranges[index],   bubbleObj.transform.rotation);
         }
         else
         {
-            Instantiate(generateBubbleObj, ranges[UnityEngine.Random.Range(0, 4)],generateBubbleObj.transform.rotation);
+            Instantiate(bubbleObj, ranges[UnityEngine.Random.Range(0, 4)],bubbleObj.transform.rotation);
         }
         
     }
 
-    //‚Ó‚«‚¾‚µ‚Ìí—Ş‚ğŒˆ‚ß‚é(İ–û‚©ƒKƒŠ‚©‚È‚Ç)
-    private GameObject SelectBubble()
+    //ãµãã ã—ã®ç¨®é¡ã‚’æ±ºã‚ã‚‹(é†¤æ²¹ã‹ã‚¬ãƒªã‹ãªã©)
+    private int SelectBubble(int prenum)
     {
-        int rnd = UnityEngine.Random.Range(0, bubbleObjs.Length);
+        int num = UnityEngine.Random.Range(0, numAndItemName.Count);
 
-        return bubbleObjs[rnd];
-    }
+        if(num == prenum)
+        {
+            while (num == prenum)
+            {
+                num = UnityEngine.Random.Range(0, numAndItemName.Count);
+            }
+        }        
 
+        ItemTypeSc itemTypeSc = bubbleObj.GetComponent<ItemTypeSc>();
+        itemTypeSc.type = numAndItemType[num];
+
+        GameObject canvas = bubbleObj.transform.GetChild(0).gameObject;
+
+
+        renderer = bubbleObj.GetComponent<Renderer>();
+        renderer.sortingOrder = counter;
+        canvas.GetComponent<Canvas>().sortingOrder = bubbleObj.GetComponent<SpriteRenderer>().sortingOrder;
+
+        bubbleObj.GetComponent<SpriteRenderer>().sprite = ItemSprite[num];
+
+        itemText = canvas.transform.GetChild(0).gameObject;
+        giveText = canvas.transform.GetChild(1).gameObject;
         
+        itemText.GetComponent<TextMeshProUGUI>().text = numAndItemName[num];
+        giveText.GetComponent<TextMeshProUGUI>().text = giveTextList[UnityEngine.Random.Range(0, giveTextList.Count)];
+
+        return num;
+    }       
 }

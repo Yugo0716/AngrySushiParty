@@ -12,9 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: dd11543c9b6f15541afa84f43814e67c
   - enabled: 1
+    path: Assets/Scenes/BackScene.unity
+    guid: c435b9eab25488c40bdcd9d10ff21b98
+  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 344b2750e621ffb488a51682078a8ffb
   - enabled: 1
     path: Assets/Scenes/Result.unity
     guid: 5aa239d6b0ce5e34b84f87037773e902
+  - enabled: 1
+    path: Assets/Scenes/EndlessGameScene.unity
+    guid: 3d6e823c2ea40c04382e9fbd2e338fd5
+  - enabled: 1
+    path: Assets/Scenes/EndlessResult.unity
+    guid: f24a08bb819f70f44b37cf1bac9534c8
+  - enabled: 1
+    path: Assets/Scenes/SelectScene.unity
+    guid: 96e9ea1cfb72d6643bc0412d87356d76
   m_configObjects: {}

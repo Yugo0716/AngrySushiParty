@@ -1,21 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    public GameObject timeText;
-    public ScoreManager scoreManager;
-    public UIManager uiManager;
+    [SerializeField] GameObject timeTextObj;
+    TextMeshProUGUI timeText;
+    ScoreManager scoreManager;
+    UIManager uiManager;
+    GameMode gameMode;
+    LifeManager lifeManager = null;
+
+    GameObject sushiCounterObj;
+    SushiCounter sushiCounter;
+
+    FadeManager fadeManager;
+    GameObject fadeCanvas;
 
     public bool countDown = false;
     public int maxTime = 60;
     public float displayTime = 0;
-    public float time = 0;
+    public static float time = 0;
+
+    bool isStart = true;
+    bool isFinish = true;
 
     public enum GameState //ゲームの状態(開始前、序盤~終盤、終了後)
     {
@@ -29,8 +39,41 @@ public class TimeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        scoreManager = canvas.GetComponent<ScoreManager>();
+        uiManager = canvas.GetComponent<UIManager>();
+        gameMode = canvas.GetComponent<GameMode>();
+
+        fadeCanvas = GameObject.FindGameObjectWithTag("FadeCanvas");
+        fadeManager = fadeCanvas.GetComponent<FadeManager>();
+
+        sushiCounterObj = GameObject.FindGameObjectWithTag("SushiCounter");
+        if(sushiCounterObj != null)
+        {
+            sushiCounter = sushiCounterObj.GetComponent<SushiCounter>();
+        }
+
+        timeText = timeTextObj.GetComponent<TextMeshProUGUI>();
+        time = 0;
+        //エンドレスモードの時のみ残機を考慮する
+        if (!gameMode.isScored)
+        {
+            lifeManager = canvas.GetComponent<LifeManager>();
+        }
+        
+        SoundManager.soundManager.StopBGM();
         gameState = GameState.ready;
-        displayTime = maxTime;
+
+        //最初の表示タイム
+        if (gameMode.isScored)
+        {
+            displayTime = maxTime;
+        }
+        else
+        {
+            displayTime = 0;
+        }
+        
     }
 
     // Update is called once per frame
@@ -51,60 +94,145 @@ public class TimeManager : MonoBehaviour
                 break;
         }
 
-        timeText.GetComponent<TextMeshProUGUI>().text = "time : " + (Mathf.Ceil(displayTime)).ToString();
+        timeText.text = (Mathf.Ceil(displayTime)).ToString();
     }
 
     void ReadyUpdate()
     {
-        StartCoroutine(StartProcess());
+        if(sushiCounter.counter <= 0 && isStart)
+        {
+            StartCoroutine(StartProcess());
+            isStart = false;
+        }
     }
 
     void PlayUpdate()
     {
         time += Time.deltaTime;
-        displayTime = maxTime - time;
 
-        if (displayTime <= 0)
+        if(gameMode.isScored)
         {
-            gameState = GameState.end;
+            displayTime = maxTime - time;
+
+            if (displayTime <= 0)
+            {
+                gameState = GameState.end;
+            }
         }
+        else
+        {
+            displayTime = time;
+            //残機が無くなったらorスコアが999を超えたらgameStateをendにする
+            if(lifeManager.life <= 0 || ScoreManager.score >= 999)
+            {
+                gameState = GameState.end;
+            }
+        }
+
+        
     }
 
     void EndUpdate()
     {
-        StartCoroutine(FinishProcess());
+        if (isFinish)
+        {
+            StartCoroutine(FinishProcess());
+            isFinish = false;
+        }
+        
     }
-
+    
     IEnumerator StartProcess()
     {
+        yield return new WaitForSeconds(0.2f);
         uiManager.DisplayStart();
-
-        yield return new WaitForSeconds(2.0f);
+        SoundManager.soundManager.SEPlay(SEType.StartPanel);
+        yield return new WaitForSeconds(2.2f);
 
         uiManager.HideStart();
         gameState = GameState.play;
+        if (gameMode.isScored)
+        {
+            SoundManager.soundManager.PlayBGM(BGMType.PlayNormal);
+        }
+        else
+        {
+            SoundManager.soundManager.PlayBGM(BGMType.PlayEndless);
+        }
+        
+
+        ExistUnload("SelectScene");
+        ExistUnload("BackScene");
+        ExistUnload("Result");
+        ExistUnload("EndlessResult");
+        Resources.UnloadUnusedAssets();
+
+        if(SoundManager.soundManager.audioSource.loop == true && SceneManager.GetActiveScene().name == "GameScene")
+        {
+            SoundManager.soundManager.audioSource.loop = false;
+        }
+        else
+        {
+            SoundManager.soundManager.audioSource.loop = true;
+        }
     }
 
     IEnumerator FinishProcess()
     {
         uiManager.DisplayFinish();
 
+        SoundManager.soundManager.SEPlay(SEType.FinishPanel);
         yield return new WaitForSeconds(2.0f);
 
         uiManager.HideFinish();
 
-        // イベントに登録
-        SceneManager.sceneLoaded += GameSceneLoaded;
+        SoundManager.soundManager.StopBGM();
 
         // シーン切り替え
-        SceneManager.LoadScene("Result");
+        if (gameMode.isScored)
+        {
+            StartCoroutine(FadeLoadwithBack("Result"));
+        }
+        else
+        {
+            StartCoroutine(FadeLoadwithBack("EndlessResult"));
+        }
     }
 
-    public void GameSceneLoaded(Scene scene, LoadSceneMode mode)
+    IEnumerator FadeLoadwithBack(string sceneName)
     {
-        ResultManager resultManager = GameObject.FindGameObjectWithTag("canvas").GetComponent<ResultManager>();
-        resultManager.score = scoreManager.score;
+        fadeManager.FadeIn();
+        yield return new WaitForSeconds(0.3f);
 
-        SceneManager.sceneLoaded -= GameSceneLoaded;
+        SceneManager.LoadScene(sceneName);
+        UnduplicateLoad("BackScene");
+    }
+
+    void UnduplicateLoad(string loadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == loadSceneName)
+            {
+                return;
+            }
+        }
+
+        SceneManager.LoadSceneAsync(loadSceneName, LoadSceneMode.Additive);
+    }
+
+    void ExistUnload(string unloadSceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+
+            if (scene.name == unloadSceneName)
+            {
+                SceneManager.UnloadSceneAsync(unloadSceneName);
+            }
+        }
     }
 }

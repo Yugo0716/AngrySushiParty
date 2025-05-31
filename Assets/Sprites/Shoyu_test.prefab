@@ -237,7 +237,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,8 +326,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdbc0e777aaa764c9c2822379098e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
   iniPos: {x: 0, y: 0, z: 0}
+  onItem: 0
+  itemRay: 0
+  bubbleObj: {fileID: 0}
+  order: 0
+  regenerator: {fileID: 0}
+  defaultSprite: {fileID: 0}
+  bubbleSprite: []
+  cBubbleSprite: []
+  preFrontObj: {fileID: 0}
+  CorrectPutSound: {fileID: 0}
 --- !u!50 &3660808337932420203
 Rigidbody2D:
   serializedVersion: 4

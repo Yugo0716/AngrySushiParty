@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+
 
 public class YunomiController : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class YunomiController : MonoBehaviour
     private Vector3 offset;
     public Vector3 iniPos;
 
-    public GameObject getMousePosObj; //マウス座標取得のオブジェクト
+    GameObject getMousePosObj; //マウス座標取得のオブジェクト
     GetMousePosSc getMousePosSc;
 
     [SerializeField] private bool onItem = false; //カーソルとアイテムが重なってるときtrue
@@ -24,9 +23,37 @@ public class YunomiController : MonoBehaviour
     [SerializeField] private bool order = false; //マウスから離したら注文対応できるという状況
 
     new Renderer renderer;
+    SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite onSprite;
 
     ScoreManager scoreManager;
     TimeManager timeManager;
+
+    Dictionary<ItemTypeSc.ItemType, int> itemTypeAndNum = new Dictionary<ItemTypeSc.ItemType, int>()
+    {
+        {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
+    };
+
+    public Sprite defaultSprite;
+
+    public List<Sprite> bubbleSprite = new List<Sprite>();
+    public List<Sprite> cBubbleSprite = new List<Sprite>();
+
+    public GameObject preFrontObj = null;
+
+    int bonusScore;
+
+    //スコアを取るモードか取らないか
+    GameMode gameMode;
+    private bool isScored;
+
+    AudioSource audioSource;
+    public AudioClip correctPutSound;
+
+    [SerializeField] GameObject scorePlusTextObj;
+
+    [SerializeField] ParticleSystem particleSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +62,14 @@ public class YunomiController : MonoBehaviour
 
         iniPos = transform.position;
 
+        getMousePosObj = GameObject.FindGameObjectWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         renderer = yunomiObj.GetComponent<Renderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //デフォルトのスプライト
+        spriteRenderer.sprite = normalSprite;
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -45,6 +77,12 @@ public class YunomiController : MonoBehaviour
 
         //gameState取得のため
         timeManager = canvas.GetComponent<TimeManager>();
+
+        //GameMode取得のため
+        gameMode = canvas.GetComponent<GameMode>();
+        isScored = gameMode.isScored;
+
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -71,18 +109,28 @@ public class YunomiController : MonoBehaviour
                         ItemTypeSc bubbleType = bubbleObj.GetComponent<ItemTypeSc>();
                         ItemTypeSc itemType = gameObject.GetComponent<ItemTypeSc>();
 
+                        int itemNum = itemTypeAndNum[bubbleType.type];
+                        defaultSprite = bubbleSprite[itemNum];
+
                         if (bubbleType.type == itemType.type)
                         {
                             if (!order) order = true;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemNum];
                         }
                         else
                         {
                             if (order) order = false;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
                         }
+                        preFrontObj = bubbleObj;
                     }
                     else
                     {
                         if (order) order = false;
+                        if (preFrontObj != null && defaultSprite != null)
+                        {
+                            preFrontObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                        }
                     }
                 }
             }
@@ -99,10 +147,20 @@ public class YunomiController : MonoBehaviour
                 if (frontObjB == gameObject)
                 {
                     onItem = true;
+
+                    if (spriteRenderer.sprite != onSprite)
+                    {
+                        spriteRenderer.sprite = onSprite;
+                    }
                 }
                 else
                 {
                     onItem = false;
+
+                    if (spriteRenderer.sprite != normalSprite)
+                    {
+                        spriteRenderer.sprite = normalSprite;
+                    }
                 }
             }
             #endregion
@@ -115,6 +173,7 @@ public class YunomiController : MonoBehaviour
                 offset = new Vector3(0, 0, 1);
                 renderer.sortingOrder = 300;
                 renderer.sortingLayerName = "BubbleLayer";
+                SoundManager.soundManager.SEPlay(SEType.SushiClick);
             }
 
             if (itemRay && Input.GetMouseButton(0))
@@ -127,7 +186,10 @@ public class YunomiController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
+                    GetScore();
+                    SoundManager.soundManager.SEPlay(SEType.Get);
+                    Instantiate(particleSystem, yunomiObj.transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                 }               
 
@@ -145,6 +207,25 @@ public class YunomiController : MonoBehaviour
             ResetPos();
         }
 
+    }
+
+    void GetScore()
+    {
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bonusScore);
+
+        GameObject scorePlusCanvas = GameObject.FindGameObjectWithTag("ScorePlusCanvas");
+        if (gameMode.isScored)
+        {
+            GameObject scorePlusTextObj2 = Instantiate(scorePlusTextObj);
+            scorePlusTextObj2.transform.SetParent(scorePlusCanvas.transform, false);
+            scorePlusTextObj2.transform.position = yunomiObj.transform.position;
+
+            ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
+
+            bool isMax = false;
+            if (bonusScore == 100) isMax = true;
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal] + bonusScore, isMax);
+        }
     }
 
     private Vector3 GetMousePos()

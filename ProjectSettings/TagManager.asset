@@ -13,6 +13,21 @@ TagManager:
   - OrderSushi
   - BubbleOrder
   - Announce
+  - Frame
+  - SushiCount
+  - AudioSource
+  - SushiSpeed
+  - E_OrderSushi
+  - ScorePlusCanvas
+  - FadeCanvas
+  - SushiCounter
+  - BackSushi
+  - BackSushiGeneratorA
+  - BackSushiGeneratorB
+  - ClickBlur
+  - SelectCanvas
+  - ResultCanvas
+  - BackSushiParent
   layers:
   - Default
   - TransparentFX
@@ -24,7 +39,7 @@ TagManager:
   - Table
   - OrderSushi
   - SushiEraser
-  - 
+  - SelectBack
   - 
   - 
   - 
@@ -62,7 +77,7 @@ TagManager:
   - name: FirstLane
     uniqueID: 3259040927
     locked: 0
-  - name: OrderSushLayer
+  - name: OrderSushiLayer
     uniqueID: 724558953
     locked: 0
   - name: Table

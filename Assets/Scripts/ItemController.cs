@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-//using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -12,7 +8,7 @@ public class ItemController : MonoBehaviour
     private Vector3 offset;
     public Vector3 iniPos;
 
-    public GameObject getMousePosObj; //マウス座標取得のオブジェクト
+    GameObject getMousePosObj; //マウス座標取得のオブジェクト
     GetMousePosSc getMousePosSc;
 
     [SerializeField]private bool onItem = false; //カーソルとアイテムが重なってるときtrue
@@ -20,27 +16,65 @@ public class ItemController : MonoBehaviour
     private GameObject frontObjA;
     private GameObject frontObjB;
 
-    private GameObject bubbleObj;
-    [SerializeField] private bool order = false; //マウスから離したら注文対応できるという状況
+    public GameObject bubbleObj;
+    [SerializeField] public bool order = false; //マウスから離したら注文対応できるという状況
 
     public GameObject regenerator;
     Regenerator regeneratorSc;
 
     new Renderer renderer;
+    SpriteRenderer spriteRenderer;
+
+    public List<Sprite> normalItemSprites = new List<Sprite>();
+    public List<Sprite> onItemSprites = new List<Sprite>();
 
     ScoreManager scoreManager;
     TimeManager timeManager;
+
+    Dictionary<ItemTypeSc.ItemType, int> itemTypeAndNum = new Dictionary<ItemTypeSc.ItemType, int>()
+    {
+        {ItemTypeSc.ItemType.shoyu, 0 }, {ItemTypeSc.ItemType.gari, 1}, {ItemTypeSc.ItemType.wasabi, 2}, {ItemTypeSc.ItemType.yunomi, 3}
+    };
+
+    ItemTypeSc itemType;
+
+    public Sprite defaultSprite;
+
+    public List<Sprite> bubbleSprite = new List<Sprite>();
+    public List<Sprite> cBubbleSprite = new List<Sprite>();
+
+    public GameObject preFrontObj = null;
+
+    AudioSource audioSource;
+    public AudioClip CorrectPutSound;
+
+    int bonusScore;
+
+    //スコアを取るモードか取らないか
+    GameMode gameMode;
+    private bool isScored;
+
+    [SerializeField] GameObject scorePlusTextObj;
+
+    [SerializeField] ParticleSystem particleSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         iniPos = transform.position;
 
+        getMousePosObj = GameObject.FindGameObjectWithTag("mousePos");
         getMousePosSc = getMousePosObj.GetComponent<GetMousePosSc>();
 
         regeneratorSc = regenerator.GetComponent<Regenerator>();
 
         renderer = gameObject.GetComponent<Renderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        //デフォルトのスプライト
+        spriteRenderer.sprite = normalItemSprites[itemTypeAndNum[GetComponent<ItemTypeSc>().type]];
+
+        itemType = GetComponent<ItemTypeSc>();
 
         //ScorePlusをするため
         GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
@@ -48,6 +82,12 @@ public class ItemController : MonoBehaviour
 
         //gameState取得のため
         timeManager = canvas.GetComponent<TimeManager>();
+
+        //GameMode取得のため
+        gameMode = canvas.GetComponent<GameMode>();
+        isScored = gameMode.isScored;
+
+        audioSource = GameObject.FindGameObjectWithTag("AudioSource").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +102,7 @@ public class ItemController : MonoBehaviour
             {
                 Dictionary<GameObject, int> keyValuePairs = new Dictionary<GameObject, int>(); //GameObjectとsortingLayerを格納
 
+
                 if (hits != null)
                 {
                     string[] tagsA = { "BubbleNormal", "BubbleOrder" };
@@ -69,23 +110,36 @@ public class ItemController : MonoBehaviour
 
                     //bubbleObjとアイテムの種類が一致してるなら対応可能(order=true)
                     if (frontObjA != null && frontObjA.tag == "BubbleNormal")
-                    {
+                    {                        
                         bubbleObj = frontObjA;
+
+
                         ItemTypeSc bubbleType = bubbleObj.GetComponent<ItemTypeSc>();
                         ItemTypeSc itemType = gameObject.GetComponent<ItemTypeSc>();
+
+                        int itemNum = itemTypeAndNum[bubbleType.type];
+                        defaultSprite = bubbleSprite[itemNum];
 
                         if (bubbleType.type == itemType.type)
                         {
                             if (!order) order = true;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = cBubbleSprite[itemNum];
                         }
                         else
                         {
                             if (order) order = false;
+                            bubbleObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
                         }
+                        preFrontObj = bubbleObj;
                     }
                     else
                     {
                         if(order) order = false;
+                        if (preFrontObj != null && defaultSprite != null)
+                        {
+                            preFrontObj.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                        }
+                        
                     }
                 }
             }
@@ -102,10 +156,22 @@ public class ItemController : MonoBehaviour
                 if (frontObjB == gameObject)
                 {
                     onItem = true;
+
+                    if(spriteRenderer.sprite != onItemSprites[itemTypeAndNum[itemType.type]])
+                    {
+                        spriteRenderer.sprite = onItemSprites[itemTypeAndNum[itemType.type]];
+                    }
+
                 }
                 else
                 {
                     onItem = false;
+
+                    if (spriteRenderer.sprite != normalItemSprites[itemTypeAndNum[itemType.type]])
+                    {
+                        spriteRenderer.sprite = normalItemSprites[itemTypeAndNum[itemType.type]];
+                    }
+
                 }
             }
             #endregion
@@ -117,6 +183,7 @@ public class ItemController : MonoBehaviour
                 offset = transform.position - GetMousePos();
                 renderer.sortingOrder = 300;
                 renderer.sortingLayerName = "BubbleLayer";
+                SoundManager.soundManager.SEPlay(SEType.SushiClick);
             }
 
             if (itemRay && Input.GetMouseButton(0))
@@ -129,7 +196,10 @@ public class ItemController : MonoBehaviour
                 if (order) //吹き出しの注文に対応完了
                 {
                     order = false;
-                    scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal);
+                    bonusScore = (int)bubbleObj.GetComponent<Bubble_test>().bonusScore;
+                    GetScore();
+                    SoundManager.soundManager.SEPlay(SEType.Get);
+                    Instantiate(particleSystem, transform.position, particleSystem.transform.rotation);
                     Destroy(bubbleObj);
                     regeneratorSc.StartCoroutine("Regenerate", gameObject);
                 }
@@ -150,6 +220,25 @@ public class ItemController : MonoBehaviour
             ResetPos() ;
         }
 
+    }
+
+    void GetScore()
+    {
+        scoreManager.ScorePlus(ScoreManager.ScoreType.bubbleNormal, bonusScore);
+
+        GameObject scorePlusCanvas = GameObject.FindGameObjectWithTag("ScorePlusCanvas");
+        if (gameMode.isScored)
+        {
+            GameObject scorePlusTextObj2 = Instantiate(scorePlusTextObj);
+            scorePlusTextObj2.transform.SetParent(scorePlusCanvas.transform, false);
+            scorePlusTextObj2.transform.position = gameObject.transform.position;
+
+            ScorePlusText scorePlusText = scorePlusTextObj2.GetComponent<ScorePlusText>();
+
+            bool isMax = false;
+            if (bonusScore == 100) isMax = true;
+            scorePlusText.ScorePlusAnime(scoreManager.baseScore[ScoreManager.ScoreType.bubbleNormal]+bonusScore, isMax);
+        }
     }
     
     private Vector3 GetMousePos()

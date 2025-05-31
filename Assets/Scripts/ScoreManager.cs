@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public GameObject scoreText;
-    public int score = 0;
+    [SerializeField] GameObject scoreTextObj;
+    TextMeshProUGUI scoreText;
+
+    public static int score = 0;
+
+    GameMode gameMode;
 
     
 
@@ -18,9 +22,20 @@ public class ScoreManager : MonoBehaviour
         bubbleOrder //íçï∂ÉåÅ[ÉìÇÃéıéi
     };
 
+    public Dictionary<ScoreType, int> baseScore = new Dictionary<ScoreType, int>()
+    {
+        {ScoreType.sushi, 300}, {ScoreType.bubbleNormal, 100}, {ScoreType.bubbleOrder, 200}
+    };
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        GameObject canvas = GameObject.FindGameObjectWithTag("canvas");
+        gameMode = canvas.GetComponent<GameMode>();
+
+        scoreText = scoreTextObj.GetComponent<TextMeshProUGUI>();
+
         score = 0;
         UpdateScore();
     }
@@ -31,25 +46,39 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    public void ScorePlus(ScoreType type)
+    public void ScorePlus(ScoreType type, int bonus)
     {
-        if(type == ScoreType.sushi)
+        if (gameMode.isScored)
         {
-            score += 300;
+            if (type == ScoreType.sushi)
+            {
+                score += baseScore[ScoreType.sushi]; //300
+            }
+            else if (type == ScoreType.bubbleNormal)
+            {
+                score += baseScore[ScoreType.bubbleNormal] + bonus; //100
+            }
+            else if (type == ScoreType.bubbleOrder)
+            {
+                score += baseScore[ScoreType.bubbleOrder] + bonus; //200
+            }
         }
-        else if(type == ScoreType.bubbleNormal)
+        else
         {
-            score += 100;
+            score++;
         }
-        else if (type == ScoreType.bubbleOrder)
-        {
-            score += 400;
-        }
+        
+        UpdateScore();
+    }
+
+    public void CountPlus()
+    {
+        GetSushiCount.count++;
         UpdateScore();
     }
 
     void UpdateScore()
     {
-        scoreText.GetComponent<TextMeshProUGUI>().text = "score : " + score.ToString();
+        scoreText.text = score.ToString();
     }
 }
