@@ -2922,6 +2922,14 @@ PrefabInstance:
       propertyPath: getMousePosObj
       value: 
       objectReference: {fileID: 269910138}
+    - target: {fileID: 8872586599402082606, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872586599402082606, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
+      propertyPath: m_Offset.y
+      value: 5.53
+      objectReference: {fileID: 0}
     - target: {fileID: 9126559243872280635, guid: 8962bdebac54b524fab1c8f693b667f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

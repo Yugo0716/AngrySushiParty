@@ -1,5 +1,4 @@
 using DG.Tweening;
-using ProcRanking;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

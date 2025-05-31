@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using ProcRanking;
 using System;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using unityroom.Api;
 
 public class ResultManager : MonoBehaviour
 {
@@ -92,15 +92,15 @@ public class ResultManager : MonoBehaviour
         if(TouchManager.isTouch == false)
         {
             touchTextObj.SetActive(false);
-            score.SaveToProcRaAsync("SushiDataStore", "score");
 
 
             if (highScore < score)
             {
                 PlayerPrefs.SetInt("maxScore", score);
+                
                 isHighScore = true;
             }
-
+            UnityroomApiClient.Instance.SendScore(1, score, ScoreboardWriteMode.HighScoreDesc);
             if (isHighScore)
             {
                 conglaturateObj.SetActive(true);
@@ -145,35 +145,6 @@ public class ResultManager : MonoBehaviour
             SpriteState spriteState = rankButton.spriteState; 
             spriteState.highlightedSprite = backButtonSprite_touch; 
             rankButton.spriteState = spriteState;
-
-
-
-            var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
-                .SetLimit(10)
-                .SetDescSort("score");
-
-            query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
-            {
-                if (e != null)
-                {
-                    // エラー発生時の処理
-                }
-                else
-                {
-                    // 検索成功時の処理例
-                    for (int i = 0; i < foundList.Count; i++)
-                    {
-
-                        //32ビットintへキャスト
-                        highScores[i] = Convert.ToInt32(foundList[i]["score"]);
-
-                        //スコアをテキスト表示
-                        highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
-
-                    }
-                }
-            });
-
         }
         else
         {

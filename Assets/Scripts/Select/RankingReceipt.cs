@@ -1,10 +1,8 @@
 using DG.Tweening;
-using ProcRanking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ProcRanking;
 using TMPro;
 using System;
 
@@ -73,35 +71,7 @@ public class RankingReceipt : MonoBehaviour
 
             SpriteState spriteState = rankButton.spriteState;
             spriteState.highlightedSprite = backButtonSprite_touch;
-            rankButton.spriteState = spriteState;
-
-
-            var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
-                .SetLimit(10)
-                .SetDescSort("score");
-
-            query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
-            {
-                if (e != null)
-                {
-                    // エラー発生時の処理
-                }
-                else
-                {
-                    // 検索成功時の処理例
-                    for (int i = 0; i < foundList.Count; i++)
-                    {
-
-                        //32ビットintへキャスト
-                        highScores[i] = Convert.ToInt32(foundList[i]["score"]);
-
-                        //スコアをテキスト表示
-                        highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
-
-                    }
-                }
-            });
-
+            rankButton.spriteState = spriteState;        
         }
         else
         {
@@ -133,31 +103,6 @@ public class RankingReceipt : MonoBehaviour
             SpriteState spriteState = rankButton.spriteState;
             spriteState.highlightedSprite = backButtonSprite_touch;
             rankButton.spriteState = spriteState;
-
-            var query = new ProcRaQuery<ProcRaData>("SushiDataStore")
-                .SetLimit(10)
-                .SetDescSort("E_score");
-
-            query.FindAsync((List<ProcRaData> foundList, ProcRaException e) =>
-            {
-                if (e != null)
-                {
-                    // エラー発生時の処理
-                }
-                else
-                {
-                    // 検索成功時の処理例
-                    for (int i = 0; i < foundList.Count; i++)
-                    {   
-                        //32ビットintへキャスト
-                        highScores[i] = Convert.ToInt32(foundList[i]["E_score"]);
-
-                        //スコアをテキスト表示
-                        highScoreTexts[i].GetComponent<TextMeshProUGUI>().text = highScores[i].ToString();
-
-                    }
-                }
-            });
         }
         else
         {
